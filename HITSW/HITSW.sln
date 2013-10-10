@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HITSW", "HITSW\HITSW.csproj", "{22E2B36C-E783-4FBA-ABDF-10F1BAFB7CB4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HITSW.Tests", "HITSW.Tests\HITSW.Tests.csproj", "{A5CF8195-F550-419A-B71D-C7F464340A07}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{22E2B36C-E783-4FBA-ABDF-10F1BAFB7CB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22E2B36C-E783-4FBA-ABDF-10F1BAFB7CB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22E2B36C-E783-4FBA-ABDF-10F1BAFB7CB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22E2B36C-E783-4FBA-ABDF-10F1BAFB7CB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5CF8195-F550-419A-B71D-C7F464340A07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5CF8195-F550-419A-B71D-C7F464340A07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5CF8195-F550-419A-B71D-C7F464340A07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5CF8195-F550-419A-B71D-C7F464340A07}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

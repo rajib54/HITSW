@@ -1,0 +1,10 @@
+﻿div.maindiv {
+    font-size:x-large;
+    margin-top:25px;
+}
+.ui-datepicker {
+    border: 1px solid #555;
+    color: #000000;
+    background-color: #99CCCC;
+}
+
