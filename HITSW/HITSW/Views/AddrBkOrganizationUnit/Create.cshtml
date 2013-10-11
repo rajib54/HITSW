@@ -1,0 +1,87 @@
+﻿@model AddrBk_OrganizationUnit
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#addrbk_organization_create_operatingsince').datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+
+        $('#addrbk_organization_create_effdt').datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+
+        $('#addrbk_organization_create_ineffdt').datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+    });
+</script>
+
+<h2>@ViewBag.MainTitle</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <table class="table table-striped">
+         <tr>
+            <td>Name *</td>
+            <td>
+                @Html.EditorFor(model => model.Name)
+                @Html.ValidationMessageFor(model => model.Name)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Organization Type *</td>
+            <td>
+                @Html.DropDownList("OUType_LCID", String.Empty)
+                @Html.ValidationMessageFor(model => model.OUType_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Description</td>
+            <td>
+                @Html.EditorFor(model => model.OUDesc)
+                @Html.ValidationMessageFor(model => model.OUDesc)   
+            </td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(model => model.OperatingSince)</td>
+            <td>
+                @Html.TextBoxFor(model => model.OperatingSince,  new {id = "addrbk_organization_create_operatingsince"})
+                @Html.ValidationMessageFor(model => model.OperatingSince)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Effective Date *</td>
+            <td>
+                @Html.TextBoxFor(model => model.EffDt,  new {id = "addrbk_organization_create_effdt"})
+                @Html.ValidationMessageFor(model => model.EffDt)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Ineffective Date</td>
+            <td>
+                @Html.TextBoxFor(model => model.IneffDt,  new {id = "addrbk_organization_create_ineffdt"})
+                @Html.ValidationMessageFor(model => model.IneffDt)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Comments</td>
+            <td>
+                @Html.EditorFor(model => model.Cmmt)
+                @Html.ValidationMessageFor(model => model.Cmmt)
+            </td>
+        </tr>
+
+        <tr>
+            <td style="text-align:right"><a href="@Url.Action("Index")" class="btn btn-info">cancel</a></td>
+            <td style="text-align:left"><input type="submit" value="Create" class="btn btn-success"/></td>
+        </tr>
+    </table>
+}

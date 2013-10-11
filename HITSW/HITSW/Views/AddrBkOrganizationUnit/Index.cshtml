@@ -1,0 +1,26 @@
+﻿@model IPagedList<AddrBk_OrganizationUnit>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#addrbk_organization_searchForm").submit(ajaxFormSubmit);
+    });
+</script>
+
+<h2>@ViewBag.MainTitle</h2>
+
+<div style="text-align:right">
+    <a href="@Url.Action("Create")" class="btn btn-info">New</a>
+</div>
+
+@if (ViewBag.resultCount > 0)
+{
+    <form id="addrbk_organization_searchForm" method="GET" data-hitsoft-target="#addrbk_organization_index_div" action="@Url.Action("Index")" class="form-search">
+        <input type="text" name="searchTerm" class="input-medium search-query" value="@ViewBag.searchTerm" placeholder="Enter search term"/>
+        <input type="submit" value="Search" class="btn"/>
+    </form>
+
+    @Html.Partial("_Organization", Model)
+}
+else {
+    <div class="alert alert-error">@ViewBag.NoRecordFoundMsg</div>
+}

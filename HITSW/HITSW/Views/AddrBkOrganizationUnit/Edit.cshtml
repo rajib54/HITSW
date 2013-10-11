@@ -1,0 +1,98 @@
+﻿@model AddrBk_OrganizationUnit
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#addrbk_organization_edit_operatingsince').datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+
+        $('#addrbk_organization_edit_effdt').datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+
+        $('#addrbk_organization_edit_ineffdt').datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+    });
+</script>
+
+<h2>@ViewBag.MainTitle</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.Concurrency)
+    @Html.HiddenFor(model => model.ActiveRec)
+    @Html.HiddenFor(model => model.CreatedBy)
+    @Html.HiddenFor(model => model.CreatedDt)
+    @Html.HiddenFor(model => model.LastUpdatedFrom)
+    @Html.HiddenFor(model => model.IsProspect)
+    @Html.HiddenFor(model => model.LastUpdatedBy)
+
+
+    <table class="table table-striped">
+         <tr>
+            <td>Name *</td>
+            <td>
+                @Html.EditorFor(model => model.Name)
+                @Html.ValidationMessageFor(model => model.Name)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Organization Type *</td>
+            <td>
+                @Html.DropDownList("OUType_LCID", String.Empty)
+                @Html.ValidationMessageFor(model => model.OUType_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Description</td>
+            <td>
+                @Html.EditorFor(model => model.OUDesc)
+                @Html.ValidationMessageFor(model => model.OUDesc)   
+            </td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(model => model.OperatingSince)</td>
+            <td>
+                @Html.TextBoxFor(model => model.OperatingSince, new { id = "addrbk_organization_edit_operatingsince" })
+                @Html.ValidationMessageFor(model => model.OperatingSince)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Effective Date *</td>
+            <td>
+                @Html.TextBoxFor(model => model.EffDt, new { id = "addrbk_organization_edit_effdt" })
+                @Html.ValidationMessageFor(model => model.EffDt)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Ineffective Date</td>
+            <td>
+                @Html.TextBoxFor(model => model.IneffDt, new { id = "addrbk_organization_edit_ineffdt" })
+                @Html.ValidationMessageFor(model => model.IneffDt)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Comments</td>
+            <td>
+                @Html.EditorFor(model => model.Cmmt)
+                @Html.ValidationMessageFor(model => model.Cmmt)
+            </td>
+        </tr>
+
+        <tr>
+            <td style="text-align:right"><a href="@Url.Action("Index")" class="btn btn-info">cancel</a></td>
+            <td style="text-align:left"><input type="submit" value="Update" class="btn btn-success"/></td>
+        </tr>
+    </table>
+}

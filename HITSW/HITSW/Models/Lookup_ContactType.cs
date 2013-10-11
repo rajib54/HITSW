@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace HITSW.Models
 {
@@ -14,22 +15,39 @@ namespace HITSW.Models
 
         public System.Guid Id { get; set; }
         public Nullable<System.Guid> ContactBasis_LCID { get; set; }
+
+        [Required]
         public string Title { get; set; }
+
         public string Description { get; set; }
         public string TblColSel { get; set; }
         public Nullable<int> Sort { get; set; }
+
+        [Required]
         public System.DateTimeOffset EffDt { get; set; }
+
         public Nullable<System.DateTimeOffset> IneffDt { get; set; }
         public string Cmmt { get; set; }
+
+        [Required]
         public bool ActiveRec { get; set; }
+
         public string CreatedBy { get; set; }
+
+        [Required]
         public System.DateTimeOffset CreatedDt { get; set; }
+
         public string LastUpdatedFrom { get; set; }
         public string LastUpdatedBy { get; set; }
+
+        [Required]
         public System.DateTimeOffset LastUpdatedDt { get; set; }
+
+        [Required]
         public byte[] Concurrency { get; set; }
-        public virtual ICollection<AddrBk_OrganizationalUnitMember> AddrBk_OrganizationalUnitMember { get; set; }
-        public virtual ICollection<AddrBk_OrganizationUnit> AddrBk_OrganizationUnit { get; set; }
-        public virtual ICollection<AddrBk_Prospect> AddrBk_Prospect { get; set; }
+
+        public ICollection<AddrBk_OrganizationalUnitMember> AddrBk_OrganizationalUnitMember { get; set; }
+        public ICollection<AddrBk_OrganizationUnit> AddrBk_OrganizationUnit { get; set; }
+        public ICollection<AddrBk_Prospect> AddrBk_Prospect { get; set; }
     }
 }

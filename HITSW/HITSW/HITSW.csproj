@@ -187,7 +187,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Class\Utils.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AddrBkOrganizationUnitController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -433,6 +435,11 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
+    <Content Include="Views\AddrBkOrganizationUnit\Create.cshtml" />
+    <Content Include="Views\AddrBkOrganizationUnit\Details.cshtml" />
+    <Content Include="Views\AddrBkOrganizationUnit\Edit.cshtml" />
+    <Content Include="Views\AddrBkOrganizationUnit\Index.cshtml" />
+    <Content Include="Views\AddrBkOrganizationUnit\_Organization.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
