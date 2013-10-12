@@ -1,0 +1,31 @@
+﻿@model AddrBk_Person
+
+<div>
+    <div class="row-fluid">
+        <div class="span3">
+            <div class="well sidebar-nav">
+                <ul class="nav nav-list" id="addrbk_organization_details_menu">
+                    <li class="active"><a href="#" class="btn btn-link" onclick="fillMenu('@Url.Action("Index", "AddrBkContactAddress", new { organizationId=Model.Id,isOrganization=false,orgName=Model.FName + " " + Model.LName})','#addrbk_organization_details_content')">Address</a></li>
+                    <li><a class="btn btn-link" href="#" onclick="fillMenu('@Url.Action("Index", "AddrBkIdentification", new { organizationId=Model.Id,isOrganization=false,orgName=Model.FName + " " + Model.LName})','#addrbk_organization_details_content')">Identification</a></li>
+                    <li><a class="btn btn-link" href="#" onclick="fillMenu('@Url.Action("Index", "AddrBkLocationGroup", new { organizationId=Model.Id,isOrganization=false,orgName=Model.FName + " " + Model.LName})','#addrbk_organization_details_content')">Location Group</a></li>
+                    <li><a class="btn btn-link" href="#" onclick="fillMenu('@Url.Action("Index", "AddrBkIndustryAffliation", new { organizationId=Model.Id,isOrganization=false,orgName=Model.FName + " " + Model.LName})','#addrbk_organization_details_content')">Industry Affliation</a></li>
+                    <li><a href="#" class="btn btn-link" onclick="fillMenu('@Url.Action("Index", "AddrBkInterestedProductServices", new { organizationId=Model.Id,isOrganization=false,orgName=Model.FName + " " + Model.LName})','#addrbk_organization_details_content')">Interested Products and Services</a></li>
+                    <li><a class="btn btn-link" href="#" onclick="fillMenu('@Url.Action("Index", "AddrBkLanguage", new { organizationId=Model.Id,isOrganization=false,orgName=Model.FName + " " + Model.LName})','#addrbk_organization_details_content')">Language</a></li>
+                    <li><a class="btn btn-link" href="#" onclick="fillMenu('@Url.Action("Index", "AddrBkPhoneFax", new { organizationId=Model.Id,isOrganization=false,orgName=Model.FName + " " + Model.LName})','#addrbk_organization_details_content')">Phone & Fax</a></li>
+                    <li><a class="btn btn-link" href="#" onclick="fillMenu('@Url.Action("Index", "AddrBkRelation", new { organizationId=Model.Id,isOrganization=false,orgName=Model.FName + " " + Model.LName})','#addrbk_organization_details_content')">Relation</a></li>
+                    <li><a class="btn btn-link" href="#" onclick="fillMenu('@Url.Action("Index", "AddrBkHobby", new { organizationId=Model.Id,orgName=Model.FName + " " + Model.LName})','#addrbk_organization_details_content')">Hobby</a></li>
+                    <li><a class="btn btn-link" href="#" onclick="fillMenu('@Url.Action("Index", "AddrBkVeteran", new { organizationId=Model.Id,orgName=Model.FName + " " + Model.LName})','#addrbk_organization_details_content')">Veteran</a></li>
+                    <li><a class="btn btn-link" href="#" onclick="fillMenu('@Url.Action("Index", "AddrBkPhysicalActivity", new { organizationId=Model.Id,orgName=Model.FName + " " + Model.LName})','#addrbk_organization_details_content')">Physical Activity</a></li>
+                    <li><a class="btn btn-link" href="#" onclick="fillMenu('@Url.Action("Index", "AddrBkVirtualAddress", new { organizationId=Model.Id,isOrganization=false,orgName=Model.FName + " " + Model.LName})','#addrbk_organization_details_content')">Virtual Address</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="span9" id="addrbk_organization_details_content">
+            @Html.Action("Index", "AddrBkContactAddress", new { organizationId=Model.Id,orgName=Model.FName + " " + Model.LName,isOrganization=false})
+        </div>
+    </div>
+</div>
+
+<div>
+    <a href="@Url.Action("Index")" class="btn btn-warning">Back to list</a>
+</div>

@@ -1,0 +1,190 @@
+﻿@model AddrBk_Person
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#addrbk_organization_edit_effdt').datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+
+        $('#addrbk_organization_edit_ineffdt').datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+
+        $('#addrbk_organization_edit_dob').datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+
+        $('#addrbk_organization_edit_dod').datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+    });
+</script>
+
+<h2>@ViewBag.MainTitle</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.Concurrency)
+    @Html.HiddenFor(model => model.ActiveRec)
+    @Html.HiddenFor(model => model.CreatedBy)
+    @Html.HiddenFor(model => model.CreatedDt)
+    @Html.HiddenFor(model => model.LastUpdatedFrom)
+    @Html.HiddenFor(model => model.IsProspect)
+    @Html.HiddenFor(model => model.LastUpdatedBy)
+    @Html.HiddenFor(model => model.PhotoFile)
+
+
+    <table class="table table-striped">
+        <tr>
+            <td>Salutation *</td>
+            <td>
+               @Html.DropDownList("Salutation_LCID", String.Empty)
+               @Html.ValidationMessageFor(model => model.Salutation_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>First Name *</td>
+            <td>
+                @Html.EditorFor(model => model.FName)
+                @Html.ValidationMessageFor(model => model.FName)   
+            </td>
+        </tr>
+
+        <tr>
+            <td>Middle Name</td>
+            <td>
+                @Html.EditorFor(model => model.MName)
+                @Html.ValidationMessageFor(model => model.MName)   
+            </td>
+        </tr>
+
+        <tr>
+            <td>Last Name *</td>
+            <td>
+                @Html.EditorFor(model => model.LName)
+                @Html.ValidationMessageFor(model => model.LName)   
+            </td>
+        </tr>
+
+        <tr>
+            <td>Suffix</td>
+            <td>
+               @Html.DropDownList("SuffixLCID", String.Empty)
+                @Html.ValidationMessageFor(model => model.Suffix_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Gender</td>
+            <td>
+               @Html.DropDownList("Gender_LCID", String.Empty)
+                @Html.ValidationMessageFor(model => model.Gender_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Job Title</td>
+            <td>
+                @Html.EditorFor(model => model.JobTitle)
+                @Html.ValidationMessageFor(model => model.JobTitle)   
+            </td>
+        </tr>
+
+        <tr>
+            <td>Date of birth</td>
+            <td>
+                @Html.TextBoxFor(model => model.DOB,  new {id = "addrbk_organization_edit_dob"})
+                @Html.ValidationMessageFor(model => model.DOB)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Date of Death</td>
+            <td>
+                @Html.TextBoxFor(model => model.DOD,  new {id = "addrbk_organization_edit_dod"})
+                @Html.ValidationMessageFor(model => model.DOD)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Maritial Status</td>
+            <td>
+               @Html.DropDownList("MaritalStatus_LCID", String.Empty)
+                @Html.ValidationMessageFor(model => model.MaritalStatus_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Race</td>
+            <td>
+               @Html.DropDownList("Race_LCID", String.Empty)
+                @Html.ValidationMessageFor(model => model.Race_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Ethnicity</td>
+            <td>
+               @Html.DropDownList("Ethnicity_LCID", String.Empty)
+                @Html.ValidationMessageFor(model => model.Ethnicity_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Religious Background</td>
+            <td>
+               @Html.DropDownList("ReligiousBkgd_LCID", String.Empty)
+                @Html.ValidationMessageFor(model => model.ReligiousBkgd_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Education Level</td>
+            <td>
+               @Html.DropDownList("HighestEducLvl_LCID", String.Empty)
+                @Html.ValidationMessageFor(model => model.HighestEducLvl_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Occupation</td>
+            <td>
+               @Html.DropDownList("Occupation_LCID", String.Empty)
+                @Html.ValidationMessageFor(model => model.Occupation_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Effective Date *</td>
+            <td>
+                @Html.TextBoxFor(model => model.EffDt,  new {id = "addrbk_organization_edit_effdt"})
+                @Html.ValidationMessageFor(model => model.EffDt)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Ineffective Date</td>
+            <td>
+                @Html.TextBoxFor(model => model.IneffDt,  new {id = "addrbk_organization_edit_ineffdt"})
+                @Html.ValidationMessageFor(model => model.IneffDt)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Comments</td>
+            <td>
+                @Html.EditorFor(model => model.Cmmt)
+                @Html.ValidationMessageFor(model => model.Cmmt)
+            </td>
+        </tr>
+
+        <tr>
+            <td style="text-align:right"><a href="@Url.Action("Index")" class="btn btn-info">cancel</a></td>
+            <td style="text-align:left"><input type="submit" value="Update" class="btn btn-success"/></td>
+        </tr>
+    </table>
+}

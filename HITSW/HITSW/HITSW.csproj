@@ -190,6 +190,7 @@
     <Compile Include="Class\Utils.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AddrBkOrganizationUnitController.cs" />
+    <Compile Include="Controllers\AddrBkPersonController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -396,7 +397,9 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -440,6 +443,11 @@
     <Content Include="Views\AddrBkOrganizationUnit\Edit.cshtml" />
     <Content Include="Views\AddrBkOrganizationUnit\Index.cshtml" />
     <Content Include="Views\AddrBkOrganizationUnit\_Organization.cshtml" />
+    <Content Include="Views\AddrBkPerson\Create.cshtml" />
+    <Content Include="Views\AddrBkPerson\Details.cshtml" />
+    <Content Include="Views\AddrBkPerson\Edit.cshtml" />
+    <Content Include="Views\AddrBkPerson\Index.cshtml" />
+    <Content Include="Views\AddrBkPerson\_Person.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

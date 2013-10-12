@@ -18,6 +18,9 @@ namespace HITSW.Models.Mapping
             this.Property(t => t.Description)
                 .HasMaxLength(900);
 
+            this.Property(t => t.TblColSel)
+                .HasMaxLength(50);
+
             this.Property(t => t.Cmmt)
                 .HasMaxLength(900);
 
@@ -42,6 +45,7 @@ namespace HITSW.Models.Mapping
             this.Property(t => t.Title).HasColumnName("Title");
             this.Property(t => t.Description).HasColumnName("Description");
             this.Property(t => t.Gender_LCID).HasColumnName("Gender_LCID");
+            this.Property(t => t.TblColSel).HasColumnName("TblColSel");
             this.Property(t => t.Sort).HasColumnName("Sort");
             this.Property(t => t.EffDt).HasColumnName("EffDt");
             this.Property(t => t.IneffDt).HasColumnName("IneffDt");
