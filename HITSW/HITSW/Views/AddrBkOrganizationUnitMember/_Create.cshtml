@@ -1,0 +1,214 @@
+﻿@model AddrBk_OrganizationMember
+
+<h2>@ViewBag.MainTitle</h2>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#addrbk_organizationmember_create_effdt').datepicker({
+            dateFormat: 'yy-mm-dd'
+        }); 
+
+        $('#addrbk_organizationmember_create_ineffdt').datepicker({
+            dateFormat: 'yy-mm-dd'
+        }); 
+
+        $('#addrbk_organizationmember_create_memsince').datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+
+        $('#addrbk_organizationmember_create_dob').datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+
+        $('#addrbk_organizationmember_create_dod').datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+
+        $('#addrbk_organizationmember_create_form').submit(ajaxFormSubmit);
+    });
+</script>
+
+
+@using (Html.BeginForm("Create", "AddrBkOrganizationUnitMember", FormMethod.Post, new { id = "addrbk_organizationmember_create_form", data_hitsoft_target = "#addrbk_organization_details_content" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <input type="hidden" name="orgName" value="@ViewBag.orgName" />
+    <input type="hidden" name="organizationId" value="@ViewBag.organizationId" />
+
+    <table class="table table-striped">
+        <tr>
+            <td>Member Type *</td>
+            <td>
+                @Html.DropDownListFor(model => model.OrganizationUnitMember.MemType_LCID, new SelectList(Model.LookUp_MemberTypes,"Id","Title",Model.OrganizationUnitMember.MemType_LCID),String.Empty)
+                @Html.ValidationMessageFor(model => model.OrganizationUnitMember.MemType_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Salutation *</td>
+            <td>
+                @Html.DropDownListFor(model => model.Person.Salutation_LCID, new SelectList(Model.Lookup_Salutations,"Id","Title",Model.Person.Salutation_LCID),String.Empty)
+                @Html.ValidationMessageFor(model => model.Person.Salutation_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>First Name *</td>
+            <td>
+                @Html.TextBoxFor(model => model.Person.FName)
+                @Html.ValidationMessageFor(model => model.Person.FName)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Middle Name</td>
+            <td>
+                @Html.TextBoxFor(model => model.Person.MName)
+                @Html.ValidationMessageFor(model => model.Person.MName)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Last Name *</td>
+            <td>
+                @Html.TextBoxFor(model => model.Person.LName)
+                @Html.ValidationMessageFor(model => model.Person.LName)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Suffix</td>
+            <td>
+               @Html.DropDownListFor(model => model.Person.Suffix_LCID, new SelectList(Model.Lookup_Suffixes,"Id","Title",Model.Person.Suffix_LCID),String.Empty)
+               @Html.ValidationMessageFor(model => model.Person.Suffix_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Gender</td>
+            <td>
+                @Html.DropDownListFor(model => model.Person.Gender_LCID, new SelectList(Model.Lookup_Genders,"Id","Title",Model.Person.Gender_LCID),String.Empty)
+                @Html.ValidationMessageFor(model => model.Person.Gender_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Maritial Status</td>
+            <td>
+                @Html.DropDownListFor(model => model.Person.MaritalStatus_LCID, new SelectList(Model.Lookup_MaritialStatuses,"Id","Title",Model.Person.MaritalStatus_LCID),String.Empty)
+                @Html.ValidationMessageFor(model => model.Person.MaritalStatus_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Race</td>
+            <td>
+                @Html.DropDownListFor(model => model.Person.Race_LCID, new SelectList(Model.Lookup_Races,"Id","Title",Model.Person.Race_LCID),String.Empty)
+                @Html.ValidationMessageFor(model => model.Person.Race_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Ethnicity</td>
+            <td>
+               @Html.DropDownListFor(model => model.Person.Ethnicity_LCID, new SelectList(Model.Lookup_Ethnicities,"Id","Title",Model.Person.Ethnicity_LCID),String.Empty)
+               @Html.ValidationMessageFor(model => model.Person.Ethnicity_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Religious Background</td>
+            <td>
+               @Html.DropDownListFor(model => model.Person.ReligiousBkgd_LCID, new SelectList(Model.Lookup_ReligiousBackgrounds,"Id","Title",Model.Person.ReligiousBkgd_LCID),String.Empty)
+               @Html.ValidationMessageFor(model => model.Person.ReligiousBkgd_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Highest Level Education</td>
+            <td>
+               @Html.DropDownListFor(model => model.Person.HighestEducLvl_LCID, new SelectList(Model.Lookup_EducationLevels,"Id","Title",Model.Person.HighestEducLvl_LCID),String.Empty)
+               @Html.ValidationMessageFor(model => model.Person.HighestEducLvl_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Occupation</td>
+            <td>
+               @Html.DropDownListFor(model => model.Person.Occupation_LCID, new SelectList(Model.Lookup_Occupations,"Id","Title",Model.Person.Occupation_LCID),String.Empty)
+               @Html.ValidationMessageFor(model => model.Person.Occupation_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Member Title</td>
+            <td>
+                @Html.TextBoxFor(model => model.OrganizationUnitMember.MemTitle)
+                @Html.ValidationMessageFor(model => model.OrganizationUnitMember.MemTitle)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Member Since</td>
+            <td>
+                @Html.TextBoxFor(model => model.OrganizationUnitMember.MemberSince, new { id = "addrbk_organizationmember_create_memsince" })
+                @Html.ValidationMessageFor(model => model.OrganizationUnitMember.MemberSince)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Job Title</td>
+            <td>
+                @Html.TextBoxFor(model => model.Person.JobTitle)
+                @Html.ValidationMessageFor(model => model.Person.JobTitle)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Date of Birth</td>
+            <td>
+                @Html.TextBoxFor(model => model.Person.DOB, new { id = "addrbk_organizationmember_create_dob" })
+                @Html.ValidationMessageFor(model => model.Person.DOB)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Date of Death</td>
+            <td>
+                @Html.TextBoxFor(model => model.Person.DOD, new { id = "addrbk_organizationmember_create_dod" })
+                @Html.ValidationMessageFor(model => model.Person.DOD)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Effective Date *</td>
+            <td>
+                @Html.TextBoxFor(model => model.OrganizationUnitMember.EffDt, new { id = "addrbk_organizationmember_create_effdt" })
+                @Html.ValidationMessageFor(model => model.OrganizationUnitMember.EffDt)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Ineffective Date</td>
+            <td>
+                @Html.TextBoxFor(model => model.OrganizationUnitMember.IneffDt, new { id = "addrbk_organizationmember_create_ineffdt" })
+                @Html.ValidationMessageFor(model => model.OrganizationUnitMember.IneffDt)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Comments</td>
+            <td>
+                @Html.EditorFor(model => model.OrganizationUnitMember.Cmmt)
+                @Html.ValidationMessageFor(model => model.OrganizationUnitMember.Cmmt)
+            </td>
+        </tr>
+
+        <tr>
+            <td style="text-align:right"><a class="btn btn-info" href="#" onclick="fillMenu('@Url.Action("Index", "AddrBkOrganizationUnitMember", new { orgName = ViewBag.orgName, organizationId = ViewBag.organizationId })','#addrbk_organization_details_content')">Cancel</a></td>
+            <td style="text-align:left"><input type="submit" value="Create" class="btn btn-success"/></td>
+        </tr>
+    </table>
+}

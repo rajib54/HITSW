@@ -190,6 +190,7 @@
     <Compile Include="Class\Utils.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AddrBkOrganizationUnitController.cs" />
+    <Compile Include="Controllers\AddrBkOrganizationUnitMemberController.cs" />
     <Compile Include="Controllers\AddrBkPersonController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -209,6 +210,7 @@
     <Compile Include="Models\AddrBk_InterestedProductSrvcs.cs" />
     <Compile Include="Models\AddrBk_Language.cs" />
     <Compile Include="Models\AddrBk_OrganizationalUnitMember.cs" />
+    <Compile Include="Models\AddrBk_OrganizationMember.cs" />
     <Compile Include="Models\AddrBk_OrganizationUnit.cs" />
     <Compile Include="Models\AddrBk_Person.cs" />
     <Compile Include="Models\AddrBk_PhoneFax.cs" />
@@ -448,6 +450,10 @@
     <Content Include="Views\AddrBkPerson\Edit.cshtml" />
     <Content Include="Views\AddrBkPerson\Index.cshtml" />
     <Content Include="Views\AddrBkPerson\_Person.cshtml" />
+    <Content Include="Views\AddrBkOrganizationUnitMember\_Create.cshtml" />
+    <Content Include="Views\AddrBkOrganizationUnitMember\_Edit.cshtml" />
+    <Content Include="Views\AddrBkOrganizationUnitMember\_Index.cshtml" />
+    <Content Include="Views\AddrBkOrganizationUnitMember\_Members.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
