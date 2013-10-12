@@ -36,6 +36,19 @@ namespace HITSW.Controllers
         }
 
         //
+        // GET: /Organization/Details/5
+
+        public ActionResult Details(Guid id)
+        {
+            AddrBk_OrganizationUnit addrbk_organizationunit = db.AddrBk_OrganizationUnit.Find(id);
+            if (addrbk_organizationunit == null)
+            {
+                return HttpNotFound();
+            }
+            return View(addrbk_organizationunit);
+        }
+
+        //
         // GET: /Organization/Create
 
         public ActionResult Create()

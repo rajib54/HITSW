@@ -60,7 +60,7 @@ namespace HITSW.Models
         [Required]
         public System.DateTimeOffset LastUpdatedDt { get; set; }
 
-        [Required]
+        [Timestamp]
         public byte[] Concurrency { get; set; }
 
         public ICollection<AddrBk_ContactAddr> AddrBk_ContactAddr { get; set; }

@@ -26,8 +26,9 @@ namespace HITSW.Models
         public string LastUpdatedBy { get; set; }
         public System.DateTimeOffset LastUpdatedDt { get; set; }
         public byte[] Concurrency { get; set; }
-        public virtual ICollection<AddrBk_Person> AddrBk_Person { get; set; }
-        public virtual ICollection<AddrBk_Relation> AddrBk_Relation { get; set; }
-        public virtual Lookup_Gender Lookup_Gender { get; set; }
+
+        public ICollection<AddrBk_Person> AddrBk_Person { get; set; }
+        public ICollection<AddrBk_Relation> AddrBk_Relation { get; set; }
+        public Lookup_Gender Lookup_Gender { get; set; }
     }
 }
