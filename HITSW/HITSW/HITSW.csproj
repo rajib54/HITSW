@@ -189,6 +189,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Class\Utils.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AddrBkIndustryAffliationController.cs" />
+    <Compile Include="Controllers\AddrBkInterestedProductServicesController.cs" />
     <Compile Include="Controllers\AddrBkLanguageController.cs" />
     <Compile Include="Controllers\AddrBkOrganizationUnitController.cs" />
     <Compile Include="Controllers\AddrBkOrganizationUnitMemberController.cs" />
@@ -464,6 +466,14 @@
     <Content Include="Views\AddrBkLanguage\_Edit.cshtml" />
     <Content Include="Views\AddrBkLanguage\_Index.cshtml" />
     <Content Include="Views\AddrBkLanguage\_Language.cshtml" />
+    <Content Include="Views\AddrBkIndustryAffliation\_Create.cshtml" />
+    <Content Include="Views\AddrBkIndustryAffliation\_Edit.cshtml" />
+    <Content Include="Views\AddrBkIndustryAffliation\_Index.cshtml" />
+    <Content Include="Views\AddrBkIndustryAffliation\_IndustryAffliation.cshtml" />
+    <Content Include="Views\AddrBkInterestedProductServices\_Create.cshtml" />
+    <Content Include="Views\AddrBkInterestedProductServices\_Edit.cshtml" />
+    <Content Include="Views\AddrBkInterestedProductServices\_Index.cshtml" />
+    <Content Include="Views\AddrBkInterestedProductServices\_InterestedProductServices.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,42 @@
+﻿@model IPagedList<AddrBk_InterestedProductSrvcs>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#childPagingList a").each(function () {
+            $(this).click(getPagingList);
+        });
+    });
+</script>
+
+<table class="table table-striped">
+    <tr>
+        <th></th>
+        <th>
+            Interested Product/Services
+        </th>
+        <th>
+            Comments
+        </th>
+    </tr>
+
+@foreach (var item in Model) {   
+    <tr>
+        <td>
+            <div class="btn-group">
+                <a href="#" class="btn"><i class="icon-edit" title="edit" onclick="fillMenu('@Url.Action("Edit", new { id=item.Id,organizationId = ViewBag.organizationId,orgName=ViewBag.orgName,isOrganization=ViewBag.isOrganization })','#addrbk_organization_details_content')"></i></a>
+                <a href="#" class="btn" data-hitsoft-target="#addrbk_organization_details_content" data-hitsoft-url="@Url.Action("Delete", new { id=item.Id,organizationId = ViewBag.organizationId,orgName=ViewBag.orgName,isOrganization=ViewBag.isOrganization })" onclick="confirmDelete(this)"><i class="icon-remove" title="delete"></i></a>
+            </div>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lookup_AddrBk.Title)
+        </td>
+         <td>
+            @Html.DisplayFor(modelItem => item.Cmmt)
+        </td>
+    </tr>
+}
+
+</table>
+
+<div class="pagedList" data-hitsoft-target="#addrbk_organization_details_content" id="childPagingList">
+        @Html.PagedListPager(Model, page => @Url.Action("Index", new { page,organizationId = ViewBag.organizationId,orgName=ViewBag.orgName,isOrganization=ViewBag.isOrganization}))
+</div>
