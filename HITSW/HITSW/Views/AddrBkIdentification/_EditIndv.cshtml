@@ -1,0 +1,159 @@
+﻿@model AddrBk_Identification
+
+<h2>@ViewBag.MainTitle</h2>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#addrbk_identification_edit_effdt').datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+
+        $('#addrbk_identification_edit_ineffdt').datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+
+        $('#addrbk_identification_edit_issueddt').datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+
+        $('#addrbk_identification_edit_expirydt').datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+
+        $('#addrbk_identification_edit_form').submit(ajaxFormSubmit);
+    });
+</script>
+
+
+@using (Html.BeginForm("Edit", "AddrBkIdentification", FormMethod.Post, new { id = "addrbk_identification_edit_form", data_hitsoft_target = "#addrbk_organization_details_content" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <input type="hidden" name="isOrganization" value="@ViewBag.isOrganization" />
+    <input type="hidden" name="orgName" value="@ViewBag.orgName" />
+    <input type="hidden" name="organizationId" value="@ViewBag.organizationId" />
+    
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.Concurrency)
+    @Html.HiddenFor(model => model.ContactBasis_LCID)
+    @Html.HiddenFor(model => model.ActiveRec)
+    @Html.HiddenFor(model => model.CreatedBy)
+    @Html.HiddenFor(model => model.CreatedDt)
+    @Html.HiddenFor(model => model.LastUpdatedFrom)
+    @Html.HiddenFor(model => model.OrgID)
+    @Html.HiddenFor(model => model.IndivID)
+    @Html.HiddenFor(model => model.LastUpdatedBy)
+    @Html.HiddenFor(model => model.VerificDocID)
+
+    <table class="table table-striped">
+        <tr>
+            <td>Identification Type</td>
+            <td>
+                @Html.DropDownList("IdentType_LCID", String.Empty)
+                @Html.ValidationMessageFor(model => model.IdentType_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Identification Number *</td>
+            <td>
+                @Html.EditorFor(model => model.Title)
+                @Html.ValidationMessageFor(model => model.Title)
+            </td>
+        </tr>
+
+        <tr>
+            <td>First Name</td>
+            <td>
+                @Html.EditorFor(model => model.LegalFirstN)
+                @Html.ValidationMessageFor(model => model.LegalFirstN)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Middle Name</td>
+            <td>
+                @Html.EditorFor(model => model.LegalMiddleN)
+                @Html.ValidationMessageFor(model => model.LegalMiddleN)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Last Name</td>
+            <td>
+                @Html.EditorFor(model => model.LegalLastN)
+                @Html.ValidationMessageFor(model => model.LegalLastN)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Issuer *</td>
+            <td>
+                @Html.DropDownList("IdentificationIssuerID", String.Empty)
+                @Html.ValidationMessageFor(model => model.IdentificationIssuerID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Verification Type *</td>
+            <td>
+                @Html.DropDownList("VerificationType_LCID", String.Empty)
+                @Html.ValidationMessageFor(model => model.VerificationType_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Verification Status *</td>
+            <td>
+                @Html.DropDownList("IndentVerifStatus_LCID", String.Empty)
+                @Html.ValidationMessageFor(model => model.IndentVerifStatus_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Issued Date</td>
+            <td>
+                @Html.TextBoxFor(model => model.IssuedDt, new { id = "addrbk_identification_edit_issueddt" })
+                @Html.ValidationMessageFor(model => model.IssuedDt)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Expiry Date</td>
+            <td>
+                @Html.TextBoxFor(model => model.ExpDt, new { id = "addrbk_identification_edit_expirydt" })
+                @Html.ValidationMessageFor(model => model.ExpDt)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Effective Date *</td>
+            <td>
+                @Html.TextBoxFor(model => model.EffDt, new { id = "addrbk_identification_edit_effdt" })
+                @Html.ValidationMessageFor(model => model.EffDt)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Ineffective Date</td>
+            <td>
+                @Html.TextBoxFor(model => model.IneffDt, new { id = "addrbk_identification_edit_ineffdt" })
+                @Html.ValidationMessageFor(model => model.IneffDt)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Comments</td>
+            <td>
+                @Html.EditorFor(model => model.Cmmt)
+                @Html.ValidationMessageFor(model => model.Cmmt)
+            </td>
+        </tr>
+
+        <tr>
+            <td style="text-align:right"><a class="btn btn-info" href="#" onclick="fillMenu('@Url.Action("Index", "AddrBkIdentification", new { isOrganization = ViewBag.isOrganization, orgName = ViewBag.orgName, organizationId = ViewBag.organizationId })','#addrbk_organization_details_content')">Cancel</a></td>
+            <td style="text-align:left"><input type="submit" value="Update" class="btn btn-success"/></td>
+        </tr>
+    </table>
+}
