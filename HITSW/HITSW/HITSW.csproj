@@ -196,6 +196,7 @@
     <Compile Include="Controllers\AddrBkOrganizationUnitMemberController.cs" />
     <Compile Include="Controllers\AddrBkPersonController.cs" />
     <Compile Include="Controllers\AddrBkPhoneFaxController.cs" />
+    <Compile Include="Controllers\AddrBkVirtualAddressController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -474,6 +475,10 @@
     <Content Include="Views\AddrBkInterestedProductServices\_Edit.cshtml" />
     <Content Include="Views\AddrBkInterestedProductServices\_Index.cshtml" />
     <Content Include="Views\AddrBkInterestedProductServices\_InterestedProductServices.cshtml" />
+    <Content Include="Views\AddrBkVirtualAddress\_Create.cshtml" />
+    <Content Include="Views\AddrBkVirtualAddress\_Edit.cshtml" />
+    <Content Include="Views\AddrBkVirtualAddress\_Index.cshtml" />
+    <Content Include="Views\AddrBkVirtualAddress\_VirtualAddress.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

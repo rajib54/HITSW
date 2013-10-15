@@ -1,0 +1,91 @@
+﻿@model AddrBk_VirtualAddress
+
+<h2>@ViewBag.MainTitle</h2>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#addrbk_virtualaddress_create_effdt').datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+
+        $('#addrbk_virtualaddress_create_ineffdt').datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+
+        $('#addrbk_virtualaddress_create_form').submit(ajaxFormSubmit);
+    });
+</script>
+
+
+@using (Html.BeginForm("Create", "AddrBkVirtualAddress", FormMethod.Post, new { id="addrbk_virtualaddress_create_form",data_hitsoft_target = "#addrbk_organization_details_content"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <input type="hidden" name="isOrganization" value="@ViewBag.isOrganization" />
+    <input type="hidden" name="orgName" value="@ViewBag.orgName" />
+    <input type="hidden" name="organizationId" value="@ViewBag.organizationId" />
+
+    <table class="table table-striped">
+        <tr>
+            <td>Type *</td>
+            <td>
+                @Html.DropDownList("VirtualAddrType_LCID", String.Empty)
+                @Html.ValidationMessageFor(model => model.VirtualAddrType_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Name *</td>
+            <td>
+                @Html.EditorFor(model => model.Name)
+                @Html.ValidationMessageFor(model => model.Name)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Domain</td>
+            <td>
+                @Html.EditorFor(model => model.VirtualAddrDomain)
+                @Html.ValidationMessageFor(model => model.VirtualAddrDomain)
+            </td>
+        </tr>
+
+        <tr>
+            <td> @Html.LabelFor(model => model.PreferSeq)</td>
+            <td>
+                @Html.EditorFor(model => model.PreferSeq)
+                @Html.ValidationMessageFor(model => model.PreferSeq)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Effective Date *</td>
+            <td>
+                @Html.TextBoxFor(model => model.EffDt, new { id = "addrbk_virtualaddress_create_effdt" })
+                @Html.ValidationMessageFor(model => model.EffDt)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Ineffective Date</td>
+            <td>
+                @Html.TextBoxFor(model => model.IneffDt, new { id = "addrbk_virtualaddress_create_ineffdt" })
+                @Html.ValidationMessageFor(model => model.IneffDt)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Comments</td>
+            <td>
+                @Html.EditorFor(model => model.Cmmt)
+                @Html.ValidationMessageFor(model => model.Cmmt)
+            </td>
+        </tr>
+
+        <tr>
+            <td style="text-align:right"><a class="btn btn-info" href="#" onclick="fillMenu('@Url.Action("Index", "AddrBkVirtualAddress", new { isOrganization = ViewBag.isOrganization, orgName = ViewBag.orgName, organizationId = ViewBag.organizationId })','#addrbk_organization_details_content')">Cancel</a></td>
+            <td style="text-align:left"><input type="submit" value="Create" class="btn btn-success"/></td>
+        </tr>
+    </table>
+}
