@@ -23,10 +23,10 @@ namespace HITSW.Models
         [Required]
         public System.Guid StateOrProvLocalityID { get; set; }
 
-        [Required(ErrorMessage="State/province is required")]
+        [Required]
         public System.Guid StateOrProv_LCID { get; set; }
 
-        [Required(ErrorMessage="City is required")]
+        [Required]
         public System.Guid Cntry_LCID { get; set; }
 
         public string PostalCode { get; set; }
@@ -61,7 +61,7 @@ namespace HITSW.Models
         public ICollection<AddrBk_ContactAddr> AddrBk_ContactAddr { get; set; }
         public ICollection<AddrBk_GeographicalGroupMember> AddrBk_GeographicalGroupMember { get; set; }
         public Lookup_AddrType Lookup_AddrType { get; set; }
-        public Lookup_VerificationType Lookup_VerificationType { get; set; }
+        public Lookup_Status Lookup_Status { get; set; }
         public Lookup_Country Lookup_Country { get; set; }
         public Lookup_StateProvince Lookup_StateProvince { get; set; }
         public AddrBk_StateOrProvinceLocality AddrBk_StateOrProvinceLocality { get; set; }

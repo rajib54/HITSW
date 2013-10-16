@@ -8,6 +8,7 @@ namespace HITSW.Models
     {
         public Lookup_Status()
         {
+            this.AddrBk_Address = new List<AddrBk_Address>();
             this.AddrBk_Identification = new List<AddrBk_Identification>();
             this.AddrBk_Prospect = new List<AddrBk_Prospect>();
             this.Calendar_Events = new List<Calendar_Events>();
@@ -16,7 +17,7 @@ namespace HITSW.Models
         }
 
         public System.Guid Id { get; set; }
-        
+
         [Required]
         public string Title { get; set; }
 
@@ -47,6 +48,7 @@ namespace HITSW.Models
         [Timestamp]
         public byte[] Concurrency { get; set; }
 
+        public ICollection<AddrBk_Address> AddrBk_Address { get; set; }
         public ICollection<AddrBk_Identification> AddrBk_Identification { get; set; }
         public ICollection<AddrBk_Prospect> AddrBk_Prospect { get; set; }
         public ICollection<Calendar_Events> Calendar_Events { get; set; }

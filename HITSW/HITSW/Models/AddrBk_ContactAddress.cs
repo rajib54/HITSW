@@ -11,6 +11,6 @@ namespace HITSW.Models
         public AddrBk_Address AddrBk_Address { get; set; }
         public IEnumerable<Lookup_AddrType> Lookup_AddrTypes { get; set; }
         public IEnumerable<Lookup_Country> Lookup_Countries { get; set; }
-        public IEnumerable<Lookup_VerificationStatus> Lookup_VerificationStatuses { get; set; }
+        public IEnumerable<Lookup_Status> Lookup_VerificationStatuses { get; set; }
     }
 }

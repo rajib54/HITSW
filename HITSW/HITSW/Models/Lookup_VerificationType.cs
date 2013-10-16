@@ -8,7 +8,6 @@ namespace HITSW.Models
     {
         public Lookup_VerificationType()
         {
-            this.AddrBk_Address = new List<AddrBk_Address>();
             this.AddrBk_Identification = new List<AddrBk_Identification>();
         }
 
@@ -43,7 +42,6 @@ namespace HITSW.Models
         [Timestamp]
         public byte[] Concurrency { get; set; }
 
-        public ICollection<AddrBk_Address> AddrBk_Address { get; set; }
         public ICollection<AddrBk_Identification> AddrBk_Identification { get; set; }
     }
 }

@@ -32,9 +32,7 @@ namespace HITSW.Models
         [Required]
         public System.Guid Continent_LCID { get; set; }
 
-        [Required]
         public Nullable<System.Guid> Currency_LCID { get; set; }
-
         public Nullable<int> Sort { get; set; }
 
         [Required]

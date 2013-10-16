@@ -207,6 +207,7 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\AddrBk_Address.cs" />
     <Compile Include="Models\AddrBk_ContactAddr.cs" />
+    <Compile Include="Models\AddrBk_ContactAddress.cs" />
     <Compile Include="Models\AddrBk_ContactTimezone.cs" />
     <Compile Include="Models\AddrBk_GeographicalCollection.cs" />
     <Compile Include="Models\AddrBk_GeographicalGroup.cs" />

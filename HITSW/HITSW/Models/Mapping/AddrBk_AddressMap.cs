@@ -64,7 +64,7 @@ namespace HITSW.Models.Mapping
             this.HasRequired(t => t.Lookup_AddrType)
                 .WithMany(t => t.AddrBk_Address)
                 .HasForeignKey(d => d.AddrType_LCID);
-            this.HasRequired(t => t.Lookup_VerificationType)
+            this.HasRequired(t => t.Lookup_Status)
                 .WithMany(t => t.AddrBk_Address)
                 .HasForeignKey(d => d.AddrVerifStatus_LCID);
             this.HasRequired(t => t.Lookup_Country)
