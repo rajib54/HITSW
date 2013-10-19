@@ -15,6 +15,10 @@ namespace HITSW.Models.Mapping
                 .IsRequired()
                 .HasMaxLength(64);
 
+            this.Property(t => t.CityOrTown)
+                .IsRequired()
+                .HasMaxLength(100);
+
             this.Property(t => t.PostalCode)
                 .IsRequired()
                 .IsFixedLength()
@@ -43,7 +47,7 @@ namespace HITSW.Models.Mapping
             this.Property(t => t.Id).HasColumnName("Id");
             this.Property(t => t.AddrType_LCID).HasColumnName("AddrType_LCID");
             this.Property(t => t.Title).HasColumnName("Title");
-            this.Property(t => t.StateOrProvLocalityID).HasColumnName("StateOrProvLocalityID");
+            this.Property(t => t.CityOrTown).HasColumnName("CityOrTown");
             this.Property(t => t.StateOrProv_LCID).HasColumnName("StateOrProv_LCID");
             this.Property(t => t.Cntry_LCID).HasColumnName("Cntry_LCID");
             this.Property(t => t.PostalCode).HasColumnName("PostalCode");
@@ -73,9 +77,6 @@ namespace HITSW.Models.Mapping
             this.HasRequired(t => t.Lookup_StateProvince)
                 .WithMany(t => t.AddrBk_Address)
                 .HasForeignKey(d => d.StateOrProv_LCID);
-            this.HasRequired(t => t.AddrBk_StateOrProvinceLocality)
-                .WithMany(t => t.AddrBk_Address)
-                .HasForeignKey(d => d.StateOrProvLocalityID);
 
         }
     }
