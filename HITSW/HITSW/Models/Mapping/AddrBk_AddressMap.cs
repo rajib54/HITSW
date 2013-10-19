@@ -74,7 +74,7 @@ namespace HITSW.Models.Mapping
             this.HasRequired(t => t.Lookup_Country)
                 .WithMany(t => t.AddrBk_Address)
                 .HasForeignKey(d => d.Cntry_LCID);
-            this.HasRequired(t => t.Lookup_StateProvince)
+            this.HasOptional(t => t.Lookup_StateProvince)
                 .WithMany(t => t.AddrBk_Address)
                 .HasForeignKey(d => d.StateOrProv_LCID);
 

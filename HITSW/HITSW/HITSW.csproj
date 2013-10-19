@@ -189,6 +189,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Class\Utils.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AddrBkContactAddressController.cs" />
     <Compile Include="Controllers\AddrBkIdentificationController.cs" />
     <Compile Include="Controllers\AddrBkIndustryAffliationController.cs" />
     <Compile Include="Controllers\AddrBkInterestedProductServicesController.cs" />
@@ -207,6 +208,7 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\AddrBk_Address.cs" />
     <Compile Include="Models\AddrBk_ContactAddr.cs" />
+    <Compile Include="Models\AddrBk_ContactAddress.cs" />
     <Compile Include="Models\AddrBk_ContactTimezone.cs" />
     <Compile Include="Models\AddrBk_GeographicalCollection.cs" />
     <Compile Include="Models\AddrBk_GeographicalGroup.cs" />
@@ -493,6 +495,10 @@
     <Content Include="Views\AddrBkRelation\_EditOrg.cshtml" />
     <Content Include="Views\AddrBkRelation\_IndexIndv.cshtml" />
     <Content Include="Views\AddrBkRelation\_IndexOrg.cshtml" />
+    <Content Include="Views\AddrBkContactAddress\_ContactAddress.cshtml" />
+    <Content Include="Views\AddrBkContactAddress\_Create.cshtml" />
+    <Content Include="Views\AddrBkContactAddress\_Edit.cshtml" />
+    <Content Include="Views\AddrBkContactAddress\_Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

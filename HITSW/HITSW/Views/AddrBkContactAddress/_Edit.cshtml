@@ -1,0 +1,181 @@
+﻿@model AddrBk_ContactAddress
+
+<h2>@ViewBag.MainTitle</h2>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#addrbk_contactaddress_edit_effdt').datepicker({
+            dateFormat: 'yy-mm-dd'
+        }); 
+
+        $('#addrbk_contactaddress_edit_ineffdt').datepicker({
+            dateFormat: 'yy-mm-dd'
+        }); 
+
+        $('#addrbk_contactaddress_edit_form').submit(ajaxFormSubmit);
+
+        $("#countrySelect").change(function () {
+            var select = $("#stateprovinceSelect");
+            select.empty();
+
+            var countryId = $(this).val();
+            $.getJSON('@Url.Action("LoadStateProvince", "AddrBkContactAddress")', { countryId: countryId },
+                function (data) {
+                    select.append($('<option/>', {
+                        value:"",
+                        text: ""
+                    }));
+                    $.each(data, function (index, itemData) {
+                        select.append($('<option/>', {
+                            value: itemData.Value,
+                            text: itemData.Text
+                        }));
+                    });
+                });
+        });
+    });
+</script>
+
+
+@using (Html.BeginForm("Edit", "AddrBkContactAddress", FormMethod.Post, new { id = "addrbk_contactaddress_edit_form", data_hitsoft_target = "#addrbk_organization_details_content" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <input type="hidden" name="orgName" value="@ViewBag.orgName" />
+    <input type="hidden" name="organizationId" value="@ViewBag.organizationId" />
+    <input type="hidden" name="isOrganization" value="@ViewBag.isOrganization" />
+    
+    @Html.HiddenFor(model => model.AddrBk_Address.Id)
+    @Html.HiddenFor(model => model.AddrBk_Address.Concurrency)
+    @Html.HiddenFor(model => model.AddrBk_Address.ActiveRec)
+    @Html.HiddenFor(model => model.AddrBk_Address.CreatedBy)
+    @Html.HiddenFor(model => model.AddrBk_Address.CreatedDt)
+    @Html.HiddenFor(model => model.AddrBk_Address.LastUpdatedFrom)
+    @Html.HiddenFor(model => model.AddrBk_Address.LastUpdatedBy)
+    @Html.HiddenFor(model => model.AddrBk_Address.IneffDt)
+    @Html.HiddenFor(model => model.AddrBk_Address.Cmmt)
+
+    @Html.HiddenFor(model => model.AddrBk_ContactAddr.Id)
+    @Html.HiddenFor(model => model.AddrBk_ContactAddr.Concurrency)
+    @Html.HiddenFor(model => model.AddrBk_ContactAddr.ActiveRec)
+    @Html.HiddenFor(model => model.AddrBk_ContactAddr.CreatedBy)
+    @Html.HiddenFor(model => model.AddrBk_ContactAddr.CreatedDt)
+    @Html.HiddenFor(model => model.AddrBk_ContactAddr.LastUpdatedFrom)
+    @Html.HiddenFor(model => model.AddrBk_ContactAddr.LastUpdatedBy)
+    @Html.HiddenFor(model => model.AddrBk_ContactAddr.ContactBasis_LCID)
+    @Html.HiddenFor(model => model.AddrBk_ContactAddr.OrgID)
+    @Html.HiddenFor(model => model.AddrBk_ContactAddr.IndivID)
+    @Html.HiddenFor(model => model.AddrBk_ContactAddr.AddrID)
+
+    <table class="table table-striped">
+        <tr>
+            <td>Address Type *</td>
+            <td>
+                @Html.DropDownListFor(model => model.AddrBk_Address.AddrType_LCID, new SelectList(Model.Lookup_AddrTypes, "Id", "Title", Model.AddrBk_Address.AddrType_LCID), String.Empty)
+                @Html.ValidationMessageFor(model => model.AddrBk_Address.AddrType_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Address *</td>
+            <td>
+                @Html.TextBoxFor(model => model.AddrBk_Address.Title)
+                @Html.ValidationMessageFor(model => model.AddrBk_Address.Title)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Country *</td>
+            <td>
+                @Html.DropDownListFor(model => model.AddrBk_Address.Cntry_LCID, new SelectList(Model.Lookup_Countries, "Id", "Title", Model.AddrBk_Address.Cntry_LCID), String.Empty, new { id = "countrySelect" })
+                @Html.ValidationMessageFor(model => model.AddrBk_Address.Cntry_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>State/Province</td>
+            <td>
+                @Html.DropDownListFor(model => model.AddrBk_Address.StateOrProv_LCID, new SelectList(ViewBag.State, "Id", "Title", Model.AddrBk_Address.StateOrProv_LCID), String.Empty, new { id = "stateprovinceSelect" })
+                @Html.ValidationMessageFor(model => model.AddrBk_Address.StateOrProv_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>City/Town *</td>
+            <td>
+                @Html.TextBoxFor(model => model.AddrBk_Address.CityOrTown)
+                @Html.ValidationMessageFor(model => model.AddrBk_Address.CityOrTown)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Postal Code *</td>
+            <td>
+                @Html.TextBoxFor(model => model.AddrBk_Address.PostalCode)
+                @Html.ValidationMessageFor(model => model.AddrBk_Address.PostalCode)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Verification Status *</td>
+            <td>
+                @Html.DropDownListFor(model => model.AddrBk_Address.AddrVerifStatus_LCID, new SelectList(Model.Lookup_VerificationStatuses, "Id", "Title", Model.AddrBk_Address.AddrVerifStatus_LCID), String.Empty)
+                @Html.ValidationMessageFor(model => model.AddrBk_Address.AddrVerifStatus_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Effective Date *</td>
+            <td>
+                @Html.TextBoxFor(model => model.AddrBk_ContactAddr.EffDt, new { id = "addrbk_contactaddress_edit_effdt" })
+                @Html.ValidationMessageFor(model => model.AddrBk_ContactAddr.EffDt)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Ineffective Date</td>
+            <td>
+                @Html.TextBoxFor(model => model.AddrBk_ContactAddr.IneffDt, new { id = "addrbk_contactaddress_edit_ineffdt" })
+                @Html.ValidationMessageFor(model => model.AddrBk_ContactAddr.IneffDt)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Addt Addr</td>
+            <td>
+                @Html.TextBoxFor(model => model.AddrBk_ContactAddr.AddtAddr)
+                @Html.ValidationMessageFor(model => model.AddrBk_ContactAddr.AddtAddr)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Ste Apt Mail Stop</td>
+            <td>
+                @Html.TextBoxFor(model => model.AddrBk_ContactAddr.SteAptMailStop)
+                @Html.ValidationMessageFor(model => model.AddrBk_ContactAddr.SteAptMailStop)
+            </td>
+        </tr>
+
+        <tr>
+            <td> @Html.LabelFor(model => model.AddrBk_ContactAddr.PreferSeq)</td>
+            <td>
+                @Html.EditorFor(model => model.AddrBk_ContactAddr.PreferSeq)
+                @Html.ValidationMessageFor(model => model.AddrBk_ContactAddr.PreferSeq)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Comments</td>
+            <td>
+                @Html.EditorFor(model => model.AddrBk_ContactAddr.Cmmt)
+                @Html.ValidationMessageFor(model => model.AddrBk_ContactAddr.Cmmt)
+            </td>
+        </tr>
+
+        <tr>
+            <td style="text-align:right"><a class="btn btn-info" href="#" onclick="fillMenu('@Url.Action("Index", "AddrBkContactAddress", new { orgName = ViewBag.orgName, organizationId = ViewBag.organizationId, isOrganization = ViewBag.isOrganization })','#addrbk_organization_details_content')">Cancel</a></td>
+            <td style="text-align:left"><input type="submit" value="Update" class="btn btn-success"/></td>
+        </tr>
+    </table>
+}
