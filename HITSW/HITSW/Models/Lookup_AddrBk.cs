@@ -14,7 +14,6 @@ namespace HITSW.Models
             this.AddrBk_Person = new List<AddrBk_Person>();
             this.AddrBk_Person1 = new List<AddrBk_Person>();
             this.AddrBk_PhysicalActivity = new List<AddrBk_PhysicalActivity>();
-            this.AddrBk_PhysicalActivity1 = new List<AddrBk_PhysicalActivity>();
             this.AddrBk_Relation = new List<AddrBk_Relation>();
             this.AddrBk_Veteran = new List<AddrBk_Veteran>();
         }
@@ -51,14 +50,13 @@ namespace HITSW.Models
         [Timestamp]
         public byte[] Concurrency { get; set; }
 
-        public ICollection<AddrBk_GeographicalCollection> AddrBk_GeographicalCollection { get; set; }
-        public ICollection<Addrbk_Hobby> Addrbk_Hobby { get; set; }
-        public ICollection<AddrBk_InterestedProductSrvcs> AddrBk_InterestedProductSrvcs { get; set; }
-        public ICollection<AddrBk_Person> AddrBk_Person { get; set; }
-        public ICollection<AddrBk_Person> AddrBk_Person1 { get; set; }
-        public ICollection<AddrBk_PhysicalActivity> AddrBk_PhysicalActivity { get; set; }
-        public ICollection<AddrBk_PhysicalActivity> AddrBk_PhysicalActivity1 { get; set; }
-        public ICollection<AddrBk_Relation> AddrBk_Relation { get; set; }
-        public ICollection<AddrBk_Veteran> AddrBk_Veteran { get; set; }
+        public virtual ICollection<AddrBk_GeographicalCollection> AddrBk_GeographicalCollection { get; set; }
+        public virtual ICollection<Addrbk_Hobby> Addrbk_Hobby { get; set; }
+        public virtual ICollection<AddrBk_InterestedProductSrvcs> AddrBk_InterestedProductSrvcs { get; set; }
+        public virtual ICollection<AddrBk_Person> AddrBk_Person { get; set; }
+        public virtual ICollection<AddrBk_Person> AddrBk_Person1 { get; set; }
+        public virtual ICollection<AddrBk_PhysicalActivity> AddrBk_PhysicalActivity { get; set; }
+        public virtual ICollection<AddrBk_Relation> AddrBk_Relation { get; set; }
+        public virtual ICollection<AddrBk_Veteran> AddrBk_Veteran { get; set; }
     }
 }

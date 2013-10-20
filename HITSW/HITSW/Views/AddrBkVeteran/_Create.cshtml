@@ -1,0 +1,66 @@
+﻿@model AddrBk_Veteran
+
+<h2>@ViewBag.MainTitle</h2>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#addrbk_veteran_create_effdt').datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+
+        $('#addrbk_veteran_create_ineffdt').datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+
+        $('#addrbk_veteran_create_form').submit(ajaxFormSubmit);
+    });
+</script>
+
+
+@using (Html.BeginForm("Create", "AddrBkVeteran", FormMethod.Post, new { id = "addrbk_veteran_create_form", data_hitsoft_target = "#addrbk_organization_details_content" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <input type="hidden" name="orgName" value="@ViewBag.orgName" />
+    <input type="hidden" name="organizationId" value="@ViewBag.organizationId" />
+
+    <table class="table table-striped">
+        <tr>
+            <td>Veteran *</td>
+            <td>
+                @Html.DropDownList("Veteran_LCID", String.Empty)
+                @Html.ValidationMessageFor(model => model.Veteran_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Effective Date *</td>
+            <td>
+                @Html.TextBoxFor(model => model.EffDt, new { id = "addrbk_veteran_create_effdt" })
+                @Html.ValidationMessageFor(model => model.EffDt)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Ineffective Date</td>
+            <td>
+                @Html.TextBoxFor(model => model.IneffDt, new { id = "addrbk_veteran_create_ineffdt" })
+                @Html.ValidationMessageFor(model => model.IneffDt)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Comments</td>
+            <td>
+                @Html.EditorFor(model => model.Cmmt)
+                @Html.ValidationMessageFor(model => model.Cmmt)
+            </td>
+        </tr>
+
+        <tr>
+            <td style="text-align:right"><a class="btn btn-info" href="#" onclick="fillMenu('@Url.Action("Index", "AddrBkVeteran", new { orgName = ViewBag.orgName, organizationId = ViewBag.organizationId })','#addrbk_organization_details_content')">Cancel</a></td>
+            <td style="text-align:left"><input type="submit" value="Create" class="btn btn-success"/></td>
+        </tr>
+    </table>
+}

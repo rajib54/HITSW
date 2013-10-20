@@ -1,0 +1,75 @@
+﻿@model Addrbk_Hobby
+
+<h2>@ViewBag.MainTitle</h2>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#addrbk_hobby_edit_effdt').datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+
+        $('#addrbk_hobby_edit_ineffdt').datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+
+        $('#addrbk_hobby_edit_form').submit(ajaxFormSubmit);
+    });
+</script>
+
+
+@using (Html.BeginForm("Edit", "AddrBkHobby", FormMethod.Post, new { id = "addrbk_hobby_edit_form", data_hitsoft_target = "#addrbk_organization_details_content" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <input type="hidden" name="orgName" value="@ViewBag.orgName" />
+    <input type="hidden" name="organizationId" value="@ViewBag.organizationId" />
+    
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.Concurrency)
+    @Html.HiddenFor(model => model.IndivID)
+    @Html.HiddenFor(model => model.ActiveRec)
+    @Html.HiddenFor(model => model.CreatedBy)
+    @Html.HiddenFor(model => model.CreatedDt)
+    @Html.HiddenFor(model => model.LastUpdatedFrom)
+    @Html.HiddenFor(model => model.LastUpdatedBy)
+
+    <table class="table table-striped">
+        <tr>
+            <td>Hobby *</td>
+            <td>
+                @Html.DropDownList("Hobby_LCID", String.Empty)
+                @Html.ValidationMessageFor(model => model.Hobby_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Effective Date *</td>
+            <td>
+                @Html.TextBoxFor(model => model.EffDt, new { id = "addrbk_hobby_edit_effdt" })
+                @Html.ValidationMessageFor(model => model.EffDt)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Ineffective Date</td>
+            <td>
+                @Html.TextBoxFor(model => model.IneffDt, new { id = "addrbk_hobby_edit_ineffdt" })
+                @Html.ValidationMessageFor(model => model.IneffDt)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Comments</td>
+            <td>
+                @Html.EditorFor(model => model.Cmmt)
+                @Html.ValidationMessageFor(model => model.Cmmt)
+            </td>
+        </tr>
+
+        <tr>
+            <td style="text-align:right"><a class="btn btn-info" href="#" onclick="fillMenu('@Url.Action("Index", "AddrBkHobby", new { orgName = ViewBag.orgName, organizationId = ViewBag.organizationId })','#addrbk_organization_details_content')">Cancel</a></td>
+            <td style="text-align:left"><input type="submit" value="Update" class="btn btn-success"/></td>
+        </tr>
+    </table>
+}

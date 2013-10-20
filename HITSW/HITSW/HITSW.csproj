@@ -190,6 +190,7 @@
     <Compile Include="Class\Utils.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AddrBkContactAddressController.cs" />
+    <Compile Include="Controllers\AddrBkHobbyController.cs" />
     <Compile Include="Controllers\AddrBkIdentificationController.cs" />
     <Compile Include="Controllers\AddrBkIndustryAffliationController.cs" />
     <Compile Include="Controllers\AddrBkInterestedProductServicesController.cs" />
@@ -198,7 +199,9 @@
     <Compile Include="Controllers\AddrBkOrganizationUnitMemberController.cs" />
     <Compile Include="Controllers\AddrBkPersonController.cs" />
     <Compile Include="Controllers\AddrBkPhoneFaxController.cs" />
+    <Compile Include="Controllers\AddrBkPhysicalActivityController.cs" />
     <Compile Include="Controllers\AddrBkRelationController.cs" />
+    <Compile Include="Controllers\AddrBkVeteranController.cs" />
     <Compile Include="Controllers\AddrBkVirtualAddressController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -499,6 +502,18 @@
     <Content Include="Views\AddrBkContactAddress\_Create.cshtml" />
     <Content Include="Views\AddrBkContactAddress\_Edit.cshtml" />
     <Content Include="Views\AddrBkContactAddress\_Index.cshtml" />
+    <Content Include="Views\AddrBkHobby\_Create.cshtml" />
+    <Content Include="Views\AddrBkHobby\_Edit.cshtml" />
+    <Content Include="Views\AddrBkHobby\_Hobby.cshtml" />
+    <Content Include="Views\AddrBkHobby\_Index.cshtml" />
+    <Content Include="Views\AddrBkPhysicalActivity\_Create.cshtml" />
+    <Content Include="Views\AddrBkPhysicalActivity\_Edit.cshtml" />
+    <Content Include="Views\AddrBkPhysicalActivity\_Index.cshtml" />
+    <Content Include="Views\AddrBkPhysicalActivity\_PhysicalActivity.cshtml" />
+    <Content Include="Views\AddrBkVeteran\_Create.cshtml" />
+    <Content Include="Views\AddrBkVeteran\_Edit.cshtml" />
+    <Content Include="Views\AddrBkVeteran\_Index.cshtml" />
+    <Content Include="Views\AddrBkVeteran\_Veteran.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

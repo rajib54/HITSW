@@ -51,9 +51,6 @@ namespace HITSW.Models.Mapping
                 .HasForeignKey(d => d.IndivID);
             this.HasRequired(t => t.Lookup_AddrBk)
                 .WithMany(t => t.AddrBk_PhysicalActivity)
-                .HasForeignKey(d => d.IndivID);
-            this.HasRequired(t => t.Lookup_AddrBk1)
-                .WithMany(t => t.AddrBk_PhysicalActivity1)
                 .HasForeignKey(d => d.PhyActiv_LCID);
 
         }
