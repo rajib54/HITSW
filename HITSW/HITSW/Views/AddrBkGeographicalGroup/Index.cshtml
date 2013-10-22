@@ -1,0 +1,26 @@
+﻿@model IPagedList<AddrBk_GeographicalGroup>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#addrbk_geographicalgroup_searchForm").submit(ajaxFormSubmit);
+    });
+</script>
+
+<h2>@ViewBag.MainTitle</h2>
+
+<div style="text-align:right">
+    <a href="@Url.Action("Create")" class="btn btn-info">New</a>
+</div>
+
+@if (ViewBag.resultCount > 0)
+{
+    <form id="addrbk_geographicalgroup_searchForm" method="GET" data-hitsoft-target="#addrbk_geographicalgroup_index_div" action="@Url.Action("Index")" class="form-search">
+        <input type="text" name="searchTerm" class="input-medium search-query" value="@ViewBag.searchTerm" placeholder="Enter search term"/>
+        <input type="submit" value="Search" class="btn"/>
+    </form>
+
+    @Html.Partial("_Group", Model)
+}
+else {
+    <div class="alert alert-error">@ViewBag.NoRecordFoundMsg</div>
+}

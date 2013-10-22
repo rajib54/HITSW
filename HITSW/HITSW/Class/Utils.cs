@@ -30,6 +30,7 @@ namespace HITSW.Class
         public static String AddrBkIdentification = "Identification";
         public static String AddrBkRelation = "Relation";
         public static String AddrBkContactAddress = "Contact Address";
+        public static String AddrbkGeographicalGroup = "Geographical group";
 
         public static Guid GetLookUpBasisId(bool isOrganization = true)
         {

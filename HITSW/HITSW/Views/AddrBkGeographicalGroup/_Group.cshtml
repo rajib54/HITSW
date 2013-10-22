@@ -1,0 +1,67 @@
+﻿@model IPagedList<AddrBk_GeographicalGroup>
+
+<div id="addrbk_geographicalgroup_index_div">
+    <table class="table table-striped">
+    <tr>
+        <th></th>
+        <th>
+           Type
+        </th>
+        <th>
+            Title
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+           Effective Date
+        </th>
+        <th>
+           Ineffective Date
+        </th>
+        <th>
+            Comments
+        </th>
+        <th>
+           Created By
+        </th>
+    </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                <div class="btn-group">
+                    <a href="@Url.Action("Details", new { id=item.Id })" class="btn"><i class="icon-list-alt" title="details"></i></a>
+                    <a href="@Url.Action("Edit", new { id=item.Id })" class="btn"><i class="icon-edit" title="edit"></i></a>
+                    <a href="#" class="btn" data-hitsoft-target="#addrbk_geographicalgroup_index_div" data-hitsoft-url="@Url.Action("Delete", new { id=item.Id })" onclick="confirmDelete(this)"><i class="icon-remove" title="delete"></i></a>
+                </div>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lookup_GeographicalBasis.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EffDt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IneffDt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cmmt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedBy)
+            </td>
+        </tr>
+    }
+    </table>
+
+    <div class="pagedList" data-hitsoft-target="#addrbk_organization_index_div">
+        @Html.PagedListPager(Model, page => @Url.Action("Index", new { page,searchTerm=ViewBag.searchTerm}))
+    </div>
+</div>

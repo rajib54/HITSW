@@ -190,6 +190,7 @@
     <Compile Include="Class\Utils.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AddrBkContactAddressController.cs" />
+    <Compile Include="Controllers\AddrBkGeographicalGroupController.cs" />
     <Compile Include="Controllers\AddrBkHobbyController.cs" />
     <Compile Include="Controllers\AddrBkIdentificationController.cs" />
     <Compile Include="Controllers\AddrBkIndustryAffliationController.cs" />
@@ -514,6 +515,12 @@
     <Content Include="Views\AddrBkVeteran\_Edit.cshtml" />
     <Content Include="Views\AddrBkVeteran\_Index.cshtml" />
     <Content Include="Views\AddrBkVeteran\_Veteran.cshtml" />
+    <Content Include="Views\AddrBkGeographicalGroup\Index.cshtml" />
+    <Content Include="Views\AddrBkGeographicalGroup\Details.cshtml" />
+    <Content Include="Views\AddrBkGeographicalGroup\Create.cshtml" />
+    <Content Include="Views\AddrBkGeographicalGroup\Edit.cshtml" />
+    <Content Include="Views\AddrBkGeographicalGroup\Delete.cshtml" />
+    <Content Include="Views\AddrBkGeographicalGroup\_Group.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
