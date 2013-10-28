@@ -1,99 +1,20 @@
-﻿@model HITSW.Models.AddrBk_GeographicalGroup
+﻿@model AddrBk_GeographicalGroup
 
-@{
-    ViewBag.Title = "Details";
-}
+<div>
+    <div class="row-fluid">
+        <div class="span3">
+            <div class="well sidebar-nav">
+                <ul class="nav nav-list" id="addrbk_organization_details_menu">
+                    <li class="active"><a class="btn btn-link" href="#" onclick="fillMenu('@Url.Action("Index", "AddrBkGeographicalGroupMember", new { organizationId=Model.Id,orgName=Model.Title})','#addrbk_organization_details_content')">Members</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="span9" id="addrbk_organization_details_content">
+            @Html.Action("Index", "AddrBkGeographicalGroupMember", new { organizationId=Model.Id,orgName=Model.Title})
+        </div>
+    </div>
+</div>
 
-<h2>Details</h2>
-
-<fieldset>
-    <legend>AddrBk_GeographicalGroup</legend>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Lookup_GeographicalBasis.Title)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Lookup_GeographicalBasis.Title)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Title)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Title)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Description)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Description)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.EffDt)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.EffDt)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.IneffDt)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.IneffDt)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Cmmt)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Cmmt)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.ActiveRec)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ActiveRec)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.CreatedBy)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.CreatedBy)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.CreatedDt)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.CreatedDt)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.LastUpdatedFrom)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.LastUpdatedFrom)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.LastUpdatedBy)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.LastUpdatedBy)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.LastUpdatedDt)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.LastUpdatedDt)
-    </div>
-</fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div>
+    <a href="@Url.Action("Index")" class="btn btn-warning">Back to list</a>
+</div>

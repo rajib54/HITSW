@@ -1,4 +1,4 @@
-﻿@model IPagedList<AddrBk_OrganizationalUnitMember>
+﻿@model IPagedList<AddrBk_GeographicalGroupMember>
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -20,7 +20,7 @@
         <input type="submit" value="Search" class="btn"/>
     </form>
 
-    @Html.Partial("_Members", Model)
+    @Html.Partial("_MembersCountry", Model)
 }
 else
 {

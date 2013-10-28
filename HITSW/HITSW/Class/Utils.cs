@@ -9,7 +9,7 @@ namespace HITSW.Class
     public class Utils
     {
         public static String concurrencyMsg = "Data has been modified by another user. Please check the current value showed below. If you want to keep your value just click save. If you want to form with please click Back";
-        public static int pageSize = 5;
+        public static int pageSize = 2;
         public static String errorMsg = "Unable to save changes. Try again, and if the problem persists contact your system administrator.";
         public static String norecordfoundMsg = "No Record Found";
 
@@ -31,6 +31,7 @@ namespace HITSW.Class
         public static String AddrBkRelation = "Relation";
         public static String AddrBkContactAddress = "Contact Address";
         public static String AddrbkGeographicalGroup = "Geographical group";
+        public static String AddrbkGeographicalGroupMember = "Geographical group Member";
 
         public static Guid GetLookUpBasisId(bool isOrganization = true)
         {
