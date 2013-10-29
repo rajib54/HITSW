@@ -29,6 +29,8 @@ C:\Users\TOUFIQ\git\HITSW\HITSW\HITSW\bin\System.Web.WebPages.Razor.dll
 C:\Users\TOUFIQ\git\HITSW\HITSW\HITSW\bin\WebGrease.dll
 C:\Users\TOUFIQ\git\HITSW\HITSW\HITSW\bin\WebMatrix.Data.dll
 C:\Users\TOUFIQ\git\HITSW\HITSW\HITSW\bin\WebMatrix.WebData.dll
+C:\Users\TOUFIQ\git\HITSW\HITSW\HITSW\bin\PagedList.xml
+C:\Users\TOUFIQ\git\HITSW\HITSW\HITSW\bin\PagedList.Mvc.xml
 C:\Users\TOUFIQ\git\HITSW\HITSW\HITSW\bin\EntityFramework.xml
 C:\Users\TOUFIQ\git\HITSW\HITSW\HITSW\bin\Newtonsoft.Json.xml
 C:\Users\TOUFIQ\git\HITSW\HITSW\HITSW\bin\System.Net.Http.Formatting.xml
@@ -83,7 +85,3 @@ C:\Users\TOUFIQ\git\HITSW\HITSW\HITSW\bin\zh-Hant\System.Spatial.resources.dll
 C:\Users\TOUFIQ\git\HITSW\HITSW\HITSW\obj\Debug\HITSW.csprojResolveAssemblyReference.cache
 C:\Users\TOUFIQ\git\HITSW\HITSW\HITSW\obj\Debug\HITSW.dll
 C:\Users\TOUFIQ\git\HITSW\HITSW\HITSW\obj\Debug\HITSW.pdb
-C:\Users\TOUFIQ\git\HITSW\HITSW\HITSW\bin\PagedList.dll
-C:\Users\TOUFIQ\git\HITSW\HITSW\HITSW\bin\PagedList.Mvc.dll
-C:\Users\TOUFIQ\git\HITSW\HITSW\HITSW\bin\PagedList.xml
-C:\Users\TOUFIQ\git\HITSW\HITSW\HITSW\bin\PagedList.Mvc.xml

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>PagedList.Mvc</id>
-    <version>4.5.0.0</version>
+    <version>4.3.0.0</version>
     <title>PagedList.Mvc</title>
     <authors>Troy Goode</authors>
     <owners>Troy Goode</owners>
@@ -15,7 +15,7 @@
     <language>en-US</language>
     <tags>paging pager page infinitescroll ajax mvc</tags>
     <dependencies>
-      <dependency id="PagedList" version="1.17" />
+      <dependency id="PagedList" version="1.16" />
     </dependencies>
   </metadata>
 </package>
