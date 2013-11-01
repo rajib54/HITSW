@@ -528,6 +528,10 @@
     <Content Include="Views\AddrBkGeographicalGroupMember\_EditCountry.cshtml" />
     <Content Include="Views\AddrBkGeographicalGroupMember\_IndexCountry.cshtml" />
     <Content Include="Views\AddrBkGeographicalGroupMember\_MembersCountry.cshtml" />
+    <Content Include="Views\AddrBkGeographicalGroupMember\_CreateState.cshtml" />
+    <Content Include="Views\AddrBkGeographicalGroupMember\_EditState.cshtml" />
+    <Content Include="Views\AddrBkGeographicalGroupMember\_IndexState.cshtml" />
+    <Content Include="Views\AddrBkGeographicalGroupMember\_MembersState.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

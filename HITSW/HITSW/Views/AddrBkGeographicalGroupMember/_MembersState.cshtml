@@ -1,0 +1,61 @@
+﻿@model IPagedList<AddrBk_GeographicalGroupMember>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#childPagingList a").each(function () {
+            $(this).click(getPagingList);
+        });
+    });
+</script>
+
+<table class="table table-striped">
+    <tr>
+        <th></th>
+        <th>
+           Address Type
+        </th>
+        <th>
+            Country
+        </th>
+        <th>
+            State/Province
+        </th>
+        <th>
+            Effective date
+        </th>
+        <th>
+            Comments
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <div class="btn-group">
+                <a href="#" class="btn"><i class="icon-edit" title="edit" onclick="fillMenu('@Url.Action("Edit", new { id=item.Id,organizationId = ViewBag.organizationId,orgName=ViewBag.orgName })','#addrbk_organization_details_content')"></i></a>
+                <a href="#" class="btn" data-hitsoft-target="#addrbk_organization_details_content" data-hitsoft-url="@Url.Action("Delete", new { id=item.Id,organizationId = ViewBag.organizationId,orgName=ViewBag.orgName })" onclick="confirmDelete(this)"><i class="icon-remove" title="delete"></i></a>
+            </div>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AddrBk_GeographicalGroup.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lookup_Country.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lookup_StateProvince.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EffDt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cmmt)
+        </td>
+    </tr>
+}
+
+</table>
+
+<div class="pagedList" data-hitsoft-target="#addrbk_organization_details_content" id="childPagingList">
+        @Html.PagedListPager(Model, page => @Url.Action("Index", new { page,organizationId = ViewBag.organizationId,orgName=ViewBag.orgName}))
+</div>

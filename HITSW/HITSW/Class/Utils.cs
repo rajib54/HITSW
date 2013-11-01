@@ -283,5 +283,14 @@ namespace HITSW.Class
             if (model == null) return "";
             return model.Name;
         }
+
+        public static String GetGeoBasisTitle(Guid id)
+        {
+            if (id == null) return "";
+            HITSWContext db = new HITSWContext();
+            AddrBk_GeographicalGroup addrbk_geographicalgroup = db.AddrBk_GeographicalGroup.Find(id);
+            Lookup_GeographicalBasis model = db.Lookup_GeographicalBasis.Find(addrbk_geographicalgroup.GeoBasis_LCID);
+            return model.Title.Trim();
+        }
     }
 }
