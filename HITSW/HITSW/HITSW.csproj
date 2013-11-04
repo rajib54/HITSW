@@ -526,12 +526,15 @@
     <Content Include="Views\AddrBkGeographicalGroup\_Group.cshtml" />
     <Content Include="Views\AddrBkGeographicalGroupMember\_CreateCountry.cshtml" />
     <Content Include="Views\AddrBkGeographicalGroupMember\_EditCountry.cshtml" />
-    <Content Include="Views\AddrBkGeographicalGroupMember\_IndexCountry.cshtml" />
+    <Content Include="Views\AddrBkGeographicalGroupMember\_Index.cshtml" />
     <Content Include="Views\AddrBkGeographicalGroupMember\_MembersCountry.cshtml" />
     <Content Include="Views\AddrBkGeographicalGroupMember\_CreateState.cshtml" />
     <Content Include="Views\AddrBkGeographicalGroupMember\_EditState.cshtml" />
-    <Content Include="Views\AddrBkGeographicalGroupMember\_IndexState.cshtml" />
     <Content Include="Views\AddrBkGeographicalGroupMember\_MembersState.cshtml" />
+    <Content Include="Views\AddrBkGeographicalGroupMember\_IndexContinent.cshtml" />
+    <Content Include="Views\AddrBkGeographicalGroupMember\_MembersContinent.cshtml" />
+    <Content Include="Views\AddrBkGeographicalGroupMember\_CreateContinent.cshtml" />
+    <Content Include="Views\AddrBkGeographicalGroupMember\_EditContinent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

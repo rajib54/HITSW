@@ -20,7 +20,18 @@
         <input type="submit" value="Search" class="btn"/>
     </form>
 
-    @Html.Partial("_MembersCountry", Model)
+    if(ViewBag.basis == "Country")
+    {
+        @Html.Partial("_MembersCountry", Model)
+    }
+    else if(ViewBag.basis == "State/Province")
+    {
+        @Html.Partial("_MembersState", Model)
+    }
+    else if (ViewBag.basis == "Continent")
+    {
+        @Html.Partial("_MembersContinent", Model)
+    }
 }
 else
 {
