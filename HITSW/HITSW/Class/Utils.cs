@@ -292,5 +292,13 @@ namespace HITSW.Class
             Lookup_GeographicalBasis model = db.Lookup_GeographicalBasis.Find(addrbk_geographicalgroup.GeoBasis_LCID);
             return model.Title.Trim();
         }
+
+        public static Guid GetGeoBasisId(Guid id)
+        {
+            if (id == null) return Guid.Empty;
+            HITSWContext db = new HITSWContext();
+            AddrBk_GeographicalGroup addrbk_geographicalgroup = db.AddrBk_GeographicalGroup.Find(id);
+            return addrbk_geographicalgroup.Id;
+        }
     }
 }

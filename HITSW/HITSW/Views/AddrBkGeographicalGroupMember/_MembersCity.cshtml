@@ -15,7 +15,13 @@
            Address Type
         </th>
         <th>
-            Continent
+            Country
+        </th>
+        <th>
+            State/Province
+        </th>
+        <th>
+            City/Town
         </th>
         <th>
             Effective date
@@ -37,7 +43,13 @@
             @Html.DisplayFor(modelItem => item.AddrBk_GeographicalGroup.Title)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Lookup_Continent.Title)
+            @Html.DisplayFor(modelItem => item.AddrBk_StateOrProvinceLocality.Lookup_Country.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AddrBk_StateOrProvinceLocality.Lookup_StateProvince.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AddrBk_StateOrProvinceLocality.Title)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.EffDt)

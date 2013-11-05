@@ -29,7 +29,7 @@
     <tr>
         <td>
             <div class="btn-group">
-                <a href="#" class="btn"><i class="icon-edit" title="edit" onclick="fillMenu('@Url.Action("Edit", new { id=item.Id,organizationId = ViewBag.organizationId,orgName=ViewBag.orgName })','#addrbk_organization_details_content')"></i></a>
+                <a href="#" class="btn"><i class="icon-edit" title="edit" onclick="fillMenu('@Url.Action("Edit", new { id=item.Id,organizationId = ViewBag.organizationId,orgName=ViewBag.orgName,basis = ViewBag.basis })','#addrbk_organization_details_content')"></i></a>
                 <a href="#" class="btn" data-hitsoft-target="#addrbk_organization_details_content" data-hitsoft-url="@Url.Action("Delete", new { id=item.Id,organizationId = ViewBag.organizationId,orgName=ViewBag.orgName })" onclick="confirmDelete(this)"><i class="icon-remove" title="delete"></i></a>
             </div>
         </td>

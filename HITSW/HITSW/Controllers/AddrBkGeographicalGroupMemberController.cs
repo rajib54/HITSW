@@ -18,6 +18,7 @@ namespace HITSW.Controllers
         private String countryBasis = "Country";
         private String stateBasis = "State/Province";
         private String continentBasis = "Continent";
+        private String cityBasis = "City/Town";
 
         //
         // GET: /AddrBkGeographicalGroupMember/
@@ -44,9 +45,8 @@ namespace HITSW.Controllers
         //
         // GET: /AddrBkGeographicalGroupMember/Create
 
-        public ActionResult Create(Guid organizationId, String orgName)
+        public ActionResult Create(Guid organizationId, String orgName, String basis)
         {
-            String basis = Utils.GetGeoBasisTitle(organizationId);
             ViewBag.orgName = orgName;
             ViewBag.organizationId = organizationId;
             ViewBag.MainTitle = Utils.AddrbkGeographicalGroupMember + " / " + orgName;
@@ -74,9 +74,8 @@ namespace HITSW.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(AddrBk_GeographicalGroupMember addrbk_geographicalgroupmember, Guid organizationId, String orgName)
+        public ActionResult Create(AddrBk_GeographicalGroupMember addrbk_geographicalgroupmember, Guid organizationId, String orgName, String basis)
         {
-            String basis = Utils.GetGeoBasisTitle(organizationId);
             try
             {
                 if (basis.Equals(countryBasis))
@@ -241,6 +240,19 @@ namespace HITSW.Controllers
             db.SaveChanges();
 
             return RedirectToAction("Index", new { organizationId = organizationId, orgName = orgName });
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public JsonResult LoadStateProvinceLocality(Guid countryId,Guid stateprovinceId,Guid organizationId)
+        {
+            Guid basisId = Utils.GetGeoBasisId(organizationId);
+            var stateprovincelocalityList = db.AddrBk_StateOrProvinceLocality.Where(a => a.ActiveRec == true && a.Cntry_LCID == countryId && a.GeoBasis_LCID == basisId && a.StateOrProv_LCID == stateprovinceId).ToList();
+            var data = stateprovincelocalityList.Select(m => new SelectListItem()
+            {
+                Text = m.Title,
+                Value = m.Id.ToString(),
+            });
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

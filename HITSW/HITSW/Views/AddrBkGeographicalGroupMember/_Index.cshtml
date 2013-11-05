@@ -9,7 +9,7 @@
 <h2>@ViewBag.MainTitle</h2>
 
 <div style="text-align:right">
-    <a class="btn btn-info" href="#" onclick="fillMenu('@Url.Action("Create", new { orgName = ViewBag.orgName, organizationId = ViewBag.organizationId })','#addrbk_organization_details_content')">New</a>
+    <a class="btn btn-info" href="#" onclick="fillMenu('@Url.Action("Create", new { orgName = ViewBag.orgName, organizationId = ViewBag.organizationId, basis = ViewBag.basis })','#addrbk_organization_details_content')">New</a>
 </div>
 
 @if (ViewBag.resultCount > 0)
@@ -31,6 +31,10 @@
     else if (ViewBag.basis == "Continent")
     {
         @Html.Partial("_MembersContinent", Model)
+    }
+    else if (ViewBag.basis == "City/Town")
+    {
+        @Html.Partial("_MembersCity", Model)
     }
 }
 else

@@ -531,10 +531,10 @@
     <Content Include="Views\AddrBkGeographicalGroupMember\_CreateState.cshtml" />
     <Content Include="Views\AddrBkGeographicalGroupMember\_EditState.cshtml" />
     <Content Include="Views\AddrBkGeographicalGroupMember\_MembersState.cshtml" />
-    <Content Include="Views\AddrBkGeographicalGroupMember\_IndexContinent.cshtml" />
     <Content Include="Views\AddrBkGeographicalGroupMember\_MembersContinent.cshtml" />
     <Content Include="Views\AddrBkGeographicalGroupMember\_CreateContinent.cshtml" />
     <Content Include="Views\AddrBkGeographicalGroupMember\_EditContinent.cshtml" />
+    <Content Include="Views\AddrBkGeographicalGroupMember\_MembersCity.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
