@@ -28,7 +28,7 @@
 
     <table class="table table-striped">
         <tr>
-            <td>Person</td>
+            <td>Person *</td>
             <td>
                 @Html.DropDownList("RelatedIndivID", String.Empty)
                 @Html.ValidationMessageFor(model => model.RelatedIndivID)
@@ -36,7 +36,7 @@
         </tr>
 
         <tr>
-            <td>Relation Type</td>
+            <td>Relation Type *</td>
             <td>
                 @Html.DropDownList("RelnToPrimaryIndiv_LCID", String.Empty)
                 @Html.ValidationMessageFor(model => model.RelnToPrimaryIndiv_LCID)

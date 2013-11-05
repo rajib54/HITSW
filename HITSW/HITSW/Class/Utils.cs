@@ -9,7 +9,7 @@ namespace HITSW.Class
     public class Utils
     {
         public static String concurrencyMsg = "Data has been modified by another user. Please check the current value showed below. If you want to keep your value just click save. If you want to form with please click Back";
-        public static int pageSize = 2;
+        public static int pageSize = 10;
         public static String errorMsg = "Unable to save changes. Please fill all the necessary fields and try again.";
         public static String norecordfoundMsg = "No Record Found";
 

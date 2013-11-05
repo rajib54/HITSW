@@ -186,6 +186,14 @@ namespace HITSW.Controllers
                 return HttpNotFound();
             }
 
+            List<AddrBk_Relation> relations = db.AddrBk_Relation.Where(e => e.RelatedIndivID == id).ToList();
+            for (int i = 0; i < relations.Count; i++)
+            {
+                AddrBk_Relation addrbk_relation = relations[i];
+                db.AddrBk_Relation.Remove(addrbk_relation);
+                db.SaveChanges();
+            }
+
             db.AddrBk_Person.Remove(addrbk_person);
             db.SaveChanges();
             return RedirectToAction("Index");

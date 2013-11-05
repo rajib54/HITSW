@@ -149,6 +149,15 @@ namespace HITSW.Controllers
                 {
                     return HttpNotFound();
                 }
+
+                List<AddrBk_Relation> relations = db.AddrBk_Relation.Where(e => e.RelatedOrgID == id).ToList();
+                for (int i = 0; i < relations.Count; i++)
+                {
+                    AddrBk_Relation addrbk_relation = relations[i];
+                    db.AddrBk_Relation.Remove(addrbk_relation);
+                    db.SaveChanges();
+                }
+
                 db.AddrBk_OrganizationUnit.Remove(addrbk_organizationunit);
                 db.SaveChanges();
             }

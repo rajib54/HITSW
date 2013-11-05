@@ -79,6 +79,17 @@ namespace HITSW.Controllers
         {
             try
             {
+                if (isOrganization)
+                {
+                    if (addrbk_relation.RelatedOrgID == null || addrbk_relation.RelatedOrgID == Guid.Empty || addrbk_relation.RelnToPrimaryOrg_LCID == null || addrbk_relation.RelnToPrimaryOrg_LCID == Guid.Empty)
+                        throw new Exception();
+                }
+                else
+                {
+                    if (addrbk_relation.RelatedIndivID == null || addrbk_relation.RelatedIndivID == Guid.Empty || addrbk_relation.RelnToPrimaryIndiv_LCID == null || addrbk_relation.RelnToPrimaryIndiv_LCID == Guid.Empty)
+                        throw new Exception();
+                }
+
                 addrbk_relation.Id = Guid.NewGuid();
                 addrbk_relation.ContactBasis_LCID = Utils.GetLookUpBasisId(isOrganization);
                 addrbk_relation.CreatedDt = addrbk_relation.LastUpdatedDt = DateTime.Now;
@@ -149,6 +160,17 @@ namespace HITSW.Controllers
         {
             try
             {
+                if (isOrganization)
+                {
+                    if (addrbk_relation.RelatedOrgID == null || addrbk_relation.RelatedOrgID == Guid.Empty || addrbk_relation.RelnToPrimaryOrg_LCID == null || addrbk_relation.RelnToPrimaryOrg_LCID == Guid.Empty)
+                        throw new Exception();
+                }
+                else
+                {
+                    if (addrbk_relation.RelatedIndivID == null || addrbk_relation.RelatedIndivID == Guid.Empty || addrbk_relation.RelnToPrimaryIndiv_LCID == null || addrbk_relation.RelnToPrimaryIndiv_LCID == Guid.Empty)
+                        throw new Exception();
+                }
+
                 addrbk_relation.LastUpdatedDt = DateTime.Now;
                 db.Entry(addrbk_relation).State = EntityState.Modified;
                 db.SaveChanges();
