@@ -17,6 +17,7 @@ namespace HITSW.Controllers
         private HITSWContext db = new HITSWContext();
         private String indivFilter = "AddrBk_Relation.RelnToPrimaryIndiv_LCID";
         private String orgFilter = "AddrBk_Relation.RelnToPrimaryOrg_LCID";
+        private IPagedList<AddrBk_Relation> model;
 
         //
         // GET: /AddrBkRelation/
@@ -29,22 +30,19 @@ namespace HITSW.Controllers
             ViewBag.searchTerm = searchTerm;
             ViewBag.MainTitle = Utils.AddrBkRelation + " / " + orgName;
 
-            if (isOrganization)
-            {
-                var model = db.AddrBk_Relation.Include(a => a.AddrBk_OrganizationUnit1).Include(a => a.Lookup_AddrBk).Where(a => a.PrimaryOrgID == organizationId && a.ActiveRec == true && (searchTerm == null || a.Lookup_AddrBk.Title.Contains(searchTerm) || a.AddrBk_OrganizationUnit1.Name.Contains(searchTerm))).OrderByDescending(a => a.LastUpdatedDt).ToPagedList(page, Utils.pageSize);
-                ViewBag.resultCount = model.Count;
-                if (ViewBag.resultCount == 0)
-                    ViewBag.NoRecordFoundMsg = Utils.norecordfoundMsg;
-                return PartialView("_IndexOrg", model);
-            }
+            if(isOrganization)
+                model = db.AddrBk_Relation.Include(a => a.AddrBk_OrganizationUnit1).Include(a => a.Lookup_AddrBk).Where(a => a.PrimaryOrgID == organizationId && a.ActiveRec == true && (searchTerm == null || a.Lookup_AddrBk.Title.Contains(searchTerm) || a.AddrBk_OrganizationUnit1.Name.Contains(searchTerm))).OrderByDescending(a => a.LastUpdatedDt).ToPagedList(page, Utils.pageSize);
             else
-            {
-                var model = db.AddrBk_Relation.Include(a => a.AddrBk_Person1).Include(a => a.Lookup_GenderRelationship).Where(a => a.PrimaryIndivID == organizationId && a.ActiveRec == true && (searchTerm == null || a.Lookup_GenderRelationship.Title.Contains(searchTerm) || a.AddrBk_Person1.FName.Contains(searchTerm) || a.AddrBk_Person1.LName.Contains(searchTerm))).OrderByDescending(a => a.LastUpdatedDt).ToPagedList(page, Utils.pageSize);
-                ViewBag.resultCount = model.Count;
-                if (ViewBag.resultCount == 0)
-                    ViewBag.NoRecordFoundMsg = Utils.norecordfoundMsg;
+                model = db.AddrBk_Relation.Include(a => a.AddrBk_Person1).Include(a => a.Lookup_GenderRelationship).Where(a => a.PrimaryIndivID == organizationId && a.ActiveRec == true && (searchTerm == null || a.Lookup_GenderRelationship.Title.Contains(searchTerm) || a.AddrBk_Person1.FName.Contains(searchTerm) || a.AddrBk_Person1.LName.Contains(searchTerm))).OrderByDescending(a => a.LastUpdatedDt).ToPagedList(page, Utils.pageSize);
+
+            ViewBag.resultCount = model.Count;
+            if (ViewBag.resultCount == 0)
+                ViewBag.NoRecordFoundMsg = Utils.norecordfoundMsg;
+
+            if(isOrganization)
+                return PartialView("_IndexOrg", model);
+            else
                 return PartialView("_IndexIndv", model);
-            }
         }
 
         //

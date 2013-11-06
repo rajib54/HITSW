@@ -15,6 +15,7 @@ namespace HITSW.Controllers
     public class AddrBkPhoneFaxController : Controller
     {
         private HITSWContext db = new HITSWContext();
+        private IPagedList<AddrBk_PhoneFax> model;
 
         //
         // GET: /AddrBkPhoneFax/
@@ -27,22 +28,15 @@ namespace HITSW.Controllers
             ViewBag.searchTerm = searchTerm;
             ViewBag.MainTitle = Utils.AddrBkOrganizationPhoneFax + " / " + orgName;
 
-            if (isOrganization)
-            {
-                var model = db.AddrBk_PhoneFax.Include(a => a.Lookup_PhoneFaxType).Where(a => a.OrgID == organizationId && a.ActiveRec == true && (searchTerm == null || a.Lookup_PhoneFaxType.Title.Contains(searchTerm) || a.PhoneFaxNum.Contains(searchTerm) || a.AreaCode.Contains(searchTerm))).OrderByDescending(a => a.LastUpdatedDt).ToPagedList(page, Utils.pageSize);
-                ViewBag.resultCount = model.Count;
-                if (ViewBag.resultCount == 0)
-                    ViewBag.NoRecordFoundMsg = Utils.norecordfoundMsg;
-                return PartialView("_Index", model);
-            }
+            if(isOrganization)
+                model = db.AddrBk_PhoneFax.Include(a => a.Lookup_PhoneFaxType).Where(a => a.OrgID == organizationId && a.ActiveRec == true && (searchTerm == null || a.Lookup_PhoneFaxType.Title.Contains(searchTerm) || a.PhoneFaxNum.Contains(searchTerm) || a.AreaCode.Contains(searchTerm))).OrderByDescending(a => a.LastUpdatedDt).ToPagedList(page, Utils.pageSize);
             else
-            {
-                var model = db.AddrBk_PhoneFax.Include(a => a.Lookup_PhoneFaxType).Where(a => a.IndivID == organizationId && a.ActiveRec == true && (searchTerm == null || a.Lookup_PhoneFaxType.Title.Contains(searchTerm) || a.PhoneFaxNum.Contains(searchTerm) || a.AreaCode.Contains(searchTerm))).OrderByDescending(a => a.LastUpdatedDt).ToPagedList(page, Utils.pageSize);
-                ViewBag.resultCount = model.Count;
-                if (ViewBag.resultCount == 0)
-                    ViewBag.NoRecordFoundMsg = Utils.norecordfoundMsg;
-                return PartialView("_Index", model);
-            }
+                model = db.AddrBk_PhoneFax.Include(a => a.Lookup_PhoneFaxType).Where(a => a.IndivID == organizationId && a.ActiveRec == true && (searchTerm == null || a.Lookup_PhoneFaxType.Title.Contains(searchTerm) || a.PhoneFaxNum.Contains(searchTerm) || a.AreaCode.Contains(searchTerm))).OrderByDescending(a => a.LastUpdatedDt).ToPagedList(page, Utils.pageSize);
+
+            ViewBag.resultCount = model.Count;
+            if (ViewBag.resultCount == 0)
+                ViewBag.NoRecordFoundMsg = Utils.norecordfoundMsg;
+            return PartialView("_Index", model);
         }
 
         //

@@ -10,7 +10,6 @@ namespace HITSW.Models
         public System.Guid ContactBasis_LCID { get; set; }
         public Nullable<System.Guid> OrgID { get; set; }
         public Nullable<System.Guid> IndivID { get; set; }
-        public Nullable<System.Guid> FacilityID { get; set; }
         public Nullable<System.Guid> PhoneFaxType_LCID { get; set; }
 
         [Required]

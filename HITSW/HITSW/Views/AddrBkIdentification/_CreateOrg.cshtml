@@ -36,7 +36,7 @@
 
     <table class="table table-striped">
         <tr>
-            <td>Identification Type</td>
+            <td>Identification Type *</td>
             <td>
                 @Html.DropDownList("IdentType_LCID", String.Empty)
                 @Html.ValidationMessageFor(model => model.IdentType_LCID)
@@ -52,7 +52,7 @@
         </tr>
 
         <tr>
-            <td>Issuer *</td>
+            <td>Issuer</td>
             <td>
                 @Html.DropDownList("IdentificationIssuerID", String.Empty)
                 @Html.ValidationMessageFor(model => model.IdentificationIssuerID)

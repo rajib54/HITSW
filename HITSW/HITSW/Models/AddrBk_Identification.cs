@@ -7,12 +7,15 @@ namespace HITSW.Models
     public partial class AddrBk_Identification
     {
         public System.Guid Id { get; set; }
-        public Nullable<System.Guid> IdentType_LCID { get; set; }
+
+        [Required(ErrorMessage="Identification type is required")]
+        public System.Guid IdentType_LCID { get; set; }
+
         public System.Guid ContactBasis_LCID { get; set; }
         public Nullable<System.Guid> OrgID { get; set; }
         public Nullable<System.Guid> IndivID { get; set; }
 
-        [Required]
+        [Required(ErrorMessage="Identification number is required")]
         public string Title { get; set; }
 
         public string LegalFirstN { get; set; }

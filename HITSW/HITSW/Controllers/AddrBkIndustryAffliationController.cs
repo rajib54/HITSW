@@ -15,6 +15,7 @@ namespace HITSW.Controllers
     public class AddrBkIndustryAffliationController : Controller
     {
         private HITSWContext db = new HITSWContext();
+        private IPagedList<AddrBk_IndustryAffliation> model;
 
         //
         // GET: /AddrBkIndustryAffliation/
@@ -27,22 +28,15 @@ namespace HITSW.Controllers
             ViewBag.searchTerm = searchTerm;
             ViewBag.MainTitle = Utils.AddrBkOrganizationIndustryAffliation + " / " + orgName;
 
-            if (isOrganization)
-            {
-                var model = db.AddrBk_IndustryAffliation.Include(a => a.Lookup_IndustrySector).Where(a => a.OrgID == organizationId && a.ActiveRec == true && (searchTerm == null || a.Lookup_IndustrySector.Title.Contains(searchTerm))).OrderByDescending(a => a.LastUpdatedDt).ToPagedList(page, Utils.pageSize);
-                ViewBag.resultCount = model.Count;
-                if (ViewBag.resultCount == 0)
-                    ViewBag.NoRecordFoundMsg = Utils.norecordfoundMsg;
-                return PartialView("_Index", model);
-            }
+            if(isOrganization)
+                model = db.AddrBk_IndustryAffliation.Include(a => a.Lookup_IndustrySector).Where(a => a.OrgID == organizationId && a.ActiveRec == true && (searchTerm == null || a.Lookup_IndustrySector.Title.Contains(searchTerm))).OrderByDescending(a => a.LastUpdatedDt).ToPagedList(page, Utils.pageSize);
             else
-            {
-                var model = db.AddrBk_IndustryAffliation.Include(a => a.Lookup_IndustrySector).Where(a => a.IndivID == organizationId && a.ActiveRec == true && (searchTerm == null || a.Lookup_IndustrySector.Title.Contains(searchTerm))).OrderByDescending(a => a.LastUpdatedDt).ToPagedList(page, Utils.pageSize);
-                ViewBag.resultCount = model.Count;
-                if (ViewBag.resultCount == 0)
-                    ViewBag.NoRecordFoundMsg = Utils.norecordfoundMsg;
-                return PartialView("_Index", model);
-            }
+                model = db.AddrBk_IndustryAffliation.Include(a => a.Lookup_IndustrySector).Where(a => a.IndivID == organizationId && a.ActiveRec == true && (searchTerm == null || a.Lookup_IndustrySector.Title.Contains(searchTerm))).OrderByDescending(a => a.LastUpdatedDt).ToPagedList(page, Utils.pageSize);
+
+            ViewBag.resultCount = model.Count;
+            if (ViewBag.resultCount == 0)
+                ViewBag.NoRecordFoundMsg = Utils.norecordfoundMsg;
+            return PartialView("_Index", model);
         }
 
         //

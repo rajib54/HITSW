@@ -53,7 +53,6 @@ namespace HITSW.Models.Mapping
             this.Property(t => t.ContactBasis_LCID).HasColumnName("ContactBasis_LCID");
             this.Property(t => t.OrgID).HasColumnName("OrgID");
             this.Property(t => t.IndivID).HasColumnName("IndivID");
-            this.Property(t => t.FacilityID).HasColumnName("FacilityID");
             this.Property(t => t.PhoneFaxType_LCID).HasColumnName("PhoneFaxType_LCID");
             this.Property(t => t.AreaCode).HasColumnName("AreaCode");
             this.Property(t => t.PhoneFaxNum).HasColumnName("PhoneFaxNum");

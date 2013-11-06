@@ -16,6 +16,7 @@ namespace HITSW.Controllers
     {
         private HITSWContext db = new HITSWContext();
         private String statusFilter = "AddrBk_Address.AddrVerifStatus_LCID";
+        private IPagedList<AddrBk_ContactAddr> model;
 
         //
         // GET: /AddrBkContactAddress/
@@ -28,22 +29,15 @@ namespace HITSW.Controllers
             ViewBag.searchTerm = searchTerm;
             ViewBag.MainTitle = Utils.AddrBkContactAddress + " / " + orgName;
 
-            if (isOrganization)
-            {
-                var model = db.AddrBk_ContactAddr.Include(a => a.AddrBk_Address.Lookup_AddrType).Include(a => a.AddrBk_Address.Lookup_Country).Include(a => a.AddrBk_Address.Lookup_StateProvince).Include(a => a.AddrBk_Address.Lookup_Status).Where(a => a.OrgID == organizationId && a.ActiveRec == true && (searchTerm == null || a.AddrBk_Address.Lookup_AddrType.Title.Contains(searchTerm) || a.AddrBk_Address.Title.Contains(searchTerm) || a.AddrBk_Address.CityOrTown.Contains(searchTerm) || a.AddrBk_Address.PostalCode.Contains(searchTerm) || a.AddrBk_Address.Lookup_Country.Title.Contains(searchTerm) || a.AddrBk_Address.Lookup_StateProvince.Title.Contains(searchTerm) || a.AddrBk_Address.Lookup_Status.Title.Contains(searchTerm))).OrderByDescending(a => a.LastUpdatedDt).ToPagedList(page, Utils.pageSize);
-                ViewBag.resultCount = model.Count;
-                if (ViewBag.resultCount == 0)
-                    ViewBag.NoRecordFoundMsg = Utils.norecordfoundMsg;
-                return PartialView("_Index", model);
-            }
+            if(isOrganization)
+                model = db.AddrBk_ContactAddr.Include(a => a.AddrBk_Address.Lookup_AddrType).Include(a => a.AddrBk_Address.Lookup_Country).Include(a => a.AddrBk_Address.Lookup_StateProvince).Include(a => a.AddrBk_Address.Lookup_Status).Where(a => a.OrgID == organizationId && a.ActiveRec == true && (searchTerm == null || a.AddrBk_Address.Lookup_AddrType.Title.Contains(searchTerm) || a.AddrBk_Address.Title.Contains(searchTerm) || a.AddrBk_Address.CityOrTown.Contains(searchTerm) || a.AddrBk_Address.PostalCode.Contains(searchTerm) || a.AddrBk_Address.Lookup_Country.Title.Contains(searchTerm) || a.AddrBk_Address.Lookup_StateProvince.Title.Contains(searchTerm) || a.AddrBk_Address.Lookup_Status.Title.Contains(searchTerm))).OrderByDescending(a => a.LastUpdatedDt).ToPagedList(page, Utils.pageSize);
             else
-            {
-                var model = db.AddrBk_ContactAddr.Include(a => a.AddrBk_Address.Lookup_AddrType).Include(a => a.AddrBk_Address.Lookup_Country).Include(a => a.AddrBk_Address.Lookup_StateProvince).Include(a => a.AddrBk_Address.Lookup_Status).Where(a => a.IndivID == organizationId && a.ActiveRec == true && (searchTerm == null || a.AddrBk_Address.Lookup_AddrType.Title.Contains(searchTerm) || a.AddrBk_Address.Title.Contains(searchTerm) || a.AddrBk_Address.CityOrTown.Contains(searchTerm) || a.AddrBk_Address.PostalCode.Contains(searchTerm) || a.AddrBk_Address.Lookup_Country.Title.Contains(searchTerm) || a.AddrBk_Address.Lookup_StateProvince.Title.Contains(searchTerm) || a.AddrBk_Address.Lookup_Status.Title.Contains(searchTerm))).OrderByDescending(a => a.LastUpdatedDt).ToPagedList(page, Utils.pageSize);
-                ViewBag.resultCount = model.Count;
-                if (ViewBag.resultCount == 0)
-                    ViewBag.NoRecordFoundMsg = Utils.norecordfoundMsg;
-                return PartialView("_Index", model);
-            }
+                model = db.AddrBk_ContactAddr.Include(a => a.AddrBk_Address.Lookup_AddrType).Include(a => a.AddrBk_Address.Lookup_Country).Include(a => a.AddrBk_Address.Lookup_StateProvince).Include(a => a.AddrBk_Address.Lookup_Status).Where(a => a.IndivID == organizationId && a.ActiveRec == true && (searchTerm == null || a.AddrBk_Address.Lookup_AddrType.Title.Contains(searchTerm) || a.AddrBk_Address.Title.Contains(searchTerm) || a.AddrBk_Address.CityOrTown.Contains(searchTerm) || a.AddrBk_Address.PostalCode.Contains(searchTerm) || a.AddrBk_Address.Lookup_Country.Title.Contains(searchTerm) || a.AddrBk_Address.Lookup_StateProvince.Title.Contains(searchTerm) || a.AddrBk_Address.Lookup_Status.Title.Contains(searchTerm))).OrderByDescending(a => a.LastUpdatedDt).ToPagedList(page, Utils.pageSize);
+
+            ViewBag.resultCount = model.Count;
+            if (ViewBag.resultCount == 0)
+                ViewBag.NoRecordFoundMsg = Utils.norecordfoundMsg;
+            return PartialView("_Index", model);
         }
 
         //

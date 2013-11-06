@@ -1,9 +1,5 @@
 ﻿@model AddrBk_PhoneFax
 
-@{
-    ViewBag.Title = "Create";
-}
-
 <h2>@ViewBag.MainTitle</h2>
 
 <script type="text/javascript">
@@ -39,7 +35,6 @@
     @Html.HiddenFor(model => model.LastUpdatedFrom)
     @Html.HiddenFor(model => model.OrgID)
     @Html.HiddenFor(model => model.IndivID)
-    @Html.HiddenFor(model => model.FacilityID)
     @Html.HiddenFor(model => model.LastUpdatedBy)
 
     <table class="table table-striped">

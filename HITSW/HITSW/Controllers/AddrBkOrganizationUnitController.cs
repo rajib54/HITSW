@@ -158,6 +158,14 @@ namespace HITSW.Controllers
                     db.SaveChanges();
                 }
 
+                List<AddrBk_Identification> identifications = db.AddrBk_Identification.Where(e => e.IdentificationIssuerID == id).ToList();
+                for (int i = 0; i < identifications.Count; i++)
+                {
+                    AddrBk_Identification addrbk_identification = identifications[i];
+                    db.AddrBk_Identification.Remove(addrbk_identification);
+                    db.SaveChanges();
+                }
+
                 db.AddrBk_OrganizationUnit.Remove(addrbk_organizationunit);
                 db.SaveChanges();
             }

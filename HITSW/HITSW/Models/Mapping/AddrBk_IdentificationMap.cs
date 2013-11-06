@@ -77,7 +77,7 @@ namespace HITSW.Models.Mapping
             this.HasOptional(t => t.AddrBk_OrganizationUnit)
                 .WithMany(t => t.AddrBk_Identification)
                 .HasForeignKey(d => d.IdentificationIssuerID);
-            this.HasOptional(t => t.Lookup_IdentificationType)
+            this.HasRequired(t => t.Lookup_IdentificationType)
                 .WithMany(t => t.AddrBk_Identification)
                 .HasForeignKey(d => d.IdentType_LCID);
             this.HasRequired(t => t.Lookup_Status)

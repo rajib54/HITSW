@@ -16,6 +16,7 @@ namespace HITSW.Controllers
     {
         private HITSWContext db = new HITSWContext();
         private String statusFilter = "AddrBk_Identification.IndentVerifStatus_LCID";
+        private IPagedList<AddrBk_Identification> model;
 
         //
         // GET: /AddrBkIdentification/
@@ -28,22 +29,19 @@ namespace HITSW.Controllers
             ViewBag.searchTerm = searchTerm;
             ViewBag.MainTitle = Utils.AddrBkIdentification + " / " + orgName;
 
-            if (isOrganization)
-            {
-                var model = db.AddrBk_Identification.Include(a => a.AddrBk_OrganizationUnit).Include(a => a.Lookup_IdentificationType).Include(a => a.Lookup_VerificationType).Include(a => a.Lookup_Status).Where(a => a.OrgID == organizationId && a.ActiveRec == true && (searchTerm == null || a.AddrBk_OrganizationUnit.Name.Contains(searchTerm) || a.Lookup_IdentificationType.Title.Contains(searchTerm) || a.Lookup_VerificationType.Title.Contains(searchTerm) || a.Lookup_Status.Title.Contains(searchTerm) || a.Title.Contains(searchTerm))).OrderByDescending(a => a.LastUpdatedDt).ToPagedList(page, Utils.pageSize);
-                ViewBag.resultCount = model.Count;
-                if (ViewBag.resultCount == 0)
-                    ViewBag.NoRecordFoundMsg = Utils.norecordfoundMsg;
-                return PartialView("_IndexOrg", model);
-            }
+            if(isOrganization)
+                model = db.AddrBk_Identification.Include(a => a.AddrBk_OrganizationUnit).Include(a => a.Lookup_IdentificationType).Include(a => a.Lookup_VerificationType).Include(a => a.Lookup_Status).Where(a => a.OrgID == organizationId && a.ActiveRec == true && (searchTerm == null || a.AddrBk_OrganizationUnit.Name.Contains(searchTerm) || a.Lookup_IdentificationType.Title.Contains(searchTerm) || a.Lookup_VerificationType.Title.Contains(searchTerm) || a.Lookup_Status.Title.Contains(searchTerm) || a.Title.Contains(searchTerm))).OrderByDescending(a => a.LastUpdatedDt).ToPagedList(page, Utils.pageSize);
             else
-            {
-                var model = db.AddrBk_Identification.Include(a => a.AddrBk_OrganizationUnit).Include(a => a.Lookup_IdentificationType).Include(a => a.Lookup_VerificationType).Include(a => a.Lookup_Status).Where(a => a.IndivID == organizationId && a.ActiveRec == true && (searchTerm == null || a.AddrBk_OrganizationUnit.Name.Contains(searchTerm) || a.Lookup_IdentificationType.Title.Contains(searchTerm) || a.Lookup_VerificationType.Title.Contains(searchTerm) || a.Lookup_Status.Title.Contains(searchTerm) || a.Title.Contains(searchTerm) || a.LegalFirstN.Contains(searchTerm) || a.LegalMiddleN.Contains(searchTerm) || a.LegalLastN.Contains(searchTerm))).OrderByDescending(a => a.LastUpdatedDt).ToPagedList(page, Utils.pageSize);
-                ViewBag.resultCount = model.Count;
-                if (ViewBag.resultCount == 0)
-                    ViewBag.NoRecordFoundMsg = Utils.norecordfoundMsg;
+                model = db.AddrBk_Identification.Include(a => a.AddrBk_OrganizationUnit).Include(a => a.Lookup_IdentificationType).Include(a => a.Lookup_VerificationType).Include(a => a.Lookup_Status).Where(a => a.IndivID == organizationId && a.ActiveRec == true && (searchTerm == null || a.AddrBk_OrganizationUnit.Name.Contains(searchTerm) || a.Lookup_IdentificationType.Title.Contains(searchTerm) || a.Lookup_VerificationType.Title.Contains(searchTerm) || a.Lookup_Status.Title.Contains(searchTerm) || a.Title.Contains(searchTerm) || a.LegalFirstN.Contains(searchTerm) || a.LegalMiddleN.Contains(searchTerm) || a.LegalLastN.Contains(searchTerm))).OrderByDescending(a => a.LastUpdatedDt).ToPagedList(page, Utils.pageSize);
+
+            ViewBag.resultCount = model.Count;
+            if (ViewBag.resultCount == 0)
+                ViewBag.NoRecordFoundMsg = Utils.norecordfoundMsg;
+
+            if(isOrganization)
+                return PartialView("_IndexOrg", model);
+            else
                 return PartialView("_IndexIndv", model);
-            }
         }
 
         //
