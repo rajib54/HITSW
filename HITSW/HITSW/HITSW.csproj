@@ -535,6 +535,7 @@
     <Content Include="Views\AddrBkGeographicalGroupMember\_CreateContinent.cshtml" />
     <Content Include="Views\AddrBkGeographicalGroupMember\_EditContinent.cshtml" />
     <Content Include="Views\AddrBkGeographicalGroupMember\_MembersCity.cshtml" />
+    <Content Include="Views\AddrBkGeographicalGroupMember\_CreateCity.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

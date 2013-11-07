@@ -298,7 +298,7 @@ namespace HITSW.Class
             if (id == null) return Guid.Empty;
             HITSWContext db = new HITSWContext();
             AddrBk_GeographicalGroup addrbk_geographicalgroup = db.AddrBk_GeographicalGroup.Find(id);
-            return addrbk_geographicalgroup.Id;
+            return addrbk_geographicalgroup.GeoBasis_LCID;
         }
     }
 }

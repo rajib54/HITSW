@@ -37,8 +37,6 @@ namespace HITSW.Controllers
             if (ViewBag.resultCount == 0)
                 ViewBag.NoRecordFoundMsg = Utils.norecordfoundMsg;
 
-            /*if(basis.Equals(countryBasis)) return PartialView("_IndexCountry", model);
-            else return PartialView("_IndexState", model);*/
             return PartialView("_Index", model);
         }
 
@@ -51,6 +49,8 @@ namespace HITSW.Controllers
             ViewBag.organizationId = organizationId;
             ViewBag.MainTitle = Utils.AddrbkGeographicalGroupMember + " / " + orgName;
             ViewBag.State = "";
+            ViewBag.StateProvince = "";
+            ViewBag.basis = basis;
 
             ViewBag.AddrID = new SelectList(db.AddrBk_Address, "Id", "Title");
             ViewBag.GeographicalGroup_LCID = new SelectList(db.AddrBk_GeographicalGroup, "Id", "Title");
@@ -59,14 +59,13 @@ namespace HITSW.Controllers
             if (basis.Equals(countryBasis)) ViewBag.Country_LCID = new SelectList(db.Lookup_Country.Where(a => a.ActiveRec == true), "Id", "Title");
             else ViewBag.Country = db.Lookup_Country.Where(a => a.ActiveRec == true).ToList();
 
-            ViewBag.StateOrProvLocalityID = new SelectList(db.AddrBk_StateOrProvinceLocality, "Id", "Title");
-
             AddrBk_GeographicalGroupMember model = new AddrBk_GeographicalGroupMember();
             model.EffDt = DateTime.Now;
 
             if (basis.Equals(countryBasis)) return PartialView("_CreateCountry", model);
             else if(basis.Equals(stateBasis))  return PartialView("_CreateState", model);
-            else return PartialView("_CreateContinent", model);
+            else if(basis.Equals(continentBasis)) return PartialView("_CreateContinent", model);
+            else return PartialView("_CreateCity", model);
         }
 
         //
@@ -94,6 +93,11 @@ namespace HITSW.Controllers
                     if (addrbk_geographicalgroupmember.Continent_LCID == null || addrbk_geographicalgroupmember.Continent_LCID == Guid.Empty)
                         throw new Exception();
                 }
+                else if (basis.Equals(cityBasis))
+                {
+                    if (addrbk_geographicalgroupmember.Country_LCID == null || addrbk_geographicalgroupmember.Country_LCID == Guid.Empty || addrbk_geographicalgroupmember.StateOrProv_LCID == null || addrbk_geographicalgroupmember.StateOrProv_LCID == Guid.Empty || addrbk_geographicalgroupmember.StateOrProvLocalityID == null || addrbk_geographicalgroupmember.StateOrProvLocalityID == Guid.Empty)
+                        throw new Exception();
+                }
 
                 addrbk_geographicalgroupmember.Id = Guid.NewGuid();
                 addrbk_geographicalgroupmember.CreatedDt = addrbk_geographicalgroupmember.LastUpdatedDt = DateTime.Now;
@@ -114,6 +118,7 @@ namespace HITSW.Controllers
             ViewBag.orgName = orgName;
             ViewBag.organizationId = organizationId;
             ViewBag.MainTitle = Utils.AddrbkGeographicalGroupMember + " / " + orgName;
+            ViewBag.basis = basis;
 
             ViewBag.AddrID = new SelectList(db.AddrBk_Address, "Id", "Title", addrbk_geographicalgroupmember.AddrID);
             ViewBag.GeographicalGroup_LCID = new SelectList(db.AddrBk_GeographicalGroup, "Id", "Title", addrbk_geographicalgroupmember.GeographicalGroup_LCID);
@@ -125,20 +130,28 @@ namespace HITSW.Controllers
             ViewBag.State = "";
             if (addrbk_geographicalgroupmember.Country_LCID != null)
                 ViewBag.State = db.Lookup_StateProvince.Where(a => a.ActiveRec == true && a.Cntry_LCID == addrbk_geographicalgroupmember.Country_LCID).ToList();
+
+            ViewBag.StateProvince = "";
+            if (addrbk_geographicalgroupmember.StateOrProv_LCID != null)
+            {
+                Guid basisId = Utils.GetGeoBasisId(organizationId);
+                if(addrbk_geographicalgroupmember.Country_LCID != null && addrbk_geographicalgroupmember.StateOrProv_LCID != null)
+                    ViewBag.StateProvince = db.AddrBk_StateOrProvinceLocality.Where(a => a.ActiveRec == true && a.Cntry_LCID == addrbk_geographicalgroupmember.Country_LCID && a.GeoBasis_LCID == basisId && a.StateOrProv_LCID == addrbk_geographicalgroupmember.StateOrProv_LCID).ToList();
+            }
             
             ViewBag.StateOrProvLocalityID = new SelectList(db.AddrBk_StateOrProvinceLocality, "Id", "Title", addrbk_geographicalgroupmember.StateOrProvLocalityID);
 
             if (basis.Equals(countryBasis)) return PartialView("_CreateCountry", addrbk_geographicalgroupmember);
             else if (basis.Equals(stateBasis)) return PartialView("_CreateState", addrbk_geographicalgroupmember);
-            else return PartialView("_CreateContinent", addrbk_geographicalgroupmember);
+            else if (basis.Equals(continentBasis)) return PartialView("_CreateContinent", addrbk_geographicalgroupmember);
+            else return PartialView("_CreateCity", addrbk_geographicalgroupmember);
         }
 
         //
         // GET: /AddrBkGeographicalGroupMember/Edit/5
 
-        public ActionResult Edit(Guid id, Guid organizationId, String orgName)
+        public ActionResult Edit(Guid id, Guid organizationId, String orgName,String basis)
         {
-            String basis = Utils.GetGeoBasisTitle(organizationId);
             AddrBk_GeographicalGroupMember addrbk_geographicalgroupmember = db.AddrBk_GeographicalGroupMember.Find(id);
             if (addrbk_geographicalgroupmember == null)
             {
@@ -148,6 +161,7 @@ namespace HITSW.Controllers
             ViewBag.orgName = orgName;
             ViewBag.organizationId = organizationId;
             ViewBag.MainTitle = Utils.AddrbkGeographicalGroupMember + " / " + orgName;
+            ViewBag.basis = basis;
 
             ViewBag.AddrID = new SelectList(db.AddrBk_Address, "Id", "Title", addrbk_geographicalgroupmember.AddrID);
             ViewBag.GeographicalGroup_LCID = new SelectList(db.AddrBk_GeographicalGroup, "Id", "Title", addrbk_geographicalgroupmember.GeographicalGroup_LCID);
@@ -169,9 +183,8 @@ namespace HITSW.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(AddrBk_GeographicalGroupMember addrbk_geographicalgroupmember, Guid organizationId, String orgName)
+        public ActionResult Edit(AddrBk_GeographicalGroupMember addrbk_geographicalgroupmember, Guid organizationId, String orgName, String basis)
         {
-            String basis = Utils.GetGeoBasisTitle(organizationId);
             try
             {
                 if (basis.Equals(countryBasis))
@@ -210,6 +223,7 @@ namespace HITSW.Controllers
             ViewBag.orgName = orgName;
             ViewBag.organizationId = organizationId;
             ViewBag.MainTitle = Utils.AddrbkGeographicalGroupMember + " / " + orgName;
+            ViewBag.basis = basis;
 
             ViewBag.AddrID = new SelectList(db.AddrBk_Address, "Id", "Title", addrbk_geographicalgroupmember.AddrID);
             ViewBag.GeographicalGroup_LCID = new SelectList(db.AddrBk_GeographicalGroup, "Id", "Title", addrbk_geographicalgroupmember.GeographicalGroup_LCID);
