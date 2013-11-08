@@ -54,7 +54,8 @@ namespace HITSW.Controllers
 
             ViewBag.AddrID = new SelectList(db.AddrBk_Address, "Id", "Title");
             ViewBag.GeographicalGroup_LCID = new SelectList(db.AddrBk_GeographicalGroup, "Id", "Title");
-            ViewBag.Continent_LCID = new SelectList(db.Lookup_Continent.Where(e=>e.ActiveRec == true), "Id", "Title");
+
+            if (basis.Equals(continentBasis)) ViewBag.Continent_LCID = new SelectList(db.Lookup_Continent.Where(e=>e.ActiveRec == true), "Id", "Title");
 
             if (basis.Equals(countryBasis)) ViewBag.Country_LCID = new SelectList(db.Lookup_Country.Where(a => a.ActiveRec == true), "Id", "Title");
             else ViewBag.Country = db.Lookup_Country.Where(a => a.ActiveRec == true).ToList();
@@ -122,7 +123,8 @@ namespace HITSW.Controllers
 
             ViewBag.AddrID = new SelectList(db.AddrBk_Address, "Id", "Title", addrbk_geographicalgroupmember.AddrID);
             ViewBag.GeographicalGroup_LCID = new SelectList(db.AddrBk_GeographicalGroup, "Id", "Title", addrbk_geographicalgroupmember.GeographicalGroup_LCID);
-            ViewBag.Continent_LCID = new SelectList(db.Lookup_Continent.Where(e=> e.ActiveRec == true), "Id", "Title", addrbk_geographicalgroupmember.Continent_LCID);
+
+            if (basis.Equals(continentBasis)) ViewBag.Continent_LCID = new SelectList(db.Lookup_Continent.Where(e => e.ActiveRec == true), "Id", "Title", addrbk_geographicalgroupmember.Continent_LCID);
 
             if (basis.Equals(countryBasis)) ViewBag.Country_LCID = new SelectList(db.Lookup_Country.Where(a => a.ActiveRec == true), "Id", "Title");
             else ViewBag.Country = db.Lookup_Country.Where(a => a.ActiveRec == true).ToList();
@@ -138,8 +140,6 @@ namespace HITSW.Controllers
                 if(addrbk_geographicalgroupmember.Country_LCID != null && addrbk_geographicalgroupmember.StateOrProv_LCID != null)
                     ViewBag.StateProvince = db.AddrBk_StateOrProvinceLocality.Where(a => a.ActiveRec == true && a.Cntry_LCID == addrbk_geographicalgroupmember.Country_LCID && a.GeoBasis_LCID == basisId && a.StateOrProv_LCID == addrbk_geographicalgroupmember.StateOrProv_LCID).ToList();
             }
-            
-            ViewBag.StateOrProvLocalityID = new SelectList(db.AddrBk_StateOrProvinceLocality, "Id", "Title", addrbk_geographicalgroupmember.StateOrProvLocalityID);
 
             if (basis.Equals(countryBasis)) return PartialView("_CreateCountry", addrbk_geographicalgroupmember);
             else if (basis.Equals(stateBasis)) return PartialView("_CreateState", addrbk_geographicalgroupmember);
@@ -165,17 +165,25 @@ namespace HITSW.Controllers
 
             ViewBag.AddrID = new SelectList(db.AddrBk_Address, "Id", "Title", addrbk_geographicalgroupmember.AddrID);
             ViewBag.GeographicalGroup_LCID = new SelectList(db.AddrBk_GeographicalGroup, "Id", "Title", addrbk_geographicalgroupmember.GeographicalGroup_LCID);
-            ViewBag.Continent_LCID = new SelectList(db.Lookup_Continent.Where(e=>e.ActiveRec == true), "Id", "Title", addrbk_geographicalgroupmember.Continent_LCID);
+
+            if (basis.Equals(continentBasis)) ViewBag.Continent_LCID = new SelectList(db.Lookup_Continent.Where(e => e.ActiveRec == true), "Id", "Title", addrbk_geographicalgroupmember.Continent_LCID);
 
             if (basis.Equals(countryBasis)) ViewBag.Country_LCID = new SelectList(db.Lookup_Country.Where(a => a.ActiveRec == true), "Id", "Title", addrbk_geographicalgroupmember.Country_LCID);
             else ViewBag.Country = db.Lookup_Country.Where(a => a.ActiveRec == true).ToList();
 
             ViewBag.State = db.Lookup_StateProvince.Where(a => a.ActiveRec == true && a.Cntry_LCID == addrbk_geographicalgroupmember.Country_LCID).ToList();
-            ViewBag.StateOrProvLocalityID = new SelectList(db.AddrBk_StateOrProvinceLocality, "Id", "Title", addrbk_geographicalgroupmember.StateOrProvLocalityID);
+            
+            if (addrbk_geographicalgroupmember.StateOrProv_LCID != null)
+            {
+                Guid basisId = Utils.GetGeoBasisId(organizationId);
+                if (addrbk_geographicalgroupmember.Country_LCID != null && addrbk_geographicalgroupmember.StateOrProv_LCID != null)
+                    ViewBag.StateProvince = db.AddrBk_StateOrProvinceLocality.Where(a => a.ActiveRec == true && a.Cntry_LCID == addrbk_geographicalgroupmember.Country_LCID && a.GeoBasis_LCID == basisId && a.StateOrProv_LCID == addrbk_geographicalgroupmember.StateOrProv_LCID).ToList();
+            }
 
             if (basis.Equals(countryBasis)) return PartialView("_EditCountry", addrbk_geographicalgroupmember);
             else if (basis.Equals(stateBasis)) return PartialView("_EditState", addrbk_geographicalgroupmember);
-            else return PartialView("_EditContinent", addrbk_geographicalgroupmember);
+            else if (basis.Equals(continentBasis)) return PartialView("_EditContinent", addrbk_geographicalgroupmember);
+            else return PartialView("_EditCity", addrbk_geographicalgroupmember);
         }
 
         //
@@ -200,6 +208,11 @@ namespace HITSW.Controllers
                 else if (basis.Equals(continentBasis))
                 {
                     if (addrbk_geographicalgroupmember.Continent_LCID == null || addrbk_geographicalgroupmember.Continent_LCID == Guid.Empty)
+                        throw new Exception();
+                }
+                else if (basis.Equals(cityBasis))
+                {
+                    if (addrbk_geographicalgroupmember.Country_LCID == null || addrbk_geographicalgroupmember.Country_LCID == Guid.Empty || addrbk_geographicalgroupmember.StateOrProv_LCID == null || addrbk_geographicalgroupmember.StateOrProv_LCID == Guid.Empty || addrbk_geographicalgroupmember.StateOrProvLocalityID == null || addrbk_geographicalgroupmember.StateOrProvLocalityID == Guid.Empty)
                         throw new Exception();
                 }
 
@@ -233,11 +246,18 @@ namespace HITSW.Controllers
             else ViewBag.Country = db.Lookup_Country.Where(a => a.ActiveRec == true).ToList();
 
             ViewBag.State = db.Lookup_StateProvince.Where(a => a.ActiveRec == true && a.Cntry_LCID == addrbk_geographicalgroupmember.Country_LCID).ToList();
-            ViewBag.StateOrProvLocalityID = new SelectList(db.AddrBk_StateOrProvinceLocality, "Id", "Title", addrbk_geographicalgroupmember.StateOrProvLocalityID);
+
+            if (addrbk_geographicalgroupmember.StateOrProv_LCID != null)
+            {
+                Guid basisId = Utils.GetGeoBasisId(organizationId);
+                if (addrbk_geographicalgroupmember.Country_LCID != null && addrbk_geographicalgroupmember.StateOrProv_LCID != null)
+                    ViewBag.StateProvince = db.AddrBk_StateOrProvinceLocality.Where(a => a.ActiveRec == true && a.Cntry_LCID == addrbk_geographicalgroupmember.Country_LCID && a.GeoBasis_LCID == basisId && a.StateOrProv_LCID == addrbk_geographicalgroupmember.StateOrProv_LCID).ToList();
+            }
 
             if (basis.Equals(countryBasis)) return PartialView("_EditCountry", addrbk_geographicalgroupmember);
             else if (basis.Equals(stateBasis)) return PartialView("_EditState", addrbk_geographicalgroupmember);
-            else return PartialView("_EditContinent", addrbk_geographicalgroupmember);
+            else if (basis.Equals(continentBasis)) return PartialView("_EditContinent", addrbk_geographicalgroupmember);
+            else return PartialView("_EditCity", addrbk_geographicalgroupmember);
         }
 
         //
