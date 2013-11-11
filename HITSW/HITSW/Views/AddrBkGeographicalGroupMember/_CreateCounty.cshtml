@@ -1,0 +1,125 @@
+﻿@model AddrBk_GeographicalGroupMember
+
+<h2>@ViewBag.MainTitle</h2>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#addrbk_organizationmember_create_effdt').datepicker({
+            dateFormat: 'yy-mm-dd'
+        }); 
+
+        $('#addrbk_organizationmember_create_ineffdt').datepicker({
+            dateFormat: 'yy-mm-dd'
+        }); 
+
+        $('#addrbk_organizationmember_create_form').submit(ajaxFormSubmit);
+
+        $("#countrySelect").change(function () {
+            var select = $("#stateprovinceSelect");
+            select.empty();
+
+            var countryId = $(this).val();
+            $.getJSON('@Url.Action("LoadStateProvince", "AddrBkContactAddress")', { countryId: countryId },
+                function (data) {
+                    select.append($('<option/>', {
+                        value: "",
+                        text: ""
+                    }));
+                    $.each(data, function (index, itemData) {
+                        select.append($('<option/>', {
+                            value: itemData.Value,
+                            text: itemData.Text
+                        }));
+                    });
+                });
+        });
+
+        $("#stateprovinceSelect").change(function () {
+            var select = $("#stateprovincelocalitySelect");
+            select.empty();
+
+            var countryId = $("#countrySelect").val();
+            var stateprovinceId = $(this).val();
+            var organizationId = $("#organizationId").val();
+            $.getJSON('@Url.Action("LoadStateProvinceLocality", "AddrBkGeographicalGroupMember")', { countryId: countryId, stateprovinceId: stateprovinceId, organizationId: organizationId },
+                function (data) {
+                    select.append($('<option/>', {
+                        value: "",
+                        text: ""
+                    }));
+                    $.each(data, function (index, itemData) {
+                        select.append($('<option/>', {
+                            value: itemData.Value,
+                            text: itemData.Text
+                        }));
+                    });
+                });
+        });
+    });
+</script>
+
+
+@using (Html.BeginForm("Create", "AddrBkGeographicalGroupMember", FormMethod.Post, new { id = "addrbk_organizationmember_create_form", data_hitsoft_target = "#addrbk_organization_details_content" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <input type="hidden" name="orgName" value="@ViewBag.orgName" />
+    <input type="hidden" name="organizationId" value="@ViewBag.organizationId" id="organizationId" />
+    <input type="hidden" name="basis" value="@ViewBag.basis" />
+
+    <table class="table table-striped">
+        <tr>
+            <td>Country *</td>
+             <td>
+                @Html.DropDownListFor(model => model.Country_LCID, new SelectList(ViewBag.Country,"Id","Title",Model.Country_LCID),String.Empty, new { id = "countrySelect" })
+                @Html.ValidationMessageFor(model => model.Country_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>State/Province *</td>
+            <td>
+                @Html.DropDownListFor(model => model.StateOrProv_LCID, new SelectList(ViewBag.State,"Id","Title",Model.StateOrProv_LCID),String.Empty, new { id = "stateprovinceSelect"})
+                @Html.ValidationMessageFor(model => model.StateOrProv_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>County *</td>
+            <td>
+                @Html.DropDownListFor(model => model.StateOrProvLocalityID, new SelectList(ViewBag.StateProvince,"Id","Title",Model.StateOrProvLocalityID),String.Empty, new { id = "stateprovincelocalitySelect"})
+                @Html.ValidationMessageFor(model => model.StateOrProvLocalityID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Effective Date *</td>
+            <td>
+                @Html.TextBoxFor(model => model.EffDt, new { id = "addrbk_organizationmember_create_effdt" })
+                @Html.ValidationMessageFor(model => model.EffDt)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Ineffective Date</td>
+            <td>
+                @Html.TextBoxFor(model => model.IneffDt, new { id = "addrbk_organizationmember_create_ineffdt" })
+                @Html.ValidationMessageFor(model => model.IneffDt)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Comments</td>
+            <td>
+                @Html.EditorFor(model => model.Cmmt)
+                @Html.ValidationMessageFor(model => model.Cmmt)
+            </td>
+        </tr>
+
+        <tr>
+            <td style="text-align:right"><a class="btn btn-info" href="#" onclick="fillMenu('@Url.Action("Index", "AddrBkGeographicalGroupMember", new { orgName = ViewBag.orgName, organizationId = ViewBag.organizationId })','#addrbk_organization_details_content')">Cancel</a></td>
+            <td style="text-align:left"><input type="submit" value="Create" class="btn btn-success"/></td>
+        </tr>
+    </table>
+}

@@ -19,6 +19,8 @@ namespace HITSW.Controllers
         private String stateBasis = "State/Province";
         private String continentBasis = "Continent";
         private String cityBasis = "City/Town";
+        private String countyBasis = "County";
+        private String muncipalityBasis = "Municipality";
 
         //
         // GET: /AddrBkGeographicalGroupMember/
@@ -66,6 +68,8 @@ namespace HITSW.Controllers
             if (basis.Equals(countryBasis)) return PartialView("_CreateCountry", model);
             else if(basis.Equals(stateBasis))  return PartialView("_CreateState", model);
             else if(basis.Equals(continentBasis)) return PartialView("_CreateContinent", model);
+            else if (basis.Equals(countyBasis)) return PartialView("_CreateCounty", model);
+            else if (basis.Equals(muncipalityBasis)) return PartialView("_CreateMuncipality", model);
             else return PartialView("_CreateCity", model);
         }
 
@@ -94,7 +98,7 @@ namespace HITSW.Controllers
                     if (addrbk_geographicalgroupmember.Continent_LCID == null || addrbk_geographicalgroupmember.Continent_LCID == Guid.Empty)
                         throw new Exception();
                 }
-                else if (basis.Equals(cityBasis))
+                else if (basis.Equals(cityBasis) || basis.Equals(countyBasis) || basis.Equals(muncipalityBasis))
                 {
                     if (addrbk_geographicalgroupmember.Country_LCID == null || addrbk_geographicalgroupmember.Country_LCID == Guid.Empty || addrbk_geographicalgroupmember.StateOrProv_LCID == null || addrbk_geographicalgroupmember.StateOrProv_LCID == Guid.Empty || addrbk_geographicalgroupmember.StateOrProvLocalityID == null || addrbk_geographicalgroupmember.StateOrProvLocalityID == Guid.Empty)
                         throw new Exception();
@@ -144,6 +148,8 @@ namespace HITSW.Controllers
             if (basis.Equals(countryBasis)) return PartialView("_CreateCountry", addrbk_geographicalgroupmember);
             else if (basis.Equals(stateBasis)) return PartialView("_CreateState", addrbk_geographicalgroupmember);
             else if (basis.Equals(continentBasis)) return PartialView("_CreateContinent", addrbk_geographicalgroupmember);
+            else if (basis.Equals(countyBasis)) return PartialView("_CreateCounty", addrbk_geographicalgroupmember);
+            else if (basis.Equals(muncipalityBasis)) return PartialView("_CreateMuncipality", addrbk_geographicalgroupmember);
             else return PartialView("_CreateCity", addrbk_geographicalgroupmember);
         }
 
@@ -183,6 +189,8 @@ namespace HITSW.Controllers
             if (basis.Equals(countryBasis)) return PartialView("_EditCountry", addrbk_geographicalgroupmember);
             else if (basis.Equals(stateBasis)) return PartialView("_EditState", addrbk_geographicalgroupmember);
             else if (basis.Equals(continentBasis)) return PartialView("_EditContinent", addrbk_geographicalgroupmember);
+            else if (basis.Equals(countyBasis)) return PartialView("_EditCounty", addrbk_geographicalgroupmember);
+            else if (basis.Equals(muncipalityBasis)) return PartialView("_EditMuncipality", addrbk_geographicalgroupmember);
             else return PartialView("_EditCity", addrbk_geographicalgroupmember);
         }
 
@@ -210,7 +218,7 @@ namespace HITSW.Controllers
                     if (addrbk_geographicalgroupmember.Continent_LCID == null || addrbk_geographicalgroupmember.Continent_LCID == Guid.Empty)
                         throw new Exception();
                 }
-                else if (basis.Equals(cityBasis))
+                else if (basis.Equals(cityBasis) || basis.Equals(countyBasis) || basis.Equals(muncipalityBasis))
                 {
                     if (addrbk_geographicalgroupmember.Country_LCID == null || addrbk_geographicalgroupmember.Country_LCID == Guid.Empty || addrbk_geographicalgroupmember.StateOrProv_LCID == null || addrbk_geographicalgroupmember.StateOrProv_LCID == Guid.Empty || addrbk_geographicalgroupmember.StateOrProvLocalityID == null || addrbk_geographicalgroupmember.StateOrProvLocalityID == Guid.Empty)
                         throw new Exception();
@@ -257,6 +265,8 @@ namespace HITSW.Controllers
             if (basis.Equals(countryBasis)) return PartialView("_EditCountry", addrbk_geographicalgroupmember);
             else if (basis.Equals(stateBasis)) return PartialView("_EditState", addrbk_geographicalgroupmember);
             else if (basis.Equals(continentBasis)) return PartialView("_EditContinent", addrbk_geographicalgroupmember);
+            else if (basis.Equals(countyBasis)) return PartialView("_EditCounty", addrbk_geographicalgroupmember);
+            else if (basis.Equals(muncipalityBasis)) return PartialView("_EditMuncipality", addrbk_geographicalgroupmember);
             else return PartialView("_EditCity", addrbk_geographicalgroupmember);
         }
 

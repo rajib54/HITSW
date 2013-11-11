@@ -537,6 +537,12 @@
     <Content Include="Views\AddrBkGeographicalGroupMember\_MembersCity.cshtml" />
     <Content Include="Views\AddrBkGeographicalGroupMember\_CreateCity.cshtml" />
     <Content Include="Views\AddrBkGeographicalGroupMember\_EditCity.cshtml" />
+    <Content Include="Views\AddrBkGeographicalGroupMember\_MembersCounty.cshtml" />
+    <Content Include="Views\AddrBkGeographicalGroupMember\_CreateCounty.cshtml" />
+    <Content Include="Views\AddrBkGeographicalGroupMember\_EditCounty.cshtml" />
+    <Content Include="Views\AddrBkGeographicalGroupMember\_EditMuncipality.cshtml" />
+    <Content Include="Views\AddrBkGeographicalGroupMember\_CreateMuncipality.cshtml" />
+    <Content Include="Views\AddrBkGeographicalGroupMember\_MembersMuncipality.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
