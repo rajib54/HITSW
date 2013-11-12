@@ -44,6 +44,10 @@
     {
         @Html.Partial("_MembersMuncipality", Model)
     }
+    else if (ViewBag.basis == "Street Address")
+    {
+        @Html.Partial("_MembersStreet", Model)
+    }
 }
 else
 {

@@ -63,6 +63,7 @@ namespace HITSW.Class
         {
             HITSWContext db = new HITSWContext();
             var model = db.Lookup_GenderRelationship.Find(id);
+            db.Dispose();
             if (model == null) return "";
             return model.Title;
         }
@@ -179,15 +180,6 @@ namespace HITSW.Class
             throw new NotImplementedException();
         }
 
-        /*public static String GetMemberStatusFromId(Guid id)
-        {
-            HITSWContext db = new HITSWContext();
-            var model = db.Lookup_MemberStatus.Find(id);
-            db.Dispose();
-            if (model == null) return "";
-            return model.Title;
-        }*/
-
         public static String GetIndustrySectorFromId(Guid id)
         {
             HITSWContext db = new HITSWContext();
@@ -290,6 +282,7 @@ namespace HITSW.Class
             HITSWContext db = new HITSWContext();
             AddrBk_GeographicalGroup addrbk_geographicalgroup = db.AddrBk_GeographicalGroup.Find(id);
             Lookup_GeographicalBasis model = db.Lookup_GeographicalBasis.Find(addrbk_geographicalgroup.GeoBasis_LCID);
+            db.Dispose();
             return model.Title.Trim();
         }
 
@@ -298,7 +291,17 @@ namespace HITSW.Class
             if (id == null) return Guid.Empty;
             HITSWContext db = new HITSWContext();
             AddrBk_GeographicalGroup addrbk_geographicalgroup = db.AddrBk_GeographicalGroup.Find(id);
+            db.Dispose();
             return addrbk_geographicalgroup.GeoBasis_LCID;
+        }
+
+        public static Guid GetAddressTypeId(String title)
+        {
+            if (title == null || title == "") return Guid.Empty;
+            HITSWContext db = new HITSWContext();
+            Lookup_AddrType address_type = db.Lookup_AddrType.Where(e => e.ActiveRec == true && e.Title.Equals(title)).First();
+            db.Dispose();
+            return address_type.Id;
         }
     }
 }
