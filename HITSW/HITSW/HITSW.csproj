@@ -545,6 +545,7 @@
     <Content Include="Views\AddrBkGeographicalGroupMember\_MembersMuncipality.cshtml" />
     <Content Include="Views\AddrBkGeographicalGroupMember\_CreateStreet.cshtml" />
     <Content Include="Views\AddrBkGeographicalGroupMember\_MembersStreet.cshtml" />
+    <Content Include="Views\AddrBkGeographicalGroupMember\_EditStreet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
