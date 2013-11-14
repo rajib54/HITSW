@@ -22,6 +22,8 @@ namespace HITSW.Controllers
         private String countyBasis = "County";
         private String muncipalityBasis = "Municipality";
         private String streetBasis = "Street Address";
+        private String postalBasis = "Postal Code";
+
         private String streetaddressType = "Street Address";
 
         //
@@ -105,7 +107,7 @@ namespace HITSW.Controllers
                     if (addrbk_geographicalgroupmember.Country_LCID == null || addrbk_geographicalgroupmember.Country_LCID == Guid.Empty || addrbk_geographicalgroupmember.StateOrProv_LCID == null || addrbk_geographicalgroupmember.StateOrProv_LCID == Guid.Empty || addrbk_geographicalgroupmember.StateOrProvLocalityID == null || addrbk_geographicalgroupmember.StateOrProvLocalityID == Guid.Empty)
                         throw new Exception();
                 }
-                else if (basis.Equals(streetBasis))
+                else if (basis.Equals(streetBasis) || basis.Equals(postalBasis))
                 {
                     if (addrbk_geographicalgroupmember.Country_LCID == null || addrbk_geographicalgroupmember.Country_LCID == Guid.Empty || addrbk_geographicalgroupmember.AddrID == null || addrbk_geographicalgroupmember.AddrID == Guid.Empty)
                         throw new Exception();
@@ -153,14 +155,16 @@ namespace HITSW.Controllers
                 }
             }
 
-            if(basis.Equals(streetBasis))
+            if(basis.Equals(streetBasis) || (basis.Equals(postalBasis)))
             {
                 ViewBag.streetAddress = "";
                 if (addrbk_geographicalgroupmember.Country_LCID != null && addrbk_geographicalgroupmember.StateOrProv_LCID != null)
                 {
                     Guid address_typeId = Utils.GetAddressTypeId(streetaddressType);
                     List<AddrBk_Address> list = db.AddrBk_Address.Where(a => a.ActiveRec == true && a.Cntry_LCID == addrbk_geographicalgroupmember.Country_LCID && a.AddrType_LCID == address_typeId && a.StateOrProv_LCID == addrbk_geographicalgroupmember.StateOrProv_LCID).ToList();
-                    ViewBag.streetAddress = GetDistinctList(list);
+                    
+                    if(basis.Equals(streetBasis)) ViewBag.streetAddress = GetDistinctList(list);
+                    else ViewBag.streetAddress = GetDistinctList(list,true);
                 }
             }
 
@@ -207,13 +211,15 @@ namespace HITSW.Controllers
                 }
             }
 
-            if (basis.Equals(streetBasis))
+            if (basis.Equals(streetBasis) || basis.Equals(postalBasis))
             {
                 if (addrbk_geographicalgroupmember.Country_LCID != null && addrbk_geographicalgroupmember.StateOrProv_LCID != null)
                 {
                     Guid address_typeId = Utils.GetAddressTypeId(streetaddressType);
                     List<AddrBk_Address> list = db.AddrBk_Address.Where(a => a.ActiveRec == true && a.Cntry_LCID == addrbk_geographicalgroupmember.Country_LCID && a.AddrType_LCID == address_typeId && a.StateOrProv_LCID == addrbk_geographicalgroupmember.StateOrProv_LCID).ToList();
-                    ViewBag.streetAddress = GetDistinctList(list);
+
+                    if (basis.Equals(streetBasis)) ViewBag.streetAddress = GetDistinctList(list);
+                    else ViewBag.streetAddress = GetDistinctList(list, true);
                 }
             }
 
@@ -255,7 +261,7 @@ namespace HITSW.Controllers
                     if (addrbk_geographicalgroupmember.Country_LCID == null || addrbk_geographicalgroupmember.Country_LCID == Guid.Empty || addrbk_geographicalgroupmember.StateOrProv_LCID == null || addrbk_geographicalgroupmember.StateOrProv_LCID == Guid.Empty || addrbk_geographicalgroupmember.StateOrProvLocalityID == null || addrbk_geographicalgroupmember.StateOrProvLocalityID == Guid.Empty)
                         throw new Exception();
                 }
-                else if (basis.Equals(streetBasis))
+                else if (basis.Equals(streetBasis) || basis.Equals(postalBasis))
                 {
                     if (addrbk_geographicalgroupmember.Country_LCID == null || addrbk_geographicalgroupmember.Country_LCID == Guid.Empty || addrbk_geographicalgroupmember.AddrID == null || addrbk_geographicalgroupmember.AddrID == Guid.Empty)
                         throw new Exception();
@@ -301,13 +307,15 @@ namespace HITSW.Controllers
                 }
             }
 
-            if (basis.Equals(streetBasis))
+            if (basis.Equals(streetBasis) || basis.Equals(postalBasis))
             {
                 if (addrbk_geographicalgroupmember.Country_LCID != null && addrbk_geographicalgroupmember.StateOrProv_LCID != null)
                 {
                     Guid address_typeId = Utils.GetAddressTypeId(streetaddressType);
                     List<AddrBk_Address> list = db.AddrBk_Address.Where(a => a.ActiveRec == true && a.Cntry_LCID == addrbk_geographicalgroupmember.Country_LCID && a.AddrType_LCID == address_typeId && a.StateOrProv_LCID == addrbk_geographicalgroupmember.StateOrProv_LCID).ToList();
-                    ViewBag.streetAddress = GetDistinctList(list);
+
+                    if (basis.Equals(streetBasis)) ViewBag.streetAddress = GetDistinctList(list);
+                    else ViewBag.streetAddress = GetDistinctList(list, true);
                 }
             }
 
@@ -360,18 +368,33 @@ namespace HITSW.Controllers
             {
                 Text = m.Title,
                 Value = m.Id.ToString(),
-            }).Distinct();
+            });
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        private List<AddrBk_Address> GetDistinctList(List<AddrBk_Address> addressTypeList) 
+        [AcceptVerbs(HttpVerbs.Get)]
+        public JsonResult LoadPostalCode(Guid countryId, Guid stateprovinceId)
+        {
+            Guid address_typeId = Utils.GetAddressTypeId(streetaddressType);
+            List<AddrBk_Address> addressTypeList = db.AddrBk_Address.Where(a => a.ActiveRec == true && a.Cntry_LCID == countryId && a.AddrType_LCID == address_typeId && a.StateOrProv_LCID == stateprovinceId).ToList();
+            List<AddrBk_Address> distinctList = GetDistinctList(addressTypeList,true);
+
+            var data = distinctList.Select(m => new SelectListItem()
+            {
+                Text = m.PostalCode,
+                Value = m.Id.ToString(),
+            });
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        private List<AddrBk_Address> GetDistinctList(List<AddrBk_Address> addressTypeList,bool isPostalCode = false) 
         {
             List<AddrBk_Address> distinctList = new List<AddrBk_Address>();
             distinctList.Add(addressTypeList[0]);
 
             for (int i = 1; i < addressTypeList.Count; i++)
             {
-                if (!isInDistinctList(addressTypeList[i], distinctList))
+                if (!isInDistinctList(addressTypeList[i], distinctList, isPostalCode))
                 {
                     distinctList.Add(addressTypeList[i]);
                 }
@@ -381,12 +404,20 @@ namespace HITSW.Controllers
             return distinctList;
         }
 
-        private bool isInDistinctList(AddrBk_Address addrbk_address, List<AddrBk_Address> list)
+        private bool isInDistinctList(AddrBk_Address addrbk_address, List<AddrBk_Address> list, bool isPostalCode = false)
         {
             for (int i = 0; i < list.Count; i++)
             {
-                if(addrbk_address.Title.Equals(list[i].Title))
-                    return true;
+                if (!isPostalCode)
+                {
+                    if (addrbk_address.Title.Equals(list[i].Title))
+                        return true;
+                }
+                else
+                {
+                    if (addrbk_address.PostalCode.Equals(list[i].PostalCode))
+                        return true;
+                }
             }
             return false;
         }

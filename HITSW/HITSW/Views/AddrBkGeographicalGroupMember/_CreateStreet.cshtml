@@ -35,24 +35,43 @@
         });
 
         $("#stateprovinceSelect").change(function () {
-            var select = $("#stateprovincelocalitySelect");
+            var select = $("#addressSelect");
             select.empty();
 
             var countryId = $("#countrySelect").val();
             var stateprovinceId = $(this).val();
-            $.getJSON('@Url.Action("LoadAddress", "AddrBkGeographicalGroupMember")', { countryId: countryId, stateprovinceId: stateprovinceId },
-                function (data) {
-                    select.append($('<option/>', {
-                        value: "",
-                        text: ""
-                    }));
-                    $.each(data, function (index, itemData) {
+            var basis = $("#basis").val();
+
+            if (basis == "Street Address") {
+                $.getJSON('@Url.Action("LoadAddress", "AddrBkGeographicalGroupMember")', { countryId: countryId, stateprovinceId: stateprovinceId },
+                    function (data) {
                         select.append($('<option/>', {
-                            value: itemData.Value,
-                            text: itemData.Text
+                            value: "",
+                            text: ""
                         }));
+                        $.each(data, function (index, itemData) {
+                            select.append($('<option/>', {
+                                value: itemData.Value,
+                                text: itemData.Text
+                            }));
+                        });
                     });
-                });
+            }
+            else {
+                $.getJSON('@Url.Action("LoadPostalCode", "AddrBkGeographicalGroupMember")', { countryId: countryId, stateprovinceId: stateprovinceId },
+                    function (data) {
+                        select.append($('<option/>', {
+                            value: "",
+                            text: ""
+                        }));
+                        $.each(data, function (index, itemData) {
+                            select.append($('<option/>', {
+                                value: itemData.Value,
+                                text: itemData.Text
+                            }));
+                        });
+                    });
+            }
         });
     });
 </script>
@@ -65,7 +84,7 @@
 
     <input type="hidden" name="orgName" value="@ViewBag.orgName" />
     <input type="hidden" name="organizationId" value="@ViewBag.organizationId" id="organizationId" />
-    <input type="hidden" name="basis" value="@ViewBag.basis" />
+    <input type="hidden" name="basis" value="@ViewBag.basis" id="basis"/>
 
     <table class="table table-striped">
         <tr>
@@ -85,11 +104,22 @@
         </tr>
 
         <tr>
-            <td>Street Address *</td>
-            <td>
-                @Html.DropDownListFor(model => model.AddrID, new SelectList(ViewBag.streetAddress,"Id","Title",Model.AddrID),String.Empty, new { id = "stateprovincelocalitySelect"})
-                @Html.ValidationMessageFor(model => model.AddrID)
-            </td>
+            @if(ViewBag.basis == "Street Address") 
+            {
+                <td>Street Address *</td>
+                <td>
+                    @Html.DropDownListFor(model => model.AddrID, new SelectList(ViewBag.streetAddress, "Id", "Title", Model.AddrID), String.Empty, new { id = "addressSelect" })
+                    @Html.ValidationMessageFor(model => model.AddrID)
+                </td>
+            }
+            else
+            {
+                 <td>Postal Code *</td>
+                <td>
+                    @Html.DropDownListFor(model => model.AddrID, new SelectList(ViewBag.streetAddress, "Id", "PostalCode", Model.AddrID), String.Empty, new { id = "addressSelect" })
+                    @Html.ValidationMessageFor(model => model.AddrID)
+                </td>
+            }
         </tr>
 
         <tr>

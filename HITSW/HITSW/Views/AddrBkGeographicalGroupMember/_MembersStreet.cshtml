@@ -20,9 +20,14 @@
         <th>
             State/Province
         </th>
-        <th>
-           Street Address
-        </th>
+        @if(ViewBag.basis == "Street Address") 
+        {
+            <th>Street Address</th>
+        }
+        else
+        {
+            <th>Postal Code</th>
+        }
         <th>
             Effective date
         </th>
@@ -31,12 +36,13 @@
         </th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
     <tr>
         <td>
             <div class="btn-group">
-                <a href="#" class="btn"><i class="icon-edit" title="edit" onclick="fillMenu('@Url.Action("Edit", new { id=item.Id,organizationId = ViewBag.organizationId,orgName=ViewBag.orgName,basis = ViewBag.basis })','#addrbk_organization_details_content')"></i></a>
-                <a href="#" class="btn" data-hitsoft-target="#addrbk_organization_details_content" data-hitsoft-url="@Url.Action("Delete", new { id=item.Id,organizationId = ViewBag.organizationId,orgName=ViewBag.orgName })" onclick="confirmDelete(this)"><i class="icon-remove" title="delete"></i></a>
+                <a href="#" class="btn"><i class="icon-edit" title="edit" onclick="fillMenu('@Url.Action("Edit", new { id = item.Id, organizationId = ViewBag.organizationId, orgName = ViewBag.orgName, basis = ViewBag.basis })','#addrbk_organization_details_content')"></i></a>
+                <a href="#" class="btn" data-hitsoft-target="#addrbk_organization_details_content" data-hitsoft-url="@Url.Action("Delete", new { id = item.Id, organizationId = ViewBag.organizationId, orgName = ViewBag.orgName })" onclick="confirmDelete(this)"><i class="icon-remove" title="delete"></i></a>
             </div>
         </td>
         <td>
@@ -48,9 +54,14 @@
         <td>
             @Html.DisplayFor(modelItem => item.Lookup_StateProvince.Title)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AddrBk_Address.Title)
-        </td>
+        @if(ViewBag.basis == "Street Address") 
+        {
+            <td>@Html.DisplayFor(modelItem => item.AddrBk_Address.Title)</td>
+        }
+        else
+        {
+            <td>@Html.DisplayFor(modelItem => item.AddrBk_Address.PostalCode)</td>
+        }
         <td>
             @Html.DisplayFor(modelItem => item.EffDt)
         </td>
