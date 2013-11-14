@@ -159,7 +159,8 @@ namespace HITSW.Controllers
                 if (addrbk_geographicalgroupmember.Country_LCID != null && addrbk_geographicalgroupmember.StateOrProv_LCID != null)
                 {
                     Guid address_typeId = Utils.GetAddressTypeId(streetaddressType);
-                    ViewBag.streetAddress = db.AddrBk_Address.Where(a => a.ActiveRec == true && a.Cntry_LCID == addrbk_geographicalgroupmember.Country_LCID && a.AddrType_LCID == address_typeId && a.StateOrProv_LCID == addrbk_geographicalgroupmember.StateOrProv_LCID).ToList();
+                    List<AddrBk_Address> list = db.AddrBk_Address.Where(a => a.ActiveRec == true && a.Cntry_LCID == addrbk_geographicalgroupmember.Country_LCID && a.AddrType_LCID == address_typeId && a.StateOrProv_LCID == addrbk_geographicalgroupmember.StateOrProv_LCID).ToList();
+                    ViewBag.streetAddress = GetDistinctList(list);
                 }
             }
 
@@ -211,7 +212,8 @@ namespace HITSW.Controllers
                 if (addrbk_geographicalgroupmember.Country_LCID != null && addrbk_geographicalgroupmember.StateOrProv_LCID != null)
                 {
                     Guid address_typeId = Utils.GetAddressTypeId(streetaddressType);
-                    ViewBag.streetAddress = db.AddrBk_Address.Where(a => a.ActiveRec == true && a.Cntry_LCID == addrbk_geographicalgroupmember.Country_LCID && a.AddrType_LCID == address_typeId && a.StateOrProv_LCID == addrbk_geographicalgroupmember.StateOrProv_LCID).ToList();
+                    List<AddrBk_Address> list = db.AddrBk_Address.Where(a => a.ActiveRec == true && a.Cntry_LCID == addrbk_geographicalgroupmember.Country_LCID && a.AddrType_LCID == address_typeId && a.StateOrProv_LCID == addrbk_geographicalgroupmember.StateOrProv_LCID).ToList();
+                    ViewBag.streetAddress = GetDistinctList(list);
                 }
             }
 
@@ -304,7 +306,8 @@ namespace HITSW.Controllers
                 if (addrbk_geographicalgroupmember.Country_LCID != null && addrbk_geographicalgroupmember.StateOrProv_LCID != null)
                 {
                     Guid address_typeId = Utils.GetAddressTypeId(streetaddressType);
-                    ViewBag.streetAddress = db.AddrBk_Address.Where(a => a.ActiveRec == true && a.Cntry_LCID == addrbk_geographicalgroupmember.Country_LCID && a.AddrType_LCID == address_typeId && a.StateOrProv_LCID == addrbk_geographicalgroupmember.StateOrProv_LCID).ToList();
+                    List<AddrBk_Address> list = db.AddrBk_Address.Where(a => a.ActiveRec == true && a.Cntry_LCID == addrbk_geographicalgroupmember.Country_LCID && a.AddrType_LCID == address_typeId && a.StateOrProv_LCID == addrbk_geographicalgroupmember.StateOrProv_LCID).ToList();
+                    ViewBag.streetAddress = GetDistinctList(list);
                 }
             }
 
@@ -350,13 +353,42 @@ namespace HITSW.Controllers
         public JsonResult LoadAddress(Guid countryId, Guid stateprovinceId)
         {
             Guid address_typeId = Utils.GetAddressTypeId(streetaddressType);
-            var addressTypeList = db.AddrBk_Address.Where(a => a.ActiveRec == true && a.Cntry_LCID == countryId && a.AddrType_LCID == address_typeId && a.StateOrProv_LCID == stateprovinceId).ToList();
-            var data = addressTypeList.Select(m => new SelectListItem()
+            List<AddrBk_Address> addressTypeList = db.AddrBk_Address.Where(a => a.ActiveRec == true && a.Cntry_LCID == countryId && a.AddrType_LCID == address_typeId && a.StateOrProv_LCID == stateprovinceId).ToList();
+            List<AddrBk_Address> distinctList = GetDistinctList(addressTypeList);
+            
+            var data = distinctList.Select(m => new SelectListItem()
             {
                 Text = m.Title,
                 Value = m.Id.ToString(),
-            });
+            }).Distinct();
             return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        private List<AddrBk_Address> GetDistinctList(List<AddrBk_Address> addressTypeList) 
+        {
+            List<AddrBk_Address> distinctList = new List<AddrBk_Address>();
+            distinctList.Add(addressTypeList[0]);
+
+            for (int i = 1; i < addressTypeList.Count; i++)
+            {
+                if (!isInDistinctList(addressTypeList[i], distinctList))
+                {
+                    distinctList.Add(addressTypeList[i]);
+                }
+
+            }
+
+            return distinctList;
+        }
+
+        private bool isInDistinctList(AddrBk_Address addrbk_address, List<AddrBk_Address> list)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                if(addrbk_address.Title.Equals(list[i].Title))
+                    return true;
+            }
+            return false;
         }
 
         protected override void Dispose(bool disposing)
