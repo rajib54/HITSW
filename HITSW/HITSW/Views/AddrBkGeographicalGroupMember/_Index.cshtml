@@ -32,17 +32,9 @@
     {
         @Html.Partial("_MembersContinent", Model)
     }
-    else if (ViewBag.basis == "City/Town")
+    else if (ViewBag.basis == "City/Town" || ViewBag.basis == "County" || ViewBag.basis == "Municipality")
     {
         @Html.Partial("_MembersCity", Model)
-    }
-    else if (ViewBag.basis == "County")
-    {
-        @Html.Partial("_MembersCounty", Model)
-    }
-    else if (ViewBag.basis == "Municipality")
-    {
-        @Html.Partial("_MembersMuncipality", Model)
     }
     else
     {

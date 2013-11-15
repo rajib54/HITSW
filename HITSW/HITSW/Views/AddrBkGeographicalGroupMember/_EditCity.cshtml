@@ -98,7 +98,18 @@
         </tr>
 
         <tr>
-            <td>City/Town *</td>
+            @if (ViewBag.basis == "City/Town")
+            {
+                <td>City/Town *</td>
+            }
+            else if (ViewBag.basis == "County")
+            {
+                <td>County</td>
+            }
+            else
+            {
+                <td>Municipality</td>
+            }
             <td>
                 @Html.DropDownListFor(model => model.StateOrProvLocalityID, new SelectList(ViewBag.StateProvince, "Id", "Title", Model.StateOrProvLocalityID), String.Empty, new { id = "stateprovincelocalitySelect" })
                 @Html.ValidationMessageFor(model => model.StateOrProvLocalityID)

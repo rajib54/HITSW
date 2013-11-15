@@ -72,9 +72,7 @@ namespace HITSW.Controllers
             if (basis.Equals(countryBasis)) return PartialView("_CreateCountry", model);
             else if(basis.Equals(stateBasis))  return PartialView("_CreateState", model);
             else if(basis.Equals(continentBasis)) return PartialView("_CreateContinent", model);
-            else if (basis.Equals(countyBasis)) return PartialView("_CreateCounty", model);
-            else if (basis.Equals(muncipalityBasis)) return PartialView("_CreateMuncipality", model);
-            else if (basis.Equals(cityBasis)) return PartialView("_CreateCity", model);
+            else if (basis.Equals(cityBasis) || basis.Equals(countyBasis) || basis.Equals(muncipalityBasis)) return PartialView("_CreateCity", model);
             else return PartialView("_CreateStreet", model);
         }
 
@@ -162,18 +160,20 @@ namespace HITSW.Controllers
                 {
                     Guid address_typeId = Utils.GetAddressTypeId(streetaddressType);
                     List<AddrBk_Address> list = db.AddrBk_Address.Where(a => a.ActiveRec == true && a.Cntry_LCID == addrbk_geographicalgroupmember.Country_LCID && a.AddrType_LCID == address_typeId && a.StateOrProv_LCID == addrbk_geographicalgroupmember.StateOrProv_LCID).ToList();
-                    
-                    if(basis.Equals(streetBasis)) ViewBag.streetAddress = GetDistinctList(list);
-                    else ViewBag.streetAddress = GetDistinctList(list,true);
+
+                    ViewBag.streetAddress = "";
+                    if (list.Count > 0)
+                    {
+                        if (basis.Equals(streetBasis)) ViewBag.streetAddress = GetDistinctList(list);
+                        else ViewBag.streetAddress = GetDistinctList(list, true);
+                    }
                 }
             }
 
             if (basis.Equals(countryBasis)) return PartialView("_CreateCountry", addrbk_geographicalgroupmember);
             else if (basis.Equals(stateBasis)) return PartialView("_CreateState", addrbk_geographicalgroupmember);
             else if (basis.Equals(continentBasis)) return PartialView("_CreateContinent", addrbk_geographicalgroupmember);
-            else if (basis.Equals(countyBasis)) return PartialView("_CreateCounty", addrbk_geographicalgroupmember);
-            else if (basis.Equals(muncipalityBasis)) return PartialView("_CreateMuncipality", addrbk_geographicalgroupmember);
-            else if (basis.Equals(cityBasis)) return PartialView("_CreateCity", addrbk_geographicalgroupmember);
+            else if (basis.Equals(cityBasis) || basis.Equals(countyBasis) || basis.Equals(muncipalityBasis)) return PartialView("_CreateCity", addrbk_geographicalgroupmember);
             else return PartialView("_CreateStreet", addrbk_geographicalgroupmember);
         }
 
@@ -218,17 +218,19 @@ namespace HITSW.Controllers
                     Guid address_typeId = Utils.GetAddressTypeId(streetaddressType);
                     List<AddrBk_Address> list = db.AddrBk_Address.Where(a => a.ActiveRec == true && a.Cntry_LCID == addrbk_geographicalgroupmember.Country_LCID && a.AddrType_LCID == address_typeId && a.StateOrProv_LCID == addrbk_geographicalgroupmember.StateOrProv_LCID).ToList();
 
-                    if (basis.Equals(streetBasis)) ViewBag.streetAddress = GetDistinctList(list);
-                    else ViewBag.streetAddress = GetDistinctList(list, true);
+                    ViewBag.streetAddress = "";
+                    if (list.Count > 0)
+                    {
+                        if (basis.Equals(streetBasis)) ViewBag.streetAddress = GetDistinctList(list);
+                        else ViewBag.streetAddress = GetDistinctList(list, true);
+                    }
                 }
             }
 
             if (basis.Equals(countryBasis)) return PartialView("_EditCountry", addrbk_geographicalgroupmember);
             else if (basis.Equals(stateBasis)) return PartialView("_EditState", addrbk_geographicalgroupmember);
             else if (basis.Equals(continentBasis)) return PartialView("_EditContinent", addrbk_geographicalgroupmember);
-            else if (basis.Equals(countyBasis)) return PartialView("_EditCounty", addrbk_geographicalgroupmember);
-            else if (basis.Equals(muncipalityBasis)) return PartialView("_EditMuncipality", addrbk_geographicalgroupmember);
-            else if (basis.Equals(cityBasis)) return PartialView("_EditCity", addrbk_geographicalgroupmember);
+            else if (basis.Equals(cityBasis) || basis.Equals(countyBasis) || basis.Equals(muncipalityBasis)) return PartialView("_EditCity", addrbk_geographicalgroupmember);
             else return PartialView("_EditStreet", addrbk_geographicalgroupmember);
         }
 
@@ -314,17 +316,19 @@ namespace HITSW.Controllers
                     Guid address_typeId = Utils.GetAddressTypeId(streetaddressType);
                     List<AddrBk_Address> list = db.AddrBk_Address.Where(a => a.ActiveRec == true && a.Cntry_LCID == addrbk_geographicalgroupmember.Country_LCID && a.AddrType_LCID == address_typeId && a.StateOrProv_LCID == addrbk_geographicalgroupmember.StateOrProv_LCID).ToList();
 
-                    if (basis.Equals(streetBasis)) ViewBag.streetAddress = GetDistinctList(list);
-                    else ViewBag.streetAddress = GetDistinctList(list, true);
+                    ViewBag.streetAddress = "";
+                    if (list.Count > 0)
+                    {
+                        if (basis.Equals(streetBasis)) ViewBag.streetAddress = GetDistinctList(list);
+                        else ViewBag.streetAddress = GetDistinctList(list, true);
+                    }
                 }
             }
 
             if (basis.Equals(countryBasis)) return PartialView("_EditCountry", addrbk_geographicalgroupmember);
             else if (basis.Equals(stateBasis)) return PartialView("_EditState", addrbk_geographicalgroupmember);
             else if (basis.Equals(continentBasis)) return PartialView("_EditContinent", addrbk_geographicalgroupmember);
-            else if (basis.Equals(countyBasis)) return PartialView("_EditCounty", addrbk_geographicalgroupmember);
-            else if (basis.Equals(muncipalityBasis)) return PartialView("_EditMuncipality", addrbk_geographicalgroupmember);
-            else if (basis.Equals(cityBasis)) return PartialView("_EditCity", addrbk_geographicalgroupmember);
+            else if (basis.Equals(cityBasis) || basis.Equals(countyBasis) || basis.Equals(muncipalityBasis)) return PartialView("_EditCity", addrbk_geographicalgroupmember);
             else return PartialView("_EditStreet", addrbk_geographicalgroupmember);
         }
 
@@ -362,7 +366,10 @@ namespace HITSW.Controllers
         {
             Guid address_typeId = Utils.GetAddressTypeId(streetaddressType);
             List<AddrBk_Address> addressTypeList = db.AddrBk_Address.Where(a => a.ActiveRec == true && a.Cntry_LCID == countryId && a.AddrType_LCID == address_typeId && a.StateOrProv_LCID == stateprovinceId).ToList();
-            List<AddrBk_Address> distinctList = GetDistinctList(addressTypeList);
+            List<AddrBk_Address> distinctList = new List<AddrBk_Address>();
+
+            if(addressTypeList.Count > 0)
+                distinctList = GetDistinctList(addressTypeList);
             
             var data = distinctList.Select(m => new SelectListItem()
             {
@@ -377,7 +384,10 @@ namespace HITSW.Controllers
         {
             Guid address_typeId = Utils.GetAddressTypeId(streetaddressType);
             List<AddrBk_Address> addressTypeList = db.AddrBk_Address.Where(a => a.ActiveRec == true && a.Cntry_LCID == countryId && a.AddrType_LCID == address_typeId && a.StateOrProv_LCID == stateprovinceId).ToList();
-            List<AddrBk_Address> distinctList = GetDistinctList(addressTypeList,true);
+            List<AddrBk_Address> distinctList = new List<AddrBk_Address>();
+
+            if (addressTypeList.Count > 0)
+                distinctList = GetDistinctList(addressTypeList, true);
 
             var data = distinctList.Select(m => new SelectListItem()
             {

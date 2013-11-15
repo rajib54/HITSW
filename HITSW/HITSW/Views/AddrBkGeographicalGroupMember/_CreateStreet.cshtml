@@ -42,35 +42,38 @@
             var stateprovinceId = $(this).val();
             var basis = $("#basis").val();
 
-            if (basis == "Street Address") {
+            var actionName = "";
+            if (basis == "Street Address")
+            {
                 $.getJSON('@Url.Action("LoadAddress", "AddrBkGeographicalGroupMember")', { countryId: countryId, stateprovinceId: stateprovinceId },
-                    function (data) {
-                        select.append($('<option/>', {
-                            value: "",
-                            text: ""
-                        }));
-                        $.each(data, function (index, itemData) {
-                            select.append($('<option/>', {
-                                value: itemData.Value,
-                                text: itemData.Text
-                            }));
-                        });
-                    });
+                   function (data) {
+                       select.append($('<option/>', {
+                           value: "",
+                           text: ""
+                       }));
+                       $.each(data, function (index, itemData) {
+                           select.append($('<option/>', {
+                               value: itemData.Value,
+                               text: itemData.Text
+                           }));
+                       });
+                   });
             }
-            else {
+            else
+            {
                 $.getJSON('@Url.Action("LoadPostalCode", "AddrBkGeographicalGroupMember")', { countryId: countryId, stateprovinceId: stateprovinceId },
-                    function (data) {
-                        select.append($('<option/>', {
-                            value: "",
-                            text: ""
-                        }));
-                        $.each(data, function (index, itemData) {
-                            select.append($('<option/>', {
-                                value: itemData.Value,
-                                text: itemData.Text
-                            }));
-                        });
-                    });
+                   function (data) {
+                       select.append($('<option/>', {
+                           value: "",
+                           text: ""
+                       }));
+                       $.each(data, function (index, itemData) {
+                           select.append($('<option/>', {
+                               value: itemData.Value,
+                               text: itemData.Text
+                           }));
+                       });
+                   });
             }
         });
     });

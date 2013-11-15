@@ -20,9 +20,18 @@
         <th>
             State/Province
         </th>
-        <th>
-            City/Town
-        </th>
+        @if (ViewBag.basis == "City/Town") 
+        {
+            <th>City/Town</th>
+        }
+        else if (ViewBag.basis == "County")
+        {
+            <th>County</th>
+        }
+        else
+        {
+            <th>Municipality</th>
+        }
         <th>
             Effective date
         </th>
