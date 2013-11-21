@@ -10,6 +10,8 @@
     $(".pagedList a").each(function () {
         $(this).click(function () {
             $a = $(this);
+            if ($a.attr("href") == undefined) return;
+
             var options = {
                 url: $a.attr("href"),
                 data: $("form").serialize(),
@@ -75,6 +77,7 @@ function confirmDelete(btn) {
 
 function getPagingList() {
     $a = $(this);
+    if ($a.attr("href") == undefined) return;
 
     $.ajax({
         url: $a.attr("href"),

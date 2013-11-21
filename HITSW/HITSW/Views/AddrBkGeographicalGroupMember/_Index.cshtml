@@ -11,20 +11,28 @@
 <div style="text-align:right">
     <a class="btn btn-info" href="#" onclick="fillMenu('@Url.Action("Create", new { orgName = ViewBag.orgName, organizationId = ViewBag.organizationId, basis = ViewBag.basis })','#addrbk_organization_details_content')">New</a>
 </div>
+<br />
 
 @if (ViewBag.resultCount > 0)
 {
-
+    if (ViewBag.resultCount == 1)
+    {
+        <div class="alert alert-info">1 record found</div>
+    }
+    else
+    {
+        <div class="alert alert-info">@ViewBag.resultCount records found</div>
+    }
     <form id="addrbk_organizationmember_searchForm" method="GET" data-hitsoft-target="#addrbk_organization_details_content" action="@Url.Action("Index", new { orgName = ViewBag.orgName, organizationId = ViewBag.organizationId })" class="form-search">
         <input type="text" name="searchTerm" class="input-medium search-query" value="@ViewBag.searchTerm" placeholder="Enter search term"/>
         <input type="submit" value="Search" class="btn"/>
     </form>
 
-    if(ViewBag.basis == "Country")
+    if (ViewBag.basis == "Country")
     {
         @Html.Partial("_MembersCountry", Model)
     }
-    else if(ViewBag.basis == "State/Province")
+    else if (ViewBag.basis == "State/Province")
     {
         @Html.Partial("_MembersState", Model)
     }

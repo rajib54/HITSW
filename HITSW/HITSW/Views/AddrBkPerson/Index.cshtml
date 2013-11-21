@@ -11,9 +11,18 @@
 <div style="text-align:right">
     <a href="@Url.Action("Create")" class="btn btn-info">New</a>
 </div>
+<br />
 
 @if (ViewBag.resultCount > 0)
 {
+    if (ViewBag.resultCount == 1)
+    {
+        <div class="alert alert-info">1 record found</div>
+    }
+    else
+    {
+        <div class="alert alert-info">@ViewBag.resultCount records found</div>
+    }
     <form id="addrbk_organization_searchForm" method="GET" data-hitsoft-target="#addrbk_organization_index_div" action="@Url.Action("Index")" class="form-search">
         <input type="text" name="searchTerm" class="input-medium search-query" value="@ViewBag.searchTerm" placeholder="Enter search term"/>
         <input type="submit" value="Search" class="btn"/>
@@ -21,6 +30,7 @@
 
     @Html.Partial("_Person", Model)
 }
-else {
+else
+{
     <div class="alert alert-error">@ViewBag.NoRecordFoundMsg</div>
 }

@@ -104,11 +104,11 @@
             }
             else if (ViewBag.basis == "County")
             {
-                <td>County</td>
+                <td>County *</td>
             }
             else
             {
-                <td>Municipality</td>
+                <td>Municipality *</td>
             }
             <td>
                 @Html.DropDownListFor(model => model.StateOrProvLocalityID, new SelectList(ViewBag.StateProvince, "Id", "Title", Model.StateOrProvLocalityID), String.Empty, new { id = "stateprovincelocalitySelect" })
