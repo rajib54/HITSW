@@ -9,6 +9,7 @@ namespace HITSW.Models
         {
             this.Calendar_Events = new List<Calendar_Events>();
             this.Calendar_EventSubscriber = new List<Calendar_EventSubscriber>();
+            this.Calendar_EventSubscriber1 = new List<Calendar_EventSubscriber>();
             this.Calendar_Notification = new List<Calendar_Notification>();
             this.Calendar_ResourceCalendar = new List<Calendar_ResourceCalendar>();
         }
@@ -30,6 +31,7 @@ namespace HITSW.Models
         public byte[] Concurrency { get; set; }
         public virtual ICollection<Calendar_Events> Calendar_Events { get; set; }
         public virtual ICollection<Calendar_EventSubscriber> Calendar_EventSubscriber { get; set; }
+        public virtual ICollection<Calendar_EventSubscriber> Calendar_EventSubscriber1 { get; set; }
         public virtual ICollection<Calendar_Notification> Calendar_Notification { get; set; }
         public virtual ICollection<Calendar_ResourceCalendar> Calendar_ResourceCalendar { get; set; }
     }

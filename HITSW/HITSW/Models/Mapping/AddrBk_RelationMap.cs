@@ -36,9 +36,12 @@ namespace HITSW.Models.Mapping
             this.Property(t => t.RelnToPrimaryIndiv_LCID).HasColumnName("RelnToPrimaryIndiv_LCID");
             this.Property(t => t.PrimaryIndivID).HasColumnName("PrimaryIndivID");
             this.Property(t => t.RelatedIndivID).HasColumnName("RelatedIndivID");
-            this.Property(t => t.RelnToPrimaryOrg_LCID).HasColumnName("RelnToPrimaryOrg_LCID");
-            this.Property(t => t.PrimaryOrgID).HasColumnName("PrimaryOrgID");
-            this.Property(t => t.RelatedOrgID).HasColumnName("RelatedOrgID");
+            this.Property(t => t.RelnToPrimaryExtOrg_LCID).HasColumnName("RelnToPrimaryExtOrg_LCID");
+            this.Property(t => t.PrimaryExtOrgID).HasColumnName("PrimaryExtOrgID");
+            this.Property(t => t.RelatedExtOrgID).HasColumnName("RelatedExtOrgID");
+            this.Property(t => t.RelnToExtToIntOrg_LCID).HasColumnName("RelnToExtToIntOrg_LCID");
+            this.Property(t => t.PrimaryExtOrgID1).HasColumnName("PrimaryExtOrgID1");
+            this.Property(t => t.RelatedIntOrgID1).HasColumnName("RelatedIntOrgID1");
             this.Property(t => t.EffDt).HasColumnName("EffDt");
             this.Property(t => t.IneffDt).HasColumnName("IneffDt");
             this.Property(t => t.Cmmt).HasColumnName("Cmmt");
@@ -53,10 +56,16 @@ namespace HITSW.Models.Mapping
             // Relationships
             this.HasOptional(t => t.AddrBk_OrganizationUnit)
                 .WithMany(t => t.AddrBk_Relation)
-                .HasForeignKey(d => d.PrimaryOrgID);
+                .HasForeignKey(d => d.PrimaryExtOrgID);
             this.HasOptional(t => t.AddrBk_OrganizationUnit1)
                 .WithMany(t => t.AddrBk_Relation1)
-                .HasForeignKey(d => d.RelatedOrgID);
+                .HasForeignKey(d => d.PrimaryExtOrgID1);
+            this.HasOptional(t => t.AddrBk_OrganizationUnit2)
+                .WithMany(t => t.AddrBk_Relation2)
+                .HasForeignKey(d => d.RelatedExtOrgID);
+            this.HasOptional(t => t.AddrBk_OrganizationUnit3)
+                .WithMany(t => t.AddrBk_Relation3)
+                .HasForeignKey(d => d.RelatedIntOrgID1);
             this.HasOptional(t => t.AddrBk_Person)
                 .WithMany(t => t.AddrBk_Relation)
                 .HasForeignKey(d => d.PrimaryIndivID);
@@ -66,12 +75,15 @@ namespace HITSW.Models.Mapping
             this.HasRequired(t => t.Lookup_ContactBasis)
                 .WithMany(t => t.AddrBk_Relation)
                 .HasForeignKey(d => d.ContactBasis_LCID);
+            this.HasOptional(t => t.Lookup_AddrBk)
+                .WithMany(t => t.AddrBk_Relation)
+                .HasForeignKey(d => d.RelnToExtToIntOrg_LCID);
+            this.HasOptional(t => t.Lookup_AddrBk1)
+                .WithMany(t => t.AddrBk_Relation1)
+                .HasForeignKey(d => d.RelnToPrimaryExtOrg_LCID);
             this.HasOptional(t => t.Lookup_GenderRelationship)
                 .WithMany(t => t.AddrBk_Relation)
                 .HasForeignKey(d => d.RelnToPrimaryIndiv_LCID);
-            this.HasOptional(t => t.Lookup_AddrBk)
-                .WithMany(t => t.AddrBk_Relation)
-                .HasForeignKey(d => d.RelnToPrimaryOrg_LCID);
 
         }
     }

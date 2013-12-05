@@ -15,11 +15,11 @@ namespace HITSW.Models
             this.AddrBk_IndustryAffliation = new List<AddrBk_IndustryAffliation>();
             this.AddrBk_InterestedProductSrvcs = new List<AddrBk_InterestedProductSrvcs>();
             this.AddrBk_Language = new List<AddrBk_Language>();
+            this.AddrBk_OrganizationUnit = new List<AddrBk_OrganizationUnit>();
             this.AddrBk_PhoneFax = new List<AddrBk_PhoneFax>();
             this.AddrBk_Prospect = new List<AddrBk_Prospect>();
             this.AddrBk_Relation = new List<AddrBk_Relation>();
             this.AddrBk_VirtualAddress = new List<AddrBk_VirtualAddress>();
-            this.Calendar_EventSubscriber = new List<Calendar_EventSubscriber>();
         }
 
         public System.Guid Id { get; set; }
@@ -60,10 +60,10 @@ namespace HITSW.Models
         public ICollection<AddrBk_IndustryAffliation> AddrBk_IndustryAffliation { get; set; }
         public ICollection<AddrBk_InterestedProductSrvcs> AddrBk_InterestedProductSrvcs { get; set; }
         public ICollection<AddrBk_Language> AddrBk_Language { get; set; }
+        public ICollection<AddrBk_OrganizationUnit> AddrBk_OrganizationUnit { get; set; }
         public ICollection<AddrBk_PhoneFax> AddrBk_PhoneFax { get; set; }
         public ICollection<AddrBk_Prospect> AddrBk_Prospect { get; set; }
         public ICollection<AddrBk_Relation> AddrBk_Relation { get; set; }
         public ICollection<AddrBk_VirtualAddress> AddrBk_VirtualAddress { get; set; }
-        public ICollection<Calendar_EventSubscriber> Calendar_EventSubscriber { get; set; }
     }
 }

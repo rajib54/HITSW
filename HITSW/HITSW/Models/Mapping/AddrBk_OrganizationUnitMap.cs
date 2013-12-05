@@ -40,6 +40,7 @@ namespace HITSW.Models.Mapping
             this.ToTable("AddrBk_OrganizationUnit");
             this.Property(t => t.Id).HasColumnName("Id");
             this.Property(t => t.IsProspect).HasColumnName("IsProspect");
+            this.Property(t => t.ContactBasis_LCID).HasColumnName("ContactBasis_LCID");
             this.Property(t => t.OUType_LCID).HasColumnName("OUType_LCID");
             this.Property(t => t.Name).HasColumnName("Name");
             this.Property(t => t.OUDesc).HasColumnName("OUDesc");
@@ -56,6 +57,9 @@ namespace HITSW.Models.Mapping
             this.Property(t => t.Concurrency).HasColumnName("Concurrency");
 
             // Relationships
+            this.HasOptional(t => t.Lookup_ContactBasis)
+                .WithMany(t => t.AddrBk_OrganizationUnit)
+                .HasForeignKey(d => d.ContactBasis_LCID);
             this.HasRequired(t => t.Lookup_ContactType)
                 .WithMany(t => t.AddrBk_OrganizationUnit)
                 .HasForeignKey(d => d.OUType_LCID);

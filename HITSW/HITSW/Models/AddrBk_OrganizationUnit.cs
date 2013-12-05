@@ -24,6 +24,8 @@ namespace HITSW.Models
             this.Calendar_ResourceCalendar = new List<Calendar_ResourceCalendar>();
             this.AddrBk_Relation = new List<AddrBk_Relation>();
             this.AddrBk_Relation1 = new List<AddrBk_Relation>();
+            this.AddrBk_Relation2 = new List<AddrBk_Relation>();
+            this.AddrBk_Relation3 = new List<AddrBk_Relation>();
         }
 
         public System.Guid Id { get; set; }
@@ -31,10 +33,12 @@ namespace HITSW.Models
         [Required]
         public bool IsProspect { get; set; }
 
-        [Required(ErrorMessage="Organiation Type is required")]
+        public Nullable<System.Guid> ContactBasis_LCID { get; set; }
+
+        [Required(ErrorMessage = "Organiation Type is required")]
         public System.Guid OUType_LCID { get; set; }
 
-        [Required(ErrorMessage="Organization name is required")]
+        [Required(ErrorMessage = "Organization name is required")]
         public string Name { get; set; }
 
         public string OUDesc { get; set; }
@@ -72,6 +76,7 @@ namespace HITSW.Models
         public ICollection<AddrBk_InterestedProductSrvcs> AddrBk_InterestedProductSrvcs { get; set; }
         public ICollection<AddrBk_Language> AddrBk_Language { get; set; }
         public ICollection<AddrBk_OrganizationalUnitMember> AddrBk_OrganizationalUnitMember { get; set; }
+        public Lookup_ContactBasis Lookup_ContactBasis { get; set; }
         public ICollection<AddrBk_PhoneFax> AddrBk_PhoneFax { get; set; }
         public ICollection<AddrBk_Prospect> AddrBk_Prospect { get; set; }
         public ICollection<AddrBk_VirtualAddress> AddrBk_VirtualAddress { get; set; }
@@ -80,5 +85,7 @@ namespace HITSW.Models
         public Lookup_ContactType Lookup_ContactType { get; set; }
         public ICollection<AddrBk_Relation> AddrBk_Relation { get; set; }
         public ICollection<AddrBk_Relation> AddrBk_Relation1 { get; set; }
+        public ICollection<AddrBk_Relation> AddrBk_Relation2 { get; set; }
+        public ICollection<AddrBk_Relation> AddrBk_Relation3 { get; set; }
     }
 }

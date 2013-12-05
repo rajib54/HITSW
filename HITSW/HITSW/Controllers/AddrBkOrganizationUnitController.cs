@@ -20,9 +20,10 @@ namespace HITSW.Controllers
         //
         // GET: /AddrBkOrganizationUnit/
 
-        public ActionResult Index(String searchTerm = null, int page = 1)
+        public ActionResult Index(String searchTerm = null, int page = 1, bool isExternalOrganiation = true)
         {
-            var model = db.AddrBk_OrganizationUnit.Include(a => a.Lookup_ContactType).Where(a => a.IsProspect == false && a.ActiveRec == true && (searchTerm == null || a.Name.Contains(searchTerm) || a.Lookup_ContactType.Title.Contains(searchTerm) || a.OUDesc.Contains(searchTerm))).OrderByDescending(a => a.LastUpdatedDt).ToPagedList(page, Utils.pageSize);
+            Guid contactBasisId = Utils.GetOrganizationLookUpBasisId(isExternalOrganiation);
+            var model = db.AddrBk_OrganizationUnit.Include(a => a.Lookup_ContactType).Where(a => a.IsProspect == false && a.Lookup_ContactType.ContactBasis_LCID == contactBasisId && a.ActiveRec == true && (searchTerm == null || a.Name.Contains(searchTerm) || a.Lookup_ContactType.Title.Contains(searchTerm) || a.OUDesc.Contains(searchTerm))).OrderByDescending(a => a.LastUpdatedDt).ToPagedList(page, Utils.pageSize);
             ViewBag.searchTerm = searchTerm;
             ViewBag.resultCount = model.Count;
             ViewBag.MainTitle = Utils.AddressBook + " / " + Utils.AddrBkOrganizationUnit;
@@ -71,6 +72,7 @@ namespace HITSW.Controllers
             try
             {
                 addrbk_organizationunit.Id = Guid.NewGuid();
+                addrbk_organizationunit.ContactBasis_LCID = Utils.GetOrganizationLookUpBasisId(true);
                 addrbk_organizationunit.CreatedDt = addrbk_organizationunit.LastUpdatedDt = DateTime.Now;
                 addrbk_organizationunit.ActiveRec = true;
                 addrbk_organizationunit.IsProspect = false;
@@ -150,7 +152,7 @@ namespace HITSW.Controllers
                     return HttpNotFound();
                 }
 
-                List<AddrBk_Relation> relations = db.AddrBk_Relation.Where(e => e.RelatedOrgID == id).ToList();
+                List<AddrBk_Relation> relations = db.AddrBk_Relation.Where(e => e.RelatedExtOrgID == id || e.PrimaryExtOrgID == id || e.RelatedIntOrgID1 == id).ToList();
                 for (int i = 0; i < relations.Count; i++)
                 {
                     AddrBk_Relation addrbk_relation = relations[i];

@@ -55,10 +55,10 @@
                     <a href="#" class="btn" data-hitsoft-target="#addrbk_organization_details_content" data-hitsoft-url="@Url.Action("Delete", new { id = item.Id, organizationId = ViewBag.organizationId, orgName = ViewBag.orgName, isOrganization = ViewBag.isOrganization })" onclick="confirmDelete(this)"><i class="icon-remove" title="delete"></i></a>
                 </div>
             <td>
-                @Html.DisplayFor(modelItem => item.AddrBk_OrganizationUnit1.Name)
+                @Html.DisplayFor(modelItem => item.AddrBk_OrganizationUnit2.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Lookup_AddrBk.Title)
+                @Html.DisplayFor(modelItem => item.Lookup_AddrBk1.Title)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Cmmt)

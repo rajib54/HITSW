@@ -17,7 +17,7 @@ namespace HITSW.Models.Mapping
 
             this.Property(t => t.CityOrTown)
                 .IsRequired()
-                .HasMaxLength(100);
+                .HasMaxLength(64);
 
             this.Property(t => t.PostalCode)
                 .IsRequired()

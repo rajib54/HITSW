@@ -19,6 +19,7 @@ namespace HITSW.Models.Mapping
                 .HasMaxLength(900);
 
             this.Property(t => t.TblColSel)
+                .IsRequired()
                 .HasMaxLength(50);
 
             this.Property(t => t.Cmmt)

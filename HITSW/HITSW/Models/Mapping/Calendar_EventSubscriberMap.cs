@@ -33,7 +33,7 @@ namespace HITSW.Models.Mapping
             this.ToTable("Calendar_EventSubscriber");
             this.Property(t => t.Id).HasColumnName("Id");
             this.Property(t => t.Evt_id).HasColumnName("Evt_id");
-            this.Property(t => t.ContactBasis_LCID).HasColumnName("ContactBasis_LCID");
+            this.Property(t => t.SubscripBasis_LCID).HasColumnName("SubscripBasis_LCID");
             this.Property(t => t.OrgID).HasColumnName("OrgID");
             this.Property(t => t.IndivID).HasColumnName("IndivID");
             this.Property(t => t.FacilityID).HasColumnName("FacilityID");
@@ -66,15 +66,15 @@ namespace HITSW.Models.Mapping
             this.HasRequired(t => t.Calendar_Events)
                 .WithMany(t => t.Calendar_EventSubscriber)
                 .HasForeignKey(d => d.Evt_id);
-            this.HasRequired(t => t.Lookup_ContactBasis)
-                .WithMany(t => t.Calendar_EventSubscriber)
-                .HasForeignKey(d => d.ContactBasis_LCID);
             this.HasRequired(t => t.Lookup_Calendar)
                 .WithMany(t => t.Calendar_EventSubscriber)
                 .HasForeignKey(d => d.EvtFor_LCID);
             this.HasRequired(t => t.Lookup_Status)
                 .WithMany(t => t.Calendar_EventSubscriber)
                 .HasForeignKey(d => d.SubscriberStatus_LCID);
+            this.HasRequired(t => t.Lookup_Calendar1)
+                .WithMany(t => t.Calendar_EventSubscriber1)
+                .HasForeignKey(d => d.SubscripBasis_LCID);
 
         }
     }

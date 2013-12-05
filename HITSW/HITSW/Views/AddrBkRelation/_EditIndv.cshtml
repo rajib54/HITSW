@@ -33,9 +33,13 @@
     @Html.HiddenFor(model => model.CreatedDt)
     @Html.HiddenFor(model => model.LastUpdatedFrom)
     @Html.HiddenFor(model => model.LastUpdatedBy)
-    @Html.HiddenFor(model => model.PrimaryOrgID)
+    @Html.HiddenFor(model => model.PrimaryExtOrgID)
+    @Html.HiddenFor(model => model.RelatedExtOrgID)
+    @Html.HiddenFor(model => model.RelnToPrimaryExtOrg_LCID)
     @Html.HiddenFor(model => model.PrimaryIndivID)
-    @Html.HiddenFor(model => model.RelatedOrgID)
+    @Html.HiddenFor(model => model.PrimaryExtOrgID1)
+    @Html.HiddenFor(model => model.RelatedIntOrgID1)
+    @Html.HiddenFor(model => model.RelnToExtToIntOrg_LCID)
     @Html.HiddenFor(model => model.ContactBasis_LCID)
 
     <table class="table table-striped">

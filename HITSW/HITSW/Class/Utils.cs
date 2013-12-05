@@ -36,18 +36,29 @@ namespace HITSW.Class
         public static Guid GetLookUpBasisId(bool isOrganization = true)
         {
             HITSWContext db = new HITSWContext();
+            Lookup_ContactBasis basis = new Lookup_ContactBasis();
+
             if (isOrganization)
-            {
-                var basis = db.Lookup_ContactBasis.Where(e => e.Title == "Organization").First();
-                db.Dispose();
-                return basis.Id;
-            }
+                basis = db.Lookup_ContactBasis.Where(e => e.Title == "External Organization").First();
             else
-            {
-                var basis = db.Lookup_ContactBasis.Where(e => e.Title == "Individual").First();
-                db.Dispose();
-                return basis.Id;
-            }
+                basis = db.Lookup_ContactBasis.Where(e => e.Title == "Individual").First();
+                
+            db.Dispose();
+            return basis.Id;
+        }
+
+        public static Guid GetOrganizationLookUpBasisId(bool isExternalOrganization = true)
+        {
+            HITSWContext db = new HITSWContext();
+            Lookup_ContactBasis basis = new Lookup_ContactBasis();
+
+            if (isExternalOrganization)
+                basis = db.Lookup_ContactBasis.Where(e => e.Title == "External Organization").First();
+            else
+                basis = db.Lookup_ContactBasis.Where(e => e.Title == "Internal Organization").First();
+
+            db.Dispose();
+            return basis.Id;
         }
 
         public static String GetMemberTypeFromId(Guid id)

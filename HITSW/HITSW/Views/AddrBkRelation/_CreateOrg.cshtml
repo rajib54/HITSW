@@ -30,16 +30,16 @@
         <tr>
             <td>Organization *</td>
             <td>
-                @Html.DropDownList("RelatedOrgID", String.Empty)
-                @Html.ValidationMessageFor(model => model.RelatedOrgID)
+                @Html.DropDownList("RelatedExtOrgID", String.Empty)
+                @Html.ValidationMessageFor(model => model.RelatedExtOrgID)
             </td>
         </tr>
 
         <tr>
             <td>Relation Type *</td>
             <td>
-                @Html.DropDownList("RelnToPrimaryOrg_LCID", String.Empty)
-                @Html.ValidationMessageFor(model => model.RelnToPrimaryOrg_LCID)
+                @Html.DropDownList("RelnToPrimaryExtOrg_LCID", String.Empty)
+                @Html.ValidationMessageFor(model => model.RelnToPrimaryExtOrg_LCID)
             </td>
         </tr>
 

@@ -50,12 +50,13 @@ namespace HITSW.Controllers
         public ActionResult Create(Guid organizationId, String orgName, bool isOrganization = true)
         {
             var contactType = Utils.GetLookUpBasisId(isOrganization);
+            var contactBasisId = Utils.GetOrganizationLookUpBasisId(true);
 
             ViewBag.isOrganization = Convert.ToString(isOrganization);
             ViewBag.orgName = orgName;
             ViewBag.organizationId = organizationId;
             ViewBag.MainTitle = Utils.AddrBkIdentification + " / " + orgName;
-            ViewBag.IdentificationIssuerID = new SelectList(db.AddrBk_OrganizationUnit.Where(a => a.ActiveRec == true && a.Id != organizationId), "Id", "Name");
+            ViewBag.IdentificationIssuerID = new SelectList(db.AddrBk_OrganizationUnit.Where(a => a.ActiveRec == true && a.Id != organizationId && a.ContactBasis_LCID == contactBasisId), "Id", "Name");
             ViewBag.IdentType_LCID = new SelectList(db.Lookup_IdentificationType.Where(a => a.ActiveRec == true && a.ContactType_LCID == contactType), "Id", "Title");
             ViewBag.VerificationType_LCID = new SelectList(db.Lookup_VerificationType.Where(a => a.ActiveRec == true), "Id", "Title");
             ViewBag.IndentVerifStatus_LCID = new SelectList(db.Lookup_Status.Where(a => a.ActiveRec == true && a.TblColSel == statusFilter), "Id", "Title");
@@ -79,6 +80,9 @@ namespace HITSW.Controllers
             var contactType = Utils.GetLookUpBasisId(isOrganization);
             try
             {
+                if(addrbk_identification.IdentificationIssuerID == Guid.Empty || addrbk_identification.IdentificationIssuerID == null)
+                    throw new Exception();
+
                 addrbk_identification.Id = Guid.NewGuid();
                 addrbk_identification.ContactBasis_LCID = contactType;
                 addrbk_identification.CreatedDt = addrbk_identification.LastUpdatedDt = DateTime.Now;
@@ -99,11 +103,13 @@ namespace HITSW.Controllers
                 ModelState.AddModelError(String.Empty, Utils.errorMsg);
             }
 
+            var contactBasisId = Utils.GetOrganizationLookUpBasisId(true);
+
             ViewBag.isOrganization = Convert.ToString(isOrganization);
             ViewBag.orgName = orgName;
             ViewBag.organizationId = organizationId;
             ViewBag.MainTitle = Utils.AddrBkIdentification + " / " + orgName;
-            ViewBag.IdentificationIssuerID = new SelectList(db.AddrBk_OrganizationUnit.Where(a => a.ActiveRec == true && a.Id != organizationId), "Id", "Name", addrbk_identification.IdentificationIssuerID);
+            ViewBag.IdentificationIssuerID = new SelectList(db.AddrBk_OrganizationUnit.Where(a => a.ActiveRec == true && a.Id != organizationId && a.ContactBasis_LCID == contactBasisId), "Id", "Name", addrbk_identification.IdentificationIssuerID);
             ViewBag.IdentType_LCID = new SelectList(db.Lookup_IdentificationType.Where(a => a.ActiveRec == true && a.ContactType_LCID == contactType), "Id", "Title", addrbk_identification.IdentType_LCID);
             ViewBag.VerificationType_LCID = new SelectList(db.Lookup_VerificationType.Where(a => a.ActiveRec == true), "Id", "Title", addrbk_identification.VerificationType_LCID);
             ViewBag.IndentVerifStatus_LCID = new SelectList(db.Lookup_Status.Where(a => a.ActiveRec == true && a.TblColSel == statusFilter), "Id", "Title", addrbk_identification.IndentVerifStatus_LCID);
@@ -120,6 +126,8 @@ namespace HITSW.Controllers
         public ActionResult Edit(Guid id, Guid organizationId, String orgName, bool isOrganization = true)
         {
             var contactType = Utils.GetLookUpBasisId(isOrganization);
+            var contactBasisId = Utils.GetOrganizationLookUpBasisId(true);
+
             AddrBk_Identification addrbk_identification = db.AddrBk_Identification.Find(id);
             if (addrbk_identification == null)
             {
@@ -130,7 +138,7 @@ namespace HITSW.Controllers
             ViewBag.orgName = orgName;
             ViewBag.organizationId = organizationId;
             ViewBag.MainTitle = Utils.AddrBkIdentification + " / " + orgName;
-            ViewBag.IdentificationIssuerID = new SelectList(db.AddrBk_OrganizationUnit.Where(a => a.ActiveRec == true && a.Id != organizationId), "Id", "Name", addrbk_identification.IdentificationIssuerID);
+            ViewBag.IdentificationIssuerID = new SelectList(db.AddrBk_OrganizationUnit.Where(a => a.ActiveRec == true && a.Id != organizationId && a.ContactBasis_LCID == contactBasisId), "Id", "Name", addrbk_identification.IdentificationIssuerID);
             ViewBag.IdentType_LCID = new SelectList(db.Lookup_IdentificationType.Where(a => a.ActiveRec == true && a.ContactType_LCID == contactType), "Id", "Title", addrbk_identification.IdentType_LCID);
             ViewBag.VerificationType_LCID = new SelectList(db.Lookup_VerificationType.Where(a => a.ActiveRec == true), "Id", "Title", addrbk_identification.VerificationType_LCID);
             ViewBag.IndentVerifStatus_LCID = new SelectList(db.Lookup_Status.Where(a => a.ActiveRec == true && a.TblColSel == statusFilter), "Id", "Title", addrbk_identification.IndentVerifStatus_LCID);
@@ -150,6 +158,9 @@ namespace HITSW.Controllers
         {
             try
             {
+                if (addrbk_identification.IdentificationIssuerID == Guid.Empty || addrbk_identification.IdentificationIssuerID == null)
+                    throw new Exception();
+
                 addrbk_identification.LastUpdatedDt = DateTime.Now;
                 db.Entry(addrbk_identification).State = EntityState.Modified;
                 db.SaveChanges();
@@ -169,12 +180,13 @@ namespace HITSW.Controllers
             }
 
             var contactType = Utils.GetLookUpBasisId(isOrganization);
+            var contactBasisId = Utils.GetOrganizationLookUpBasisId(true);
 
             ViewBag.isOrganization = Convert.ToString(isOrganization);
             ViewBag.orgName = orgName;
             ViewBag.organizationId = organizationId;
             ViewBag.MainTitle = Utils.AddrBkIdentification + " / " + orgName;
-            ViewBag.IdentificationIssuerID = new SelectList(db.AddrBk_OrganizationUnit.Where(a => a.ActiveRec == true && a.Id != organizationId), "Id", "Name", addrbk_identification.IdentificationIssuerID);
+            ViewBag.IdentificationIssuerID = new SelectList(db.AddrBk_OrganizationUnit.Where(a => a.ActiveRec == true && a.Id != organizationId && a.ContactBasis_LCID == contactBasisId), "Id", "Name", addrbk_identification.IdentificationIssuerID);
             ViewBag.IdentType_LCID = new SelectList(db.Lookup_IdentificationType.Where(a => a.ActiveRec == true && a.ContactType_LCID == contactType), "Id", "Title", addrbk_identification.IdentType_LCID);
             ViewBag.VerificationType_LCID = new SelectList(db.Lookup_VerificationType.Where(a => a.ActiveRec == true), "Id", "Title", addrbk_identification.VerificationType_LCID);
             ViewBag.IndentVerifStatus_LCID = new SelectList(db.Lookup_Status.Where(a => a.ActiveRec == true && a.TblColSel == statusFilter), "Id", "Title", addrbk_identification.IndentVerifStatus_LCID);
