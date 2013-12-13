@@ -20,9 +20,9 @@ namespace HITSW.Controllers
         //
         // GET: /AddrBkOrganizationUnit/
 
-        public ActionResult Index(String searchTerm = null, int page = 1, bool isExternalOrganiation = true)
+        public ActionResult Index(String searchTerm = null, int page = 1)
         {
-            Guid contactBasisId = Utils.GetOrganizationLookUpBasisId(isExternalOrganiation);
+            Guid contactBasisId = Utils.GetOrganizationLookUpBasisId(true);
             var model = db.AddrBk_OrganizationUnit.Include(a => a.Lookup_ContactType).Where(a => a.IsProspect == false && a.Lookup_ContactType.ContactBasis_LCID == contactBasisId && a.ActiveRec == true && (searchTerm == null || a.Name.Contains(searchTerm) || a.Lookup_ContactType.Title.Contains(searchTerm) || a.OUDesc.Contains(searchTerm))).OrderByDescending(a => a.LastUpdatedDt).ToPagedList(page, Utils.pageSize);
             ViewBag.searchTerm = searchTerm;
             ViewBag.resultCount = model.Count;
@@ -54,8 +54,9 @@ namespace HITSW.Controllers
 
         public ActionResult Create()
         {
+            Guid contactBasisId = Utils.GetOrganizationLookUpBasisId(true);
             ViewBag.MainTitle = Utils.AddressBook + " / " + Utils.AddrBkOrganizationUnit;
-            ViewBag.OUType_LCID = new SelectList(db.Lookup_ContactType.Where(e => e.ActiveRec == true && e.TblColSel == filter), "Id", "Title");
+            ViewBag.OUType_LCID = new SelectList(db.Lookup_ContactType.Where(e => e.ActiveRec == true && e.TblColSel == filter && e.ContactBasis_LCID == contactBasisId), "Id", "Title");
 
             var addrbk_organizationunit = new AddrBk_OrganizationUnit();
             addrbk_organizationunit.EffDt = DateTime.Now;
@@ -86,8 +87,9 @@ namespace HITSW.Controllers
 
             }
 
+            Guid contactBasisId = Utils.GetOrganizationLookUpBasisId(true);
             ViewBag.MainTitle = Utils.AddressBook + " / " + Utils.AddrBkOrganizationUnit;
-            ViewBag.OUType_LCID = new SelectList(db.Lookup_ContactType.Where(e => e.ActiveRec == true && e.TblColSel == filter), "Id", "Title", addrbk_organizationunit.OUType_LCID);
+            ViewBag.OUType_LCID = new SelectList(db.Lookup_ContactType.Where(e => e.ActiveRec == true && e.TblColSel == filter && e.ContactBasis_LCID == contactBasisId), "Id", "Title", addrbk_organizationunit.OUType_LCID);
             return View(addrbk_organizationunit);
         }
 
@@ -101,8 +103,9 @@ namespace HITSW.Controllers
             {
                 return HttpNotFound();
             }
+            Guid contactBasisId = Utils.GetOrganizationLookUpBasisId(true);
             ViewBag.MainTitle = Utils.AddressBook + " / " + Utils.AddrBkOrganizationUnit + " / " + addrbk_organizationunit.Name;
-            ViewBag.OUType_LCID = new SelectList(db.Lookup_ContactType.Where(e => e.ActiveRec == true && e.TblColSel == filter), "Id", "Title", addrbk_organizationunit.OUType_LCID);
+            ViewBag.OUType_LCID = new SelectList(db.Lookup_ContactType.Where(e => e.ActiveRec == true && e.TblColSel == filter && e.ContactBasis_LCID == contactBasisId), "Id", "Title", addrbk_organizationunit.OUType_LCID);
             return View(addrbk_organizationunit);
         }
 
@@ -134,8 +137,9 @@ namespace HITSW.Controllers
 
             }
 
+            Guid contactBasisId = Utils.GetOrganizationLookUpBasisId(true);
             ViewBag.MainTitle = Utils.AddressBook + " / " + Utils.AddrBkOrganizationUnit + " / " + addrbk_organizationunit.Name;
-            ViewBag.OUType_LCID = new SelectList(db.Lookup_ContactType.Where(e => e.ActiveRec == true && e.TblColSel == filter), "Id", "Title", addrbk_organizationunit.OUType_LCID);
+            ViewBag.OUType_LCID = new SelectList(db.Lookup_ContactType.Where(e => e.ActiveRec == true && e.TblColSel == filter && e.ContactBasis_LCID == contactBasisId), "Id", "Title", addrbk_organizationunit.OUType_LCID);
             return View(addrbk_organizationunit);
         }
 

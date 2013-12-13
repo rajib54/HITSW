@@ -13,7 +13,7 @@
 <h2>@ViewBag.MainTitle</h2>
 
 <div style="text-align:right">
-    <a class="btn btn-info" href="#" onclick="fillMenu('@Url.Action("Create", new { isOrganization = ViewBag.isOrganization, orgName = ViewBag.orgName, organizationId = ViewBag.organizationId })','#addrbk_organization_details_content')">New</a>
+    <a class="btn btn-info" href="#" onclick="fillMenu('@Url.Action("CreateDept", new { orgName = ViewBag.orgName, organizationId = ViewBag.organizationId })','#addrbk_organization_details_content')">New</a>
 </div>
 <br />
 
@@ -27,7 +27,7 @@
     {
         <div class="alert alert-info">@ViewBag.resultCount records found</div>
     }
-    <form id="addrbk_relation_searchForm" method="GET" data-hitsoft-target="#addrbk_organization_details_content" action="@Url.Action("Index", new { isOrganization = ViewBag.isOrganization, orgName = ViewBag.orgName, organizationId = ViewBag.organizationId })" class="form-search">
+    <form id="addrbk_relation_searchForm" method="GET" data-hitsoft-target="#addrbk_organization_details_content" action="@Url.Action("IndexDept", new { orgName = ViewBag.orgName, organizationId = ViewBag.organizationId })" class="form-search">
         <input type="text" name="searchTerm" class="input-medium search-query" value="@ViewBag.searchTerm" placeholder="Enter search term"/>
         <input type="submit" value="Search" class="btn"/>
     </form>
@@ -36,7 +36,10 @@
     <tr>
         <th></th>
         <th>
-            Person
+            Department
+        </th>
+        <th>
+            Organization Type
         </th>
         <th>
             Relation Type
@@ -52,13 +55,16 @@
             <td>
                 <div class="btn-group">
                     <a href="#" class="btn"><i class="icon-edit" title="edit" onclick="fillMenu('@Url.Action("Edit", new { id = item.Id, organizationId = ViewBag.organizationId, orgName = ViewBag.orgName, isOrganization = ViewBag.isOrganization })','#addrbk_organization_details_content')"></i></a>
-                    <a href="#" class="btn" data-hitsoft-target="#addrbk_organization_details_content" data-hitsoft-url="@Url.Action("Delete", new { id = item.Id, organizationId = ViewBag.organizationId, orgName = ViewBag.orgName, isOrganization = ViewBag.isOrganization,isDepartment = false })" onclick="confirmDelete(this)"><i class="icon-remove" title="delete"></i></a>
+                    <a href="#" class="btn" data-hitsoft-target="#addrbk_organization_details_content" data-hitsoft-url="@Url.Action("Delete", new { id = item.Id, organizationId = ViewBag.organizationId, orgName = ViewBag.orgName, isOrganization = ViewBag.isOrganization, isDepartment = true })" onclick="confirmDelete(this)"><i class="icon-remove" title="delete"></i></a>
                 </div>
             <td>
-                @Html.DisplayFor(modelItem => item.AddrBk_Person1.FName)
+                @Html.DisplayFor(modelItem => item.AddrBk_OrganizationUnit3.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Lookup_GenderRelationship.Title)
+                @Html.DisplayFor(modelItem => item.AddrBk_OrganizationUnit3.Lookup_ContactType.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lookup_AddrBk.Title)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Cmmt)
@@ -69,7 +75,7 @@
     </table>
 
     <div class="pagedList" data-hitsoft-target="#addrbk_organization_details_content" id="childPagingList">
-            @Html.PagedListPager(Model, page => @Url.Action("Index", new { page, organizationId = ViewBag.organizationId, orgName = ViewBag.orgName, isOrganization = ViewBag.isOrganization }))
+            @Html.PagedListPager(Model, page => @Url.Action("IndexDept", new { page, organizationId = ViewBag.organizationId, orgName = ViewBag.orgName}))
     </div>
 }
 else

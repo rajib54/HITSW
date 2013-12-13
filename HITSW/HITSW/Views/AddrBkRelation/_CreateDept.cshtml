@@ -1,0 +1,82 @@
+﻿@model AddrBk_Department
+
+<h2>@ViewBag.MainTitle</h2>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#addrbk_relation_create_effdt').datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+
+        $('#addrbk_relation_create_ineffdt').datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+
+        $('#addrbk_relation_create_form').submit(ajaxFormSubmit);
+    });
+</script>
+
+
+@using (Html.BeginForm("CreateDept", "AddrBkRelation", FormMethod.Post, new { id = "addrbk_relation_create_form", data_hitsoft_target = "#addrbk_organization_details_content" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <input type="hidden" name="orgName" value="@ViewBag.orgName" />
+    <input type="hidden" name="organizationId" value="@ViewBag.organizationId" />
+
+    <table class="table table-striped">
+        <tr>
+            <td>Department *</td>
+            <td>
+                @Html.TextBoxFor(model => model.Addrbk_OrganizationUnit.Name)
+                @Html.ValidationMessageFor(model => model.Addrbk_OrganizationUnit.Name)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Organization Type *</td>
+            <td>
+                @Html.DropDownListFor(model => model.Addrbk_OrganizationUnit.OUType_LCID, new SelectList(Model.Lookup_ContactTypes,"Id","Title",Model.Addrbk_OrganizationUnit.OUType_LCID),String.Empty)
+                @Html.ValidationMessageFor(model => model.Addrbk_OrganizationUnit.OUType_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Relation Type *</td>
+            <td>
+                @Html.DropDownListFor(model => model.Addrbk_Relation.RelnToExtToIntOrg_LCID, new SelectList(Model.Lookup_AddrBks,"Id","Title",Model.Addrbk_Relation.RelatedIntOrgID1),String.Empty)
+                @Html.ValidationMessageFor(model => model.Addrbk_Relation.RelnToExtToIntOrg_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Effective Date *</td>
+            <td>
+                @Html.TextBoxFor(model => model.Addrbk_Relation.EffDt, new { id = "addrbk_relation_create_effdt" })
+                @Html.ValidationMessageFor(model => model.Addrbk_Relation.EffDt)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Ineffective Date</td>
+            <td>
+                @Html.TextBoxFor(model => model.Addrbk_Relation.IneffDt, new { id = "addrbk_relation_create_ineffdt" })
+                @Html.ValidationMessageFor(model => model.Addrbk_Relation.IneffDt)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Comments</td>
+            <td>
+                @Html.EditorFor(model => model.Addrbk_Relation.Cmmt)
+                @Html.ValidationMessageFor(model => model.Addrbk_Relation.Cmmt)
+            </td>
+        </tr>
+
+        <tr>
+            <td style="text-align:right"><a class="btn btn-info" href="#" onclick="fillMenu('@Url.Action("IndexDept", "AddrBkRelation", new { orgName = ViewBag.orgName, organizationId = ViewBag.organizationId })','#addrbk_organization_details_content')">Cancel</a></td>
+            <td style="text-align:left"><input type="submit" value="Create" class="btn btn-success"/></td>
+        </tr>
+    </table>
+}

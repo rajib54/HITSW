@@ -213,6 +213,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\AddrBk_Department.cs" />
     <Compile Include="Models\AddrBk_Address.cs" />
     <Compile Include="Models\AddrBk_ContactAddr.cs" />
     <Compile Include="Models\AddrBk_ContactAddress.cs" />
@@ -540,6 +541,8 @@
     <Content Include="Views\AddrBkGeographicalGroupMember\_CreateStreet.cshtml" />
     <Content Include="Views\AddrBkGeographicalGroupMember\_MembersStreet.cshtml" />
     <Content Include="Views\AddrBkGeographicalGroupMember\_EditStreet.cshtml" />
+    <Content Include="Views\AddrBkRelation\_IndexDept.cshtml" />
+    <Content Include="Views\AddrBkRelation\_CreateDept.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

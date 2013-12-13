@@ -14,6 +14,7 @@
                     <li><a class="btn btn-link" href="#" onclick="fillMenu('@Url.Action("Index", "AddrBkRelation", new { organizationId=Model.Id,isOrganization=true,orgName=Model.Name})','#addrbk_organization_details_content')">Relation</a></li>
                     <li><a class="btn btn-link" href="#" onclick="fillMenu('@Url.Action("Index", "AddrBkPhoneFax", new { organizationId=Model.Id,isOrganization=true,orgName=Model.Name})','#addrbk_organization_details_content')">Phone & Fax</a></li>
                     <li><a class="btn btn-link" href="#" onclick="fillMenu('@Url.Action("Index", "AddrBkVirtualAddress", new { organizationId=Model.Id,isOrganization=true,orgName=Model.Name})','#addrbk_organization_details_content')">Virtual Address</a></li>
+                    <li><a class="btn btn-link" href="#" onclick="fillMenu('@Url.Action("IndexDept", "AddrBkRelation", new { organizationId=Model.Id,orgName=Model.Name})','#addrbk_organization_details_content')">Department</a></li>
                 </ul>
             </div>
         </div>

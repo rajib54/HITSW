@@ -17,6 +17,8 @@ namespace HITSW.Controllers
         private HITSWContext db = new HITSWContext();
         private String indivFilter = "AddrBk_Relation.RelnToPrimaryIndiv_LCID";
         private String orgFilter = "AddrBk_Relation.RelnToPrimaryExtOrg_LCID";
+        private String deptFilter = "AddrBk_Relation.RelnToExtToIntOrg_LCID";
+        private String contactTypeFilter = "AddrBk_OrganizationUnit.OUType_LCID";
         private IPagedList<AddrBk_Relation> model;
 
         //
@@ -31,7 +33,7 @@ namespace HITSW.Controllers
             ViewBag.MainTitle = Utils.AddrBkRelation + " / " + orgName;
 
             if(isOrganization)
-                model = db.AddrBk_Relation.Include(a => a.AddrBk_OrganizationUnit2).Include(a => a.Lookup_AddrBk1).Where(a => a.PrimaryExtOrgID == organizationId && a.ActiveRec == true && (searchTerm == null || a.Lookup_AddrBk.Title.Contains(searchTerm) || a.AddrBk_OrganizationUnit1.Name.Contains(searchTerm))).OrderByDescending(a => a.LastUpdatedDt).ToPagedList(page, Utils.pageSize);
+                model = db.AddrBk_Relation.Include(a => a.AddrBk_OrganizationUnit2).Include(a => a.Lookup_AddrBk1).Where(a => a.PrimaryExtOrgID == organizationId && a.ActiveRec == true && (searchTerm == null || a.Lookup_AddrBk.Title.Contains(searchTerm) || a.AddrBk_OrganizationUnit2.Name.Contains(searchTerm))).OrderByDescending(a => a.LastUpdatedDt).ToPagedList(page, Utils.pageSize);
             else
                 model = db.AddrBk_Relation.Include(a => a.AddrBk_Person1).Include(a => a.Lookup_GenderRelationship).Where(a => a.PrimaryIndivID == organizationId && a.ActiveRec == true && (searchTerm == null || a.Lookup_GenderRelationship.Title.Contains(searchTerm) || a.AddrBk_Person1.FName.Contains(searchTerm) || a.AddrBk_Person1.LName.Contains(searchTerm))).OrderByDescending(a => a.LastUpdatedDt).ToPagedList(page, Utils.pageSize);
 
@@ -213,7 +215,7 @@ namespace HITSW.Controllers
         //
         // GET: /AddrBkRelation/Delete/5
 
-        public ActionResult Delete(Guid id, Guid organizationId, String orgName, bool isOrganization = true)
+        public ActionResult Delete(Guid id, Guid organizationId, String orgName, bool isOrganization = true, bool isDepartment = false)
         {
             AddrBk_Relation addrbk_relation = db.AddrBk_Relation.Find(id);
             if (addrbk_relation == null)
@@ -223,8 +225,102 @@ namespace HITSW.Controllers
             db.AddrBk_Relation.Remove(addrbk_relation);
             db.SaveChanges();
 
-            return RedirectToAction("Index", new { organizationId = organizationId, orgName = orgName, isOrganization = isOrganization });
+            if(isDepartment) return RedirectToAction("IndexDept", new { organizationId = organizationId, orgName = orgName });
+            else return RedirectToAction("Index", new { organizationId = organizationId, orgName = orgName, isOrganization = isOrganization });
         }
+
+        public ActionResult IndexDept(Guid organizationId, String orgName, String searchTerm = null, int page = 1)
+        {
+            ViewBag.orgName = orgName;
+            ViewBag.organizationId = organizationId;
+            ViewBag.searchTerm = searchTerm;
+            ViewBag.MainTitle = Utils.AddrbkDepartment + " / " + orgName;
+
+            model = db.AddrBk_Relation.Include(a => a.AddrBk_OrganizationUnit3.Lookup_ContactType).Include(a => a.Lookup_AddrBk).Where(a => a.PrimaryExtOrgID1 == organizationId && a.ActiveRec == true && (searchTerm == null || a.Lookup_AddrBk.Title.Contains(searchTerm) || a.AddrBk_OrganizationUnit3.Name.Contains(searchTerm))).OrderByDescending(a => a.LastUpdatedDt).ToPagedList(page, Utils.pageSize);
+
+            ViewBag.resultCount = model.Count;
+            if (ViewBag.resultCount == 0)
+                ViewBag.NoRecordFoundMsg = Utils.norecordfoundMsg;
+
+            return PartialView("_IndexDept", model);
+        }
+
+        // GET: /AddrBkRelation/CreateDept
+
+        public ActionResult CreateDept(Guid organizationId, String orgName, bool isOrganization = true)
+        {
+            var contactBasisId = Utils.GetOrganizationLookUpBasisId(false);
+
+            ViewBag.orgName = orgName;
+            ViewBag.organizationId = organizationId;
+            ViewBag.MainTitle = Utils.AddrbkDepartment + " / " + orgName;
+
+            AddrBk_Relation addrbk_relation = new AddrBk_Relation();
+            addrbk_relation.EffDt = DateTime.Now;
+
+            AddrBk_Department addrbk_department = new AddrBk_Department();
+            AddrBk_OrganizationUnit addrbk_organizationunit = new AddrBk_OrganizationUnit();
+
+            addrbk_department.Addrbk_OrganizationUnit = addrbk_organizationunit;
+            addrbk_department.Addrbk_Relation = addrbk_relation;
+            addrbk_department.Lookup_AddrBks = db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == deptFilter).ToList();
+            addrbk_department.Lookup_ContactTypes = db.Lookup_ContactType.Where(a => a.ActiveRec == true && a.TblColSel == contactTypeFilter && a.ContactBasis_LCID == contactBasisId).ToList();
+
+
+           return PartialView("_CreateDept", addrbk_department);
+        }
+
+        //
+        // POST: /AddrBkRelation/CreateDept
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateDept(AddrBk_Department addrbk_department, Guid organizationId, String orgName)
+        {
+            var contactBasisId = Utils.GetOrganizationLookUpBasisId(false);
+
+            try
+            {
+                if (addrbk_department.Addrbk_Relation.RelnToExtToIntOrg_LCID == null || addrbk_department.Addrbk_Relation.RelnToExtToIntOrg_LCID == Guid.Empty)
+                    throw new Exception();
+
+                addrbk_department.Addrbk_OrganizationUnit.EffDt = addrbk_department.Addrbk_OrganizationUnit.LastUpdatedDt = addrbk_department.Addrbk_OrganizationUnit.CreatedDt = DateTime.Now;
+                addrbk_department.Addrbk_OrganizationUnit.Id = Guid.NewGuid();
+                addrbk_department.Addrbk_OrganizationUnit.ActiveRec = true;
+                addrbk_department.Addrbk_OrganizationUnit.ContactBasis_LCID = contactBasisId;
+                addrbk_department.Addrbk_OrganizationUnit.IsProspect = false;
+                
+                db.AddrBk_OrganizationUnit.Add(addrbk_department.Addrbk_OrganizationUnit);
+                db.SaveChanges();
+                
+                addrbk_department.Addrbk_Relation.Id = Guid.NewGuid();
+                addrbk_department.Addrbk_Relation.ContactBasis_LCID = contactBasisId;
+                addrbk_department.Addrbk_Relation.CreatedDt = addrbk_department.Addrbk_Relation.LastUpdatedDt = DateTime.Now;
+                addrbk_department.Addrbk_Relation.ActiveRec = true;
+                addrbk_department.Addrbk_Relation.PrimaryExtOrgID1 = organizationId;
+                addrbk_department.Addrbk_Relation.RelatedIntOrgID1 = addrbk_department.Addrbk_OrganizationUnit.Id;
+
+                db.AddrBk_Relation.Add(addrbk_department.Addrbk_Relation);
+                db.SaveChanges();
+
+                return RedirectToAction("IndexDept", new { organizationId = organizationId, orgName = orgName });
+            }
+            catch
+            {
+                ModelState.AddModelError(String.Empty, Utils.errorMsg);
+            }
+
+            ViewBag.orgName = orgName;
+            ViewBag.organizationId = organizationId;
+            ViewBag.MainTitle = Utils.AddrbkDepartment + " / " + orgName;
+
+            addrbk_department.Lookup_AddrBks = db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == deptFilter).ToList();
+            addrbk_department.Lookup_ContactTypes = db.Lookup_ContactType.Where(a => a.ActiveRec == true && a.TblColSel == contactTypeFilter && a.ContactBasis_LCID == contactBasisId).ToList();
+
+
+            return PartialView("_CreateDept", addrbk_department);
+        }
+        
 
         protected override void Dispose(bool disposing)
         {

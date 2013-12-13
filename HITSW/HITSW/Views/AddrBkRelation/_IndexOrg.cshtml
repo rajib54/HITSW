@@ -52,7 +52,7 @@
             <td>
                 <div class="btn-group">
                     <a href="#" class="btn"><i class="icon-edit" title="edit" onclick="fillMenu('@Url.Action("Edit", new { id = item.Id, organizationId = ViewBag.organizationId, orgName = ViewBag.orgName, isOrganization = ViewBag.isOrganization })','#addrbk_organization_details_content')"></i></a>
-                    <a href="#" class="btn" data-hitsoft-target="#addrbk_organization_details_content" data-hitsoft-url="@Url.Action("Delete", new { id = item.Id, organizationId = ViewBag.organizationId, orgName = ViewBag.orgName, isOrganization = ViewBag.isOrganization })" onclick="confirmDelete(this)"><i class="icon-remove" title="delete"></i></a>
+                    <a href="#" class="btn" data-hitsoft-target="#addrbk_organization_details_content" data-hitsoft-url="@Url.Action("Delete", new { id = item.Id, organizationId = ViewBag.organizationId, orgName = ViewBag.orgName, isOrganization = ViewBag.isOrganization, isDepartment = false })" onclick="confirmDelete(this)"><i class="icon-remove" title="delete"></i></a>
                 </div>
             <td>
                 @Html.DisplayFor(modelItem => item.AddrBk_OrganizationUnit2.Name)
