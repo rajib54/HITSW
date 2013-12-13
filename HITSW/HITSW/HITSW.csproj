@@ -543,6 +543,7 @@
     <Content Include="Views\AddrBkGeographicalGroupMember\_EditStreet.cshtml" />
     <Content Include="Views\AddrBkRelation\_IndexDept.cshtml" />
     <Content Include="Views\AddrBkRelation\_CreateDept.cshtml" />
+    <Content Include="Views\AddrBkRelation\_EditDept.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

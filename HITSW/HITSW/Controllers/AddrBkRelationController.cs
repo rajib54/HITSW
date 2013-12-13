@@ -247,7 +247,7 @@ namespace HITSW.Controllers
 
         // GET: /AddrBkRelation/CreateDept
 
-        public ActionResult CreateDept(Guid organizationId, String orgName, bool isOrganization = true)
+        public ActionResult CreateDept(Guid organizationId, String orgName)
         {
             var contactBasisId = Utils.GetOrganizationLookUpBasisId(false);
 
@@ -319,6 +319,81 @@ namespace HITSW.Controllers
 
 
             return PartialView("_CreateDept", addrbk_department);
+        }
+
+        // GET: /AddrBkRelation/EditDept
+
+        public ActionResult EditDept(Guid id, Guid organizationId, String orgName)
+        {
+            var contactBasisId = Utils.GetOrganizationLookUpBasisId(false);
+
+            ViewBag.orgName = orgName;
+            ViewBag.organizationId = organizationId;
+            ViewBag.MainTitle = Utils.AddrbkDepartment + " / " + orgName;
+
+            AddrBk_Relation addrbk_relation = db.AddrBk_Relation.Find(id);
+            AddrBk_OrganizationUnit addrbk_organizationunit = db.AddrBk_OrganizationUnit.Find(addrbk_relation.RelatedIntOrgID1);
+            AddrBk_Department addrbk_department = new AddrBk_Department();
+            
+
+            addrbk_department.Addrbk_OrganizationUnit = addrbk_organizationunit;
+            addrbk_department.Addrbk_Relation = addrbk_relation;
+            addrbk_department.Lookup_AddrBks = db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == deptFilter).ToList();
+            addrbk_department.Lookup_ContactTypes = db.Lookup_ContactType.Where(a => a.ActiveRec == true && a.TblColSel == contactTypeFilter && a.ContactBasis_LCID == contactBasisId).ToList();
+
+
+            return PartialView("_EditDept", addrbk_department);
+        }
+
+        //
+        // POST: /AddrBkRelation/EditDept
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditDept(AddrBk_Department addrbk_department, Guid organizationId, String orgName)
+        {
+            var contactBasisId = Utils.GetOrganizationLookUpBasisId(false);
+
+            try
+            {
+                if (addrbk_department.Addrbk_Relation.RelnToExtToIntOrg_LCID == null || addrbk_department.Addrbk_Relation.RelnToExtToIntOrg_LCID == Guid.Empty)
+                    throw new Exception();
+
+                AddrBk_OrganizationUnit addrbk_organization_unit = addrbk_department.Addrbk_OrganizationUnit;
+                AddrBk_Relation addrbk_relation = addrbk_department.Addrbk_Relation;
+                
+                addrbk_organization_unit.LastUpdatedDt = addrbk_relation.LastUpdatedDt = DateTime.Now;
+                
+                db.Entry(addrbk_organization_unit).State = EntityState.Modified;
+                db.SaveChanges();
+
+                db.Entry(addrbk_relation).State = EntityState.Modified;
+                db.SaveChanges();
+
+                return RedirectToAction("IndexDept", new { organizationId = organizationId, orgName = orgName });
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                var entry = ex.Entries.Single();
+                var databaseValues = (AddrBk_Department)entry.GetDatabaseValues().ToObject();
+                ModelState.AddModelError(string.Empty, Utils.concurrencyMsg);
+                addrbk_department.Addrbk_OrganizationUnit.Concurrency = databaseValues.Addrbk_OrganizationUnit.Concurrency;
+                addrbk_department.Addrbk_Relation.Concurrency = databaseValues.Addrbk_Relation.Concurrency;
+            }
+            catch
+            {
+                ModelState.AddModelError(String.Empty, Utils.errorMsg);
+            }
+
+            ViewBag.orgName = orgName;
+            ViewBag.organizationId = organizationId;
+            ViewBag.MainTitle = Utils.AddrbkDepartment + " / " + orgName;
+
+            addrbk_department.Lookup_AddrBks = db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == deptFilter).ToList();
+            addrbk_department.Lookup_ContactTypes = db.Lookup_ContactType.Where(a => a.ActiveRec == true && a.TblColSel == contactTypeFilter && a.ContactBasis_LCID == contactBasisId).ToList();
+
+
+            return PartialView("_EditDept", addrbk_department);
         }
         
 

@@ -1,0 +1,114 @@
+﻿@model AddrBk_Department
+
+<h2>@ViewBag.MainTitle</h2>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#addrbk_relation_create_effdt').datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+
+        $('#addrbk_relation_create_ineffdt').datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+
+        $('#addrbk_relation_create_form').submit(ajaxFormSubmit);
+    });
+</script>
+
+
+@using (Html.BeginForm("EditDept", "AddrBkRelation", FormMethod.Post, new { id = "addrbk_relation_create_form", data_hitsoft_target = "#addrbk_organization_details_content" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <input type="hidden" name="orgName" value="@ViewBag.orgName" />
+    <input type="hidden" name="organizationId" value="@ViewBag.organizationId" />
+    
+    @Html.HiddenFor(model => model.Addrbk_OrganizationUnit.Id)
+    @Html.HiddenFor(model => model.Addrbk_OrganizationUnit.Concurrency)
+    @Html.HiddenFor(model => model.Addrbk_OrganizationUnit.ActiveRec)
+    @Html.HiddenFor(model => model.Addrbk_OrganizationUnit.CreatedBy)
+    @Html.HiddenFor(model => model.Addrbk_OrganizationUnit.CreatedDt)
+    @Html.HiddenFor(model => model.Addrbk_OrganizationUnit.LastUpdatedFrom)
+    @Html.HiddenFor(model => model.Addrbk_OrganizationUnit.IsProspect)
+    @Html.HiddenFor(model => model.Addrbk_OrganizationUnit.LastUpdatedBy)
+    @Html.HiddenFor(model => model.Addrbk_OrganizationUnit.ContactBasis_LCID)
+    @Html.HiddenFor(model => model.Addrbk_OrganizationUnit.OUDesc)
+    @Html.HiddenFor(model => model.Addrbk_OrganizationUnit.EffDt)
+    @Html.HiddenFor(model => model.Addrbk_OrganizationUnit.IneffDt)
+    @Html.HiddenFor(model => model.Addrbk_OrganizationUnit.OperatingSince)
+    @Html.HiddenFor(model => model.Addrbk_OrganizationUnit.Cmmt)
+
+    @Html.HiddenFor(model => model.Addrbk_Relation.Id)
+    @Html.HiddenFor(model => model.Addrbk_Relation.Concurrency)
+    @Html.HiddenFor(model => model.Addrbk_Relation.ActiveRec)
+    @Html.HiddenFor(model => model.Addrbk_Relation.CreatedBy)
+    @Html.HiddenFor(model => model.Addrbk_Relation.CreatedDt)
+    @Html.HiddenFor(model => model.Addrbk_Relation.LastUpdatedFrom)
+    @Html.HiddenFor(model => model.Addrbk_Relation.LastUpdatedBy)
+    @Html.HiddenFor(model => model.Addrbk_Relation.PrimaryExtOrgID)
+    @Html.HiddenFor(model => model.Addrbk_Relation.PrimaryIndivID)
+    @Html.HiddenFor(model => model.Addrbk_Relation.RelatedIndivID)
+    @Html.HiddenFor(model => model.Addrbk_Relation.RelnToPrimaryIndiv_LCID)
+    @Html.HiddenFor(model => model.Addrbk_Relation.ContactBasis_LCID)
+    @Html.HiddenFor(model => model.Addrbk_Relation.PrimaryExtOrgID1)
+    @Html.HiddenFor(model => model.Addrbk_Relation.RelatedIntOrgID1)
+    @Html.HiddenFor(model => model.Addrbk_Relation.RelnToPrimaryExtOrg_LCID)
+    @Html.HiddenFor(model => model.Addrbk_Relation.RelatedExtOrgID)
+
+    <table class="table table-striped">
+        <tr>
+            <td>Department *</td>
+            <td>
+                @Html.TextBoxFor(model => model.Addrbk_OrganizationUnit.Name)
+                @Html.ValidationMessageFor(model => model.Addrbk_OrganizationUnit.Name)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Organization Type *</td>
+            <td>
+                @Html.DropDownListFor(model => model.Addrbk_OrganizationUnit.OUType_LCID, new SelectList(Model.Lookup_ContactTypes, "Id", "Title", Model.Addrbk_OrganizationUnit.OUType_LCID), String.Empty)
+                @Html.ValidationMessageFor(model => model.Addrbk_OrganizationUnit.OUType_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Relation Type *</td>
+            <td>
+                @Html.DropDownListFor(model => model.Addrbk_Relation.RelnToExtToIntOrg_LCID, new SelectList(Model.Lookup_AddrBks, "Id", "Title", Model.Addrbk_Relation.RelatedIntOrgID1), String.Empty)
+                @Html.ValidationMessageFor(model => model.Addrbk_Relation.RelnToExtToIntOrg_LCID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Effective Date *</td>
+            <td>
+                @Html.TextBoxFor(model => model.Addrbk_Relation.EffDt, new { id = "addrbk_relation_create_effdt" })
+                @Html.ValidationMessageFor(model => model.Addrbk_Relation.EffDt)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Ineffective Date</td>
+            <td>
+                @Html.TextBoxFor(model => model.Addrbk_Relation.IneffDt, new { id = "addrbk_relation_create_ineffdt" })
+                @Html.ValidationMessageFor(model => model.Addrbk_Relation.IneffDt)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Comments</td>
+            <td>
+                @Html.EditorFor(model => model.Addrbk_Relation.Cmmt)
+                @Html.ValidationMessageFor(model => model.Addrbk_Relation.Cmmt)
+            </td>
+        </tr>
+
+        <tr>
+            <td style="text-align:right"><a class="btn btn-info" href="#" onclick="fillMenu('@Url.Action("IndexDept", "AddrBkRelation", new { orgName = ViewBag.orgName, organizationId = ViewBag.organizationId })','#addrbk_organization_details_content')">Cancel</a></td>
+            <td style="text-align:left"><input type="submit" value="Update" class="btn btn-success"/></td>
+        </tr>
+    </table>
+}
