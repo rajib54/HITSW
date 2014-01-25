@@ -93,7 +93,10 @@ namespace HITSW.Controllers
                 }
 
                 addrbk_relation.Id = Guid.NewGuid();
-                addrbk_relation.ContactBasis_LCID = Utils.GetLookUpBasisId(isOrganization);
+                if (isOrganization)
+                    addrbk_relation.ContactBasis_LCID = Utils.GetOrganizationContactBasisId(organizationId);
+                else
+                    addrbk_relation.ContactBasis_LCID = Utils.GetLookUpBasisId(false);
                 addrbk_relation.CreatedDt = addrbk_relation.LastUpdatedDt = DateTime.Now;
                 addrbk_relation.ActiveRec = true;
 
@@ -218,6 +221,7 @@ namespace HITSW.Controllers
         public ActionResult Delete(Guid id, Guid organizationId, String orgName, bool isOrganization = true, bool isDepartment = false)
         {
             AddrBk_Relation addrbk_relation = db.AddrBk_Relation.Find(id);
+            AddrBk_OrganizationUnit addrbk_organization = db.AddrBk_OrganizationUnit.Find(addrbk_relation.RelatedIntOrgID1);
             if (addrbk_relation == null)
             {
                 return HttpNotFound();
@@ -225,7 +229,12 @@ namespace HITSW.Controllers
             db.AddrBk_Relation.Remove(addrbk_relation);
             db.SaveChanges();
 
-            if(isDepartment) return RedirectToAction("IndexDept", new { organizationId = organizationId, orgName = orgName });
+            if (isDepartment)
+            {
+                db.AddrBk_OrganizationUnit.Remove(addrbk_organization);
+                db.SaveChanges();
+                return RedirectToAction("IndexDept", new { organizationId = organizationId, orgName = orgName });
+            }
             else return RedirectToAction("Index", new { organizationId = organizationId, orgName = orgName, isOrganization = isOrganization });
         }
 

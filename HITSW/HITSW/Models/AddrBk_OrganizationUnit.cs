@@ -33,7 +33,8 @@ namespace HITSW.Models
         [Required]
         public bool IsProspect { get; set; }
 
-        public Nullable<System.Guid> ContactBasis_LCID { get; set; }
+        [Required]
+        public System.Guid ContactBasis_LCID { get; set; }
 
         [Required(ErrorMessage = "Organiation Type is required")]
         public System.Guid OUType_LCID { get; set; }

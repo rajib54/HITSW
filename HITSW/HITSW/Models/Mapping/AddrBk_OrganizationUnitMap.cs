@@ -57,7 +57,7 @@ namespace HITSW.Models.Mapping
             this.Property(t => t.Concurrency).HasColumnName("Concurrency");
 
             // Relationships
-            this.HasOptional(t => t.Lookup_ContactBasis)
+            this.HasRequired(t => t.Lookup_ContactBasis)
                 .WithMany(t => t.AddrBk_OrganizationUnit)
                 .HasForeignKey(d => d.ContactBasis_LCID);
             this.HasRequired(t => t.Lookup_ContactType)

@@ -62,6 +62,14 @@ namespace HITSW.Class
             return basis.Id;
         }
 
+        public static Guid GetOrganizationContactBasisId(Guid id)
+        {
+            HITSWContext db = new HITSWContext();
+            AddrBk_OrganizationUnit addrbk_organization_unit = db.AddrBk_OrganizationUnit.Find(id);
+            db.Dispose();
+            return addrbk_organization_unit.ContactBasis_LCID;
+        }
+
         public static String GetMemberTypeFromId(Guid id)
         {
             HITSWContext db = new HITSWContext();
