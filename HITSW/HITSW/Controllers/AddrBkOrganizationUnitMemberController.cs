@@ -15,10 +15,6 @@ namespace HITSW.Controllers
     public class AddrBkOrganizationUnitMemberController : Controller
     {
         private HITSWContext db = new HITSWContext();
-        private String memberTypeFilter = "AddrBk_OrganizationalUnitMember.MemType_LCID";
-        private String suffixFilter = "AddrBk_Person.Suffix_LCID";
-        private String religiousBackgroundFilter = "AddrBk_Person.ReligiousBkgd_LCID";
-        private String salutationFilter = "AddrBk_Person.Salutation_LCID";
 
         //
         // GET: /AddrBkOrganizationUnitMember/
@@ -55,14 +51,14 @@ namespace HITSW.Controllers
             addrbk_organizationmember.OrganizationUnitMember = addrbk_organizationalunitmember;
             addrbk_organizationmember.Person = addrbk_person;
 
-            addrbk_organizationmember.LookUp_MemberTypes = db.Lookup_ContactType.Where(e => e.ActiveRec == true && e.TblColSel == memberTypeFilter).ToList();
-            addrbk_organizationmember.Lookup_Salutations = db.Lookup_GenderRelationship.Where(e => e.ActiveRec == true && e.TblColSel == salutationFilter).ToList();
-            addrbk_organizationmember.Lookup_Suffixes = db.Lookup_AddrBk.Where(e => e.ActiveRec == true && e.TblColSel == suffixFilter).ToList();
+            addrbk_organizationmember.LookUp_MemberTypes = db.Lookup_ContactType.Where(e => e.ActiveRec == true && e.TblColSel == Utils.AB_OrganizationUnitMemberType).ToList();
+            addrbk_organizationmember.Lookup_Salutations = db.Lookup_GenderRelationship.Where(e => e.ActiveRec == true && e.TblColSel == Utils.AB_OrganizationUnitMemberSalutation).ToList();
+            addrbk_organizationmember.Lookup_Suffixes = db.Lookup_AddrBk.Where(e => e.ActiveRec == true && e.TblColSel == Utils.AB_OrganizationUnitMemberSuffix).ToList();
             addrbk_organizationmember.Lookup_Genders = db.Lookup_Gender.Where(e => e.ActiveRec == true).ToList();
             addrbk_organizationmember.Lookup_MaritialStatuses = db.Lookup_MaritalStatus.Where(e => e.ActiveRec == true).ToList();
             addrbk_organizationmember.Lookup_Races = db.Lookup_Race.Where(e => e.ActiveRec == true).ToList();
             addrbk_organizationmember.Lookup_Ethnicities = db.Lookup_Ethnicity.Where(e => e.ActiveRec == true).ToList();
-            addrbk_organizationmember.Lookup_ReligiousBackgrounds = db.Lookup_AddrBk.Where(e => e.ActiveRec == true && e.TblColSel == religiousBackgroundFilter).ToList();
+            addrbk_organizationmember.Lookup_ReligiousBackgrounds = db.Lookup_AddrBk.Where(e => e.ActiveRec == true && e.TblColSel == Utils.AB_OrganizationUnitMemberReligiousBackground).ToList();
             addrbk_organizationmember.Lookup_EducationLevels = db.Lookup_EducationalLevel.Where(e => e.ActiveRec == true).ToList();
             addrbk_organizationmember.Lookup_Occupations = db.Lookup_Occupation.Where(e => e.ActiveRec == true).ToList();
 
@@ -106,14 +102,14 @@ namespace HITSW.Controllers
             ViewBag.organizationId = organizationId;
             ViewBag.MainTitle = Utils.AddrBkOrganizationMemeber + " / " + orgName;
 
-            addrbk_organizationmember.LookUp_MemberTypes = db.Lookup_ContactType.Where(e => e.ActiveRec == true && e.TblColSel == memberTypeFilter).ToList();
-            addrbk_organizationmember.Lookup_Salutations = db.Lookup_GenderRelationship.Where(e => e.ActiveRec == true && e.TblColSel == salutationFilter).ToList();
-            addrbk_organizationmember.Lookup_Suffixes = db.Lookup_AddrBk.Where(e => e.ActiveRec == true && e.TblColSel == suffixFilter).ToList();
+            addrbk_organizationmember.LookUp_MemberTypes = db.Lookup_ContactType.Where(e => e.ActiveRec == true && e.TblColSel == Utils.AB_OrganizationUnitMemberType).ToList();
+            addrbk_organizationmember.Lookup_Salutations = db.Lookup_GenderRelationship.Where(e => e.ActiveRec == true && e.TblColSel == Utils.AB_OrganizationUnitMemberSalutation).ToList();
+            addrbk_organizationmember.Lookup_Suffixes = db.Lookup_AddrBk.Where(e => e.ActiveRec == true && e.TblColSel == Utils.AB_OrganizationUnitMemberSuffix).ToList();
             addrbk_organizationmember.Lookup_Genders = db.Lookup_Gender.Where(e => e.ActiveRec == true).ToList();
             addrbk_organizationmember.Lookup_MaritialStatuses = db.Lookup_MaritalStatus.Where(e => e.ActiveRec == true).ToList();
             addrbk_organizationmember.Lookup_Races = db.Lookup_Race.Where(e => e.ActiveRec == true).ToList();
             addrbk_organizationmember.Lookup_Ethnicities = db.Lookup_Ethnicity.Where(e => e.ActiveRec == true).ToList();
-            addrbk_organizationmember.Lookup_ReligiousBackgrounds = db.Lookup_AddrBk.Where(e => e.ActiveRec == true && e.TblColSel == religiousBackgroundFilter).ToList();
+            addrbk_organizationmember.Lookup_ReligiousBackgrounds = db.Lookup_AddrBk.Where(e => e.ActiveRec == true && e.TblColSel == Utils.AB_OrganizationUnitMemberReligiousBackground).ToList();
             addrbk_organizationmember.Lookup_EducationLevels = db.Lookup_EducationalLevel.Where(e => e.ActiveRec == true).ToList();
             addrbk_organizationmember.Lookup_Occupations = db.Lookup_Occupation.Where(e => e.ActiveRec == true).ToList();
 
@@ -143,14 +139,14 @@ namespace HITSW.Controllers
             addrbk_organizationmember.OrganizationUnitMember = addrbk_organizationalunitmember;
             addrbk_organizationmember.Person = addrbk_person;
 
-            addrbk_organizationmember.LookUp_MemberTypes = db.Lookup_ContactType.Where(e => e.ActiveRec == true && e.TblColSel == memberTypeFilter).ToList();
-            addrbk_organizationmember.Lookup_Salutations = db.Lookup_GenderRelationship.Where(e => e.ActiveRec == true && e.TblColSel == salutationFilter).ToList();
-            addrbk_organizationmember.Lookup_Suffixes = db.Lookup_AddrBk.Where(e => e.ActiveRec == true && e.TblColSel == suffixFilter).ToList();
+            addrbk_organizationmember.LookUp_MemberTypes = db.Lookup_ContactType.Where(e => e.ActiveRec == true && e.TblColSel == Utils.AB_OrganizationUnitMemberType).ToList();
+            addrbk_organizationmember.Lookup_Salutations = db.Lookup_GenderRelationship.Where(e => e.ActiveRec == true && e.TblColSel == Utils.AB_OrganizationUnitMemberSalutation).ToList();
+            addrbk_organizationmember.Lookup_Suffixes = db.Lookup_AddrBk.Where(e => e.ActiveRec == true && e.TblColSel == Utils.AB_OrganizationUnitMemberSuffix).ToList();
             addrbk_organizationmember.Lookup_Genders = db.Lookup_Gender.Where(e => e.ActiveRec == true).ToList();
             addrbk_organizationmember.Lookup_MaritialStatuses = db.Lookup_MaritalStatus.Where(e => e.ActiveRec == true).ToList();
             addrbk_organizationmember.Lookup_Races = db.Lookup_Race.Where(e => e.ActiveRec == true).ToList();
             addrbk_organizationmember.Lookup_Ethnicities = db.Lookup_Ethnicity.Where(e => e.ActiveRec == true).ToList();
-            addrbk_organizationmember.Lookup_ReligiousBackgrounds = db.Lookup_AddrBk.Where(e => e.ActiveRec == true && e.TblColSel == religiousBackgroundFilter).ToList();
+            addrbk_organizationmember.Lookup_ReligiousBackgrounds = db.Lookup_AddrBk.Where(e => e.ActiveRec == true && e.TblColSel == Utils.AB_OrganizationUnitMemberReligiousBackground).ToList();
             addrbk_organizationmember.Lookup_EducationLevels = db.Lookup_EducationalLevel.Where(e => e.ActiveRec == true).ToList();
             addrbk_organizationmember.Lookup_Occupations = db.Lookup_Occupation.Where(e => e.ActiveRec == true).ToList();
 
@@ -196,14 +192,14 @@ namespace HITSW.Controllers
             ViewBag.organizationId = organizationId;
             ViewBag.MainTitle = Utils.AddrBkOrganizationMemeber + " / " + orgName + " / " + addrbk_organizationmember.Person.FName + " " + addrbk_organizationmember.Person.LName;
 
-            addrbk_organizationmember.LookUp_MemberTypes = db.Lookup_ContactType.Where(e => e.ActiveRec == true && e.TblColSel == memberTypeFilter).ToList();
-            addrbk_organizationmember.Lookup_Salutations = db.Lookup_GenderRelationship.Where(e => e.ActiveRec == true && e.TblColSel == salutationFilter).ToList();
-            addrbk_organizationmember.Lookup_Suffixes = db.Lookup_AddrBk.Where(e => e.ActiveRec == true && e.TblColSel == suffixFilter).ToList();
+            addrbk_organizationmember.LookUp_MemberTypes = db.Lookup_ContactType.Where(e => e.ActiveRec == true && e.TblColSel == Utils.AB_OrganizationUnitMemberType).ToList();
+            addrbk_organizationmember.Lookup_Salutations = db.Lookup_GenderRelationship.Where(e => e.ActiveRec == true && e.TblColSel == Utils.AB_OrganizationUnitMemberSalutation).ToList();
+            addrbk_organizationmember.Lookup_Suffixes = db.Lookup_AddrBk.Where(e => e.ActiveRec == true && e.TblColSel == Utils.AB_OrganizationUnitMemberSuffix).ToList();
             addrbk_organizationmember.Lookup_Genders = db.Lookup_Gender.Where(e => e.ActiveRec == true).ToList();
             addrbk_organizationmember.Lookup_MaritialStatuses = db.Lookup_MaritalStatus.Where(e => e.ActiveRec == true).ToList();
             addrbk_organizationmember.Lookup_Races = db.Lookup_Race.Where(e => e.ActiveRec == true).ToList();
             addrbk_organizationmember.Lookup_Ethnicities = db.Lookup_Ethnicity.Where(e => e.ActiveRec == true).ToList();
-            addrbk_organizationmember.Lookup_ReligiousBackgrounds = db.Lookup_AddrBk.Where(e => e.ActiveRec == true && e.TblColSel == religiousBackgroundFilter).ToList();
+            addrbk_organizationmember.Lookup_ReligiousBackgrounds = db.Lookup_AddrBk.Where(e => e.ActiveRec == true && e.TblColSel == Utils.AB_OrganizationUnitMemberReligiousBackground).ToList();
             addrbk_organizationmember.Lookup_EducationLevels = db.Lookup_EducationalLevel.Where(e => e.ActiveRec == true).ToList();
             addrbk_organizationmember.Lookup_Occupations = db.Lookup_Occupation.Where(e => e.ActiveRec == true).ToList();
 

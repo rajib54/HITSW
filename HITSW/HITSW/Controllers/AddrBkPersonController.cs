@@ -15,9 +15,6 @@ namespace HITSW.Controllers
     public class AddrBkPersonController : Controller
     {
         private HITSWContext db = new HITSWContext();
-        private String suffixFilter = "AddrBk_Person.Suffix_LCID";
-        private String religiousBackgroundFilter = "AddrBk_Person.ReligiousBkgd_LCID";
-        private String salutationFilter = "AddrBk_Person.Salutation_LCID";
 
         //
         // GET: /AddrBkPerson/
@@ -66,9 +63,9 @@ namespace HITSW.Controllers
             ViewBag.MaritalStatus_LCID = new SelectList(db.Lookup_MaritalStatus.Where(a => a.ActiveRec == true), "Id", "Title");
             ViewBag.Occupation_LCID = new SelectList(db.Lookup_Occupation.Where(a => a.ActiveRec == true), "Id", "Title");
             ViewBag.Race_LCID = new SelectList(db.Lookup_Race.Where(a => a.ActiveRec == true), "Id", "Title");
-            ViewBag.ReligiousBkgd_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == religiousBackgroundFilter), "Id", "Title");
-            ViewBag.Salutation_LCID = new SelectList(db.Lookup_GenderRelationship.Where(a => a.ActiveRec == true && a.TblColSel == salutationFilter), "Id", "Title");
-            ViewBag.SuffixLCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == suffixFilter), "Id", "Title");
+            ViewBag.ReligiousBkgd_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_OrganizationUnitMemberReligiousBackground), "Id", "Title");
+            ViewBag.Salutation_LCID = new SelectList(db.Lookup_GenderRelationship.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_OrganizationUnitMemberSalutation), "Id", "Title");
+            ViewBag.Suffix_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_OrganizationUnitMemberSuffix), "Id", "Title");
 
             AddrBk_Person addrbk_person = new AddrBk_Person();
             addrbk_person.EffDt = DateTime.Now;
@@ -105,9 +102,9 @@ namespace HITSW.Controllers
             ViewBag.MaritalStatus_LCID = new SelectList(db.Lookup_MaritalStatus.Where(a => a.ActiveRec == true), "Id", "Title", addrbk_person.MaritalStatus_LCID);
             ViewBag.Occupation_LCID = new SelectList(db.Lookup_Occupation.Where(a => a.ActiveRec == true), "Id", "Title", addrbk_person.Occupation_LCID);
             ViewBag.Race_LCID = new SelectList(db.Lookup_Race.Where(a => a.ActiveRec == true), "Id", "Title", addrbk_person.Race_LCID);
-            ViewBag.ReligiousBkgd_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == religiousBackgroundFilter), "Id", "Title", addrbk_person.ReligiousBkgd_LCID);
-            ViewBag.Salutation_LCID = new SelectList(db.Lookup_GenderRelationship.Where(a => a.ActiveRec == true && a.TblColSel == salutationFilter), "Id", "Title", addrbk_person.Salutation_LCID);
-            ViewBag.SuffixLCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == suffixFilter), "Id", "Title", addrbk_person.Suffix_LCID);
+            ViewBag.ReligiousBkgd_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_OrganizationUnitMemberReligiousBackground), "Id", "Title", addrbk_person.ReligiousBkgd_LCID);
+            ViewBag.Salutation_LCID = new SelectList(db.Lookup_GenderRelationship.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_OrganizationUnitMemberSalutation), "Id", "Title", addrbk_person.Salutation_LCID);
+            ViewBag.Suffix_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_OrganizationUnitMemberSuffix), "Id", "Title", addrbk_person.Suffix_LCID);
             return View(addrbk_person);
         }
 
@@ -129,9 +126,9 @@ namespace HITSW.Controllers
             ViewBag.MaritalStatus_LCID = new SelectList(db.Lookup_MaritalStatus.Where(a => a.ActiveRec == true), "Id", "Title", addrbk_person.MaritalStatus_LCID);
             ViewBag.Occupation_LCID = new SelectList(db.Lookup_Occupation.Where(a => a.ActiveRec == true), "Id", "Title", addrbk_person.Occupation_LCID);
             ViewBag.Race_LCID = new SelectList(db.Lookup_Race.Where(a => a.ActiveRec == true), "Id", "Title", addrbk_person.Race_LCID);
-            ViewBag.ReligiousBkgd_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == religiousBackgroundFilter), "Id", "Title", addrbk_person.ReligiousBkgd_LCID);
-            ViewBag.Salutation_LCID = new SelectList(db.Lookup_GenderRelationship.Where(a => a.ActiveRec == true && a.TblColSel == salutationFilter), "Id", "Title", addrbk_person.Salutation_LCID);
-            ViewBag.SuffixLCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == suffixFilter), "Id", "Title", addrbk_person.Suffix_LCID);
+            ViewBag.ReligiousBkgd_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_OrganizationUnitMemberReligiousBackground), "Id", "Title", addrbk_person.ReligiousBkgd_LCID);
+            ViewBag.Salutation_LCID = new SelectList(db.Lookup_GenderRelationship.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_OrganizationUnitMemberSalutation), "Id", "Title", addrbk_person.Salutation_LCID);
+            ViewBag.Suffix_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_OrganizationUnitMemberSuffix), "Id", "Title", addrbk_person.Suffix_LCID);
             return View(addrbk_person);
         }
 
@@ -169,9 +166,9 @@ namespace HITSW.Controllers
             ViewBag.MaritalStatus_LCID = new SelectList(db.Lookup_MaritalStatus.Where(a => a.ActiveRec == true), "Id", "Title", addrbk_person.MaritalStatus_LCID);
             ViewBag.Occupation_LCID = new SelectList(db.Lookup_Occupation.Where(a => a.ActiveRec == true), "Id", "Title", addrbk_person.Occupation_LCID);
             ViewBag.Race_LCID = new SelectList(db.Lookup_Race.Where(a => a.ActiveRec == true), "Id", "Title", addrbk_person.Race_LCID);
-            ViewBag.ReligiousBkgd_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == religiousBackgroundFilter), "Id", "Title", addrbk_person.ReligiousBkgd_LCID);
-            ViewBag.Salutation_LCID = new SelectList(db.Lookup_GenderRelationship.Where(a => a.ActiveRec == true && a.TblColSel == salutationFilter), "Id", "Title", addrbk_person.Salutation_LCID);
-            ViewBag.SuffixLCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == suffixFilter), "Id", "Title", addrbk_person.Suffix_LCID);
+            ViewBag.ReligiousBkgd_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_OrganizationUnitMemberReligiousBackground), "Id", "Title", addrbk_person.ReligiousBkgd_LCID);
+            ViewBag.Salutation_LCID = new SelectList(db.Lookup_GenderRelationship.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_OrganizationUnitMemberSalutation), "Id", "Title", addrbk_person.Salutation_LCID);
+            ViewBag.Suffix_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_OrganizationUnitMemberSuffix), "Id", "Title", addrbk_person.Suffix_LCID);
             return View(addrbk_person);
         }
 

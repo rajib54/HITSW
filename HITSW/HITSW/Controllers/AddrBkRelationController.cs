@@ -15,10 +15,6 @@ namespace HITSW.Controllers
     public class AddrBkRelationController : Controller
     {
         private HITSWContext db = new HITSWContext();
-        private String indivFilter = "AddrBk_Relation.RelnToPrimaryIndiv_LCID";
-        private String orgFilter = "AddrBk_Relation.RelnToPrimaryExtOrg_LCID";
-        private String deptFilter = "AddrBk_Relation.RelnToExtToIntOrg_LCID";
-        private String contactTypeFilter = "AddrBk_OrganizationUnit.OUType_LCID";
         private IPagedList<AddrBk_Relation> model;
 
         //
@@ -60,8 +56,8 @@ namespace HITSW.Controllers
             ViewBag.MainTitle = Utils.AddrBkRelation + " / " + orgName;
             ViewBag.RelatedExtOrgID = new SelectList(db.AddrBk_OrganizationUnit.Where(a => a.ActiveRec == true && a.Id != organizationId && a.ContactBasis_LCID == contactBasisId), "Id", "Name");
             ViewBag.RelatedIndivID = new SelectList(db.AddrBk_Person.Where(a => a.ActiveRec == true && a.Id != organizationId), "Id", "FName");
-            ViewBag.RelnToPrimaryIndiv_LCID = new SelectList(db.Lookup_GenderRelationship.Where(a => a.ActiveRec == true && a.TblColSel == indivFilter), "Id", "Title");
-            ViewBag.RelnToPrimaryExtOrg_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == orgFilter), "Id", "Title");
+            ViewBag.RelnToPrimaryIndiv_LCID = new SelectList(db.Lookup_GenderRelationship.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_RelationIndiv), "Id", "Title");
+            ViewBag.RelnToPrimaryExtOrg_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_RelationOrg), "Id", "Title");
 
             AddrBk_Relation addrbk_relation = new AddrBk_Relation();
             addrbk_relation.EffDt = DateTime.Now;
@@ -123,8 +119,8 @@ namespace HITSW.Controllers
             ViewBag.MainTitle = Utils.AddrBkRelation + " / " + orgName;
             ViewBag.RelatedExtOrgID = new SelectList(db.AddrBk_OrganizationUnit.Where(a => a.ActiveRec == true && a.Id != organizationId && a.ContactBasis_LCID == contactBasisId), "Id", "Name", addrbk_relation.RelatedExtOrgID);
             ViewBag.RelatedIndivID = new SelectList(db.AddrBk_Person.Where(a => a.ActiveRec == true && a.Id != organizationId), "Id", "FName", addrbk_relation.RelatedIndivID);
-            ViewBag.RelnToPrimaryIndiv_LCID = new SelectList(db.Lookup_GenderRelationship.Where(a => a.ActiveRec == true && a.TblColSel == indivFilter), "Id", "Title", addrbk_relation.RelnToPrimaryIndiv_LCID);
-            ViewBag.RelnToPrimaryExtOrg_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == orgFilter), "Id", "Title", addrbk_relation.RelnToPrimaryExtOrg_LCID);
+            ViewBag.RelnToPrimaryIndiv_LCID = new SelectList(db.Lookup_GenderRelationship.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_RelationIndiv), "Id", "Title", addrbk_relation.RelnToPrimaryIndiv_LCID);
+            ViewBag.RelnToPrimaryExtOrg_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_RelationOrg), "Id", "Title", addrbk_relation.RelnToPrimaryExtOrg_LCID);
 
             if (isOrganization)
                 return PartialView("_CreateOrg", addrbk_relation);
@@ -150,8 +146,8 @@ namespace HITSW.Controllers
             ViewBag.MainTitle = Utils.AddrBkRelation + " / " + orgName;
             ViewBag.RelatedExtOrgID = new SelectList(db.AddrBk_OrganizationUnit.Where(a => a.ActiveRec == true && a.Id != organizationId && a.ContactBasis_LCID == contactBasisId), "Id", "Name", addrbk_relation.RelatedExtOrgID);
             ViewBag.RelatedIndivID = new SelectList(db.AddrBk_Person.Where(a => a.ActiveRec == true && a.Id != organizationId), "Id", "FName", addrbk_relation.RelatedIndivID);
-            ViewBag.RelnToPrimaryIndiv_LCID = new SelectList(db.Lookup_GenderRelationship.Where(a => a.ActiveRec == true && a.TblColSel == indivFilter), "Id", "Title", addrbk_relation.RelnToPrimaryIndiv_LCID);
-            ViewBag.RelnToPrimaryExtOrg_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == orgFilter), "Id", "Title", addrbk_relation.RelnToPrimaryExtOrg_LCID);
+            ViewBag.RelnToPrimaryIndiv_LCID = new SelectList(db.Lookup_GenderRelationship.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_RelationIndiv), "Id", "Title", addrbk_relation.RelnToPrimaryIndiv_LCID);
+            ViewBag.RelnToPrimaryExtOrg_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_RelationOrg), "Id", "Title", addrbk_relation.RelnToPrimaryExtOrg_LCID);
 
             if (isOrganization)
                 return PartialView("_EditOrg", addrbk_relation);
@@ -205,8 +201,8 @@ namespace HITSW.Controllers
             ViewBag.MainTitle = Utils.AddrBkRelation + " / " + orgName;
             ViewBag.RelatedExtOrgID = new SelectList(db.AddrBk_OrganizationUnit.Where(a => a.ActiveRec == true && a.Id != organizationId && a.ContactBasis_LCID == contactBasisId), "Id", "Name", addrbk_relation.RelatedExtOrgID);
             ViewBag.RelatedIndivID = new SelectList(db.AddrBk_Person.Where(a => a.ActiveRec == true && a.Id != organizationId), "Id", "FName", addrbk_relation.RelatedIndivID);
-            ViewBag.RelnToPrimaryIndiv_LCID = new SelectList(db.Lookup_GenderRelationship.Where(a => a.ActiveRec == true && a.TblColSel == indivFilter), "Id", "Title", addrbk_relation.RelnToPrimaryIndiv_LCID);
-            ViewBag.RelnToPrimaryExtOrg_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == orgFilter), "Id", "Title", addrbk_relation.RelnToPrimaryExtOrg_LCID);
+            ViewBag.RelnToPrimaryIndiv_LCID = new SelectList(db.Lookup_GenderRelationship.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_RelationIndiv), "Id", "Title", addrbk_relation.RelnToPrimaryIndiv_LCID);
+            ViewBag.RelnToPrimaryExtOrg_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_RelationOrg), "Id", "Title", addrbk_relation.RelnToPrimaryExtOrg_LCID);
 
             if (isOrganization)
                 return PartialView("_EditOrg", addrbk_relation);
@@ -231,8 +227,8 @@ namespace HITSW.Controllers
 
             if (isDepartment)
             {
-                db.AddrBk_OrganizationUnit.Remove(addrbk_organization);
-                db.SaveChanges();
+                /*db.AddrBk_OrganizationUnit.Remove(addrbk_organization);
+                db.SaveChanges();*/
                 return RedirectToAction("IndexDept", new { organizationId = organizationId, orgName = orgName });
             }
             else return RedirectToAction("Index", new { organizationId = organizationId, orgName = orgName, isOrganization = isOrganization });
@@ -272,8 +268,8 @@ namespace HITSW.Controllers
 
             addrbk_department.Addrbk_OrganizationUnit = addrbk_organizationunit;
             addrbk_department.Addrbk_Relation = addrbk_relation;
-            addrbk_department.Lookup_AddrBks = db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == deptFilter).ToList();
-            addrbk_department.Lookup_ContactTypes = db.Lookup_ContactType.Where(a => a.ActiveRec == true && a.TblColSel == contactTypeFilter && a.ContactBasis_LCID == contactBasisId).ToList();
+            addrbk_department.Lookup_AddrBks = db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_RelationDept).ToList();
+            addrbk_department.Lookup_ContactTypes = db.Lookup_ContactType.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_RelationContactType && a.ContactBasis_LCID == contactBasisId).ToList();
 
 
            return PartialView("_CreateDept", addrbk_department);
@@ -323,8 +319,8 @@ namespace HITSW.Controllers
             ViewBag.organizationId = organizationId;
             ViewBag.MainTitle = Utils.AddrbkDepartment + " / " + orgName;
 
-            addrbk_department.Lookup_AddrBks = db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == deptFilter).ToList();
-            addrbk_department.Lookup_ContactTypes = db.Lookup_ContactType.Where(a => a.ActiveRec == true && a.TblColSel == contactTypeFilter && a.ContactBasis_LCID == contactBasisId).ToList();
+            addrbk_department.Lookup_AddrBks = db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_RelationDept).ToList();
+            addrbk_department.Lookup_ContactTypes = db.Lookup_ContactType.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_RelationContactType && a.ContactBasis_LCID == contactBasisId).ToList();
 
 
             return PartialView("_CreateDept", addrbk_department);
@@ -347,8 +343,8 @@ namespace HITSW.Controllers
 
             addrbk_department.Addrbk_OrganizationUnit = addrbk_organizationunit;
             addrbk_department.Addrbk_Relation = addrbk_relation;
-            addrbk_department.Lookup_AddrBks = db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == deptFilter).ToList();
-            addrbk_department.Lookup_ContactTypes = db.Lookup_ContactType.Where(a => a.ActiveRec == true && a.TblColSel == contactTypeFilter && a.ContactBasis_LCID == contactBasisId).ToList();
+            addrbk_department.Lookup_AddrBks = db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_RelationDept).ToList();
+            addrbk_department.Lookup_ContactTypes = db.Lookup_ContactType.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_RelationContactType && a.ContactBasis_LCID == contactBasisId).ToList();
 
 
             return PartialView("_EditDept", addrbk_department);
@@ -398,8 +394,8 @@ namespace HITSW.Controllers
             ViewBag.organizationId = organizationId;
             ViewBag.MainTitle = Utils.AddrbkDepartment + " / " + orgName;
 
-            addrbk_department.Lookup_AddrBks = db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == deptFilter).ToList();
-            addrbk_department.Lookup_ContactTypes = db.Lookup_ContactType.Where(a => a.ActiveRec == true && a.TblColSel == contactTypeFilter && a.ContactBasis_LCID == contactBasisId).ToList();
+            addrbk_department.Lookup_AddrBks = db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_RelationDept).ToList();
+            addrbk_department.Lookup_ContactTypes = db.Lookup_ContactType.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_RelationContactType && a.ContactBasis_LCID == contactBasisId).ToList();
 
 
             return PartialView("_EditDept", addrbk_department);

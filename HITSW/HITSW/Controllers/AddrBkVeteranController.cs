@@ -15,7 +15,6 @@ namespace HITSW.Controllers
     public class AddrBkVeteranController : Controller
     {
         private HITSWContext db = new HITSWContext();
-        private String statusFilter = "AddrBk_Veteran.Veteran_LCID";
 
         //
         // GET: /AddrBkVeteran/
@@ -43,7 +42,7 @@ namespace HITSW.Controllers
             ViewBag.orgName = orgName;
             ViewBag.organizationId = organizationId;
             ViewBag.MainTitle = Utils.AddrBkVeteran + " / " + orgName;
-            ViewBag.Veteran_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == statusFilter), "Id", "Title");
+            ViewBag.Veteran_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_Veteran), "Id", "Title");
 
             AddrBk_Veteran addrbk_veteran = new AddrBk_Veteran();
             addrbk_veteran.EffDt = DateTime.Now;
@@ -77,7 +76,7 @@ namespace HITSW.Controllers
             ViewBag.orgName = orgName;
             ViewBag.organizationId = organizationId;
             ViewBag.MainTitle = Utils.AddrBkVeteran + " / " + orgName;
-            ViewBag.Veteran_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == statusFilter), "Id", "Title", addrbk_veteran.Veteran_LCID);
+            ViewBag.Veteran_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_Veteran), "Id", "Title", addrbk_veteran.Veteran_LCID);
             return PartialView("_Create", addrbk_veteran);
         }
 
@@ -95,7 +94,7 @@ namespace HITSW.Controllers
             ViewBag.orgName = orgName;
             ViewBag.organizationId = organizationId;
             ViewBag.MainTitle = Utils.AddrBkVeteran + " / " + orgName + " / " + Utils.GetVeteranFromId(addrbk_veteran.Veteran_LCID);
-            ViewBag.Veteran_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == statusFilter), "Id", "Title", addrbk_veteran.Veteran_LCID);
+            ViewBag.Veteran_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_Veteran), "Id", "Title", addrbk_veteran.Veteran_LCID);
             return PartialView("_Edit", addrbk_veteran);
         }
 
@@ -129,7 +128,7 @@ namespace HITSW.Controllers
             ViewBag.orgName = orgName;
             ViewBag.organizationId = organizationId;
             ViewBag.MainTitle = Utils.AddrBkVeteran + " / " + orgName + " / " + Utils.GetVeteranFromId(addrbk_veteran.Veteran_LCID);
-            ViewBag.Veteran_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == statusFilter), "Id", "Title", addrbk_veteran.Veteran_LCID);
+            ViewBag.Veteran_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_Veteran), "Id", "Title", addrbk_veteran.Veteran_LCID);
             return PartialView("_Edit", addrbk_veteran);
         }
 

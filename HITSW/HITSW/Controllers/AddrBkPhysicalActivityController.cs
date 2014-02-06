@@ -15,7 +15,6 @@ namespace HITSW.Controllers
     public class AddrBkPhysicalActivityController : Controller
     {
         private HITSWContext db = new HITSWContext();
-        private String statusFilter = "AddrBk_PhysicalActivity.PhyActiv_LCID";
 
         //
         // GET: /AddrBkPhysicalActivity/
@@ -42,7 +41,7 @@ namespace HITSW.Controllers
             ViewBag.orgName = orgName;
             ViewBag.organizationId = organizationId;
             ViewBag.MainTitle = Utils.AddrBkPhysicalActivity + " / " + orgName;
-            ViewBag.PhyActiv_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == statusFilter), "Id", "Title");
+            ViewBag.PhyActiv_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_PhysicalActivity), "Id", "Title");
 
             AddrBk_PhysicalActivity addrbk_physicalactivity = new AddrBk_PhysicalActivity();
             addrbk_physicalactivity.EffDt = DateTime.Now;
@@ -76,7 +75,7 @@ namespace HITSW.Controllers
             ViewBag.orgName = orgName;
             ViewBag.organizationId = organizationId;
             ViewBag.MainTitle = Utils.AddrBkPhysicalActivity + " / " + orgName;
-            ViewBag.PhyActiv_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == statusFilter), "Id", "Title", addrbk_physicalactivity.PhyActiv_LCID);
+            ViewBag.PhyActiv_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_PhysicalActivity), "Id", "Title", addrbk_physicalactivity.PhyActiv_LCID);
             return PartialView("_Create", addrbk_physicalactivity);
         }
 
@@ -94,7 +93,7 @@ namespace HITSW.Controllers
             ViewBag.orgName = orgName;
             ViewBag.organizationId = organizationId;
             ViewBag.MainTitle = Utils.AddrBkPhysicalActivity + " / " + orgName + " / " + Utils.GetPhysicalActivityFromId(addrbk_physicalactivity.PhyActiv_LCID);
-            ViewBag.PhyActiv_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == statusFilter), "Id", "Title", addrbk_physicalactivity.PhyActiv_LCID);
+            ViewBag.PhyActiv_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_PhysicalActivity), "Id", "Title", addrbk_physicalactivity.PhyActiv_LCID);
             return PartialView("_Edit", addrbk_physicalactivity);
         }
 
@@ -128,7 +127,7 @@ namespace HITSW.Controllers
             ViewBag.orgName = orgName;
             ViewBag.organizationId = organizationId;
             ViewBag.MainTitle = Utils.AddrBkPhysicalActivity + " / " + orgName + " / " + Utils.GetPhysicalActivityFromId(addrbk_physicalactivity.PhyActiv_LCID);
-            ViewBag.PhyActiv_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == statusFilter), "Id", "Title", addrbk_physicalactivity.PhyActiv_LCID);
+            ViewBag.PhyActiv_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_PhysicalActivity), "Id", "Title", addrbk_physicalactivity.PhyActiv_LCID);
             return PartialView("_Edit", addrbk_physicalactivity);
         }
 

@@ -8,11 +8,13 @@ namespace HITSW.Class
 {
     public class Utils
     {
+        //General message
         public static String concurrencyMsg = "Data has been modified by another user. Please check the current value showed below. If you want to keep your value just click save. If you want to form with please click Back";
         public static int pageSize = 10;
         public static String errorMsg = "Unable to save changes. Please fill all the necessary fields and try again.";
         public static String norecordfoundMsg = "No Record Found";
 
+        //Message while populating a module
         public static String AddressBook = "Address Book";
         public static String AddrBkOrganizationUnit = "Organization";
         public static String AddrBkOrganizationPhoneFax = "Phone Fax";
@@ -33,6 +35,31 @@ namespace HITSW.Class
         public static String AddrbkGeographicalGroup = "Geographical group";
         public static String AddrbkGeographicalGroupMember = "Geographical group Member";
         public static String AddrbkDepartment = "Department";
+
+        //Filter names
+        public static String AB_AddressVerificationStatus = "AddrBk_Address.AddrVerifStatus_LCID";
+        public static String AB_GeoGraphicalMemberCountry = "Country";
+        public static String AB_GeoGraphicalMemberState = "State/Province";
+        public static String AB_GeoGraphicalMemberContinent = "Continent";
+        public static String AB_GeoGraphicalMemberCity = "City/Town";
+        public static String AB_GeoGraphicalMemberCounty = "County";
+        public static String AB_GeoGraphicalMemberMunicipality = "Municipality";
+        public static String AB_GeoGraphicalMemberStreet = "Street Address";
+        public static String AB_GeoGraphicalMemberPostalCode = "Postal Code";
+        public static String AB_Hobby = "Addrbk_Hobby.Hobby_LCID";
+        public static String AB_IdentificationVerificationStatus = "AddrBk_Identification.IndentVerifStatus_LCID";
+        public static String AB_InterestedProductsServices = "AddrBk_InterestedProductSrvcs.InterestedProdSrvc_LCID";
+        public static String AB_OrganizationUnitType = "AddrBk_OrganizationUnit.OUType_LCID";
+        public static String AB_OrganizationUnitMemberType = "AddrBk_OrganizationalUnitMember.MemType_LCID";
+        public static String AB_OrganizationUnitMemberSuffix = "AddrBk_Person.Suffix_LCID";
+        public static String AB_OrganizationUnitMemberReligiousBackground = "AddrBk_Person.ReligiousBkgd_LCID";
+        public static String AB_OrganizationUnitMemberSalutation = "AddrBk_Person.Salutation_LCID";
+        public static String AB_PhysicalActivity = "AddrBk_PhysicalActivity.PhyActiv_LCID";
+        public static String AB_Veteran = "AddrBk_Veteran.Veteran_LCID";
+        public static String AB_RelationIndiv = "AddrBk_Relation.RelnToPrimaryIndiv_LCID";
+        public static String AB_RelationOrg = "AddrBk_Relation.RelnToPrimaryExtOrg_LCID";
+        public static String AB_RelationContactType = "AddrBk_OrganizationUnit.OUType_LCID";
+        public static String AB_RelationDept = "AddrBk_Relation.RelnToExtToIntOrg_LCID";
 
         public static Guid GetLookUpBasisId(bool isOrganization = true)
         {

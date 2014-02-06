@@ -15,7 +15,6 @@ namespace HITSW.Controllers
     public class AddrBkHobbyController : Controller
     {
         private HITSWContext db = new HITSWContext();
-        private String statusFilter = "Addrbk_Hobby.Hobby_LCID";
 
         //
         // GET: /AddrBkHobby/
@@ -43,7 +42,7 @@ namespace HITSW.Controllers
             ViewBag.orgName = orgName;
             ViewBag.organizationId = organizationId;
             ViewBag.MainTitle = Utils.AddrBkHobby + " / " + orgName;
-            ViewBag.Hobby_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == statusFilter), "Id", "Title");
+            ViewBag.Hobby_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_Hobby), "Id", "Title");
 
             Addrbk_Hobby addrbk_hobby = new Addrbk_Hobby();
             addrbk_hobby.EffDt = DateTime.Now;
@@ -77,7 +76,7 @@ namespace HITSW.Controllers
             ViewBag.orgName = orgName;
             ViewBag.organizationId = organizationId;
             ViewBag.MainTitle = Utils.AddrBkHobby + " / " + orgName;
-            ViewBag.Hobby_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == statusFilter), "Id", "Title", addrbk_hobby.Hobby_LCID);
+            ViewBag.Hobby_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_Hobby), "Id", "Title", addrbk_hobby.Hobby_LCID);
             return PartialView("_Create", addrbk_hobby);
         }
 
@@ -95,7 +94,7 @@ namespace HITSW.Controllers
             ViewBag.orgName = orgName;
             ViewBag.organizationId = organizationId;
             ViewBag.MainTitle = Utils.AddrBkHobby + " / " + orgName + " / " + Utils.GetHobbyFromId(addrbk_hobby.Hobby_LCID);
-            ViewBag.Hobby_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == statusFilter), "Id", "Title", addrbk_hobby.Hobby_LCID);
+            ViewBag.Hobby_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_Hobby), "Id", "Title", addrbk_hobby.Hobby_LCID);
             return PartialView("_Edit", addrbk_hobby);
         }
 
@@ -129,7 +128,7 @@ namespace HITSW.Controllers
             ViewBag.orgName = orgName;
             ViewBag.organizationId = organizationId;
             ViewBag.MainTitle = Utils.AddrBkHobby + " / " + orgName + " / " + Utils.GetHobbyFromId(addrbk_hobby.Hobby_LCID);
-            ViewBag.Hobby_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == statusFilter), "Id", "Title", addrbk_hobby.Hobby_LCID);
+            ViewBag.Hobby_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_Hobby), "Id", "Title", addrbk_hobby.Hobby_LCID);
             return PartialView("_Edit", addrbk_hobby);
         }
 

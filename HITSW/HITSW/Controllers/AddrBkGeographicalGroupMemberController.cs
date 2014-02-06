@@ -15,14 +15,6 @@ namespace HITSW.Controllers
     public class AddrBkGeographicalGroupMemberController : Controller
     {
         private HITSWContext db = new HITSWContext();
-        private String countryBasis = "Country";
-        private String stateBasis = "State/Province";
-        private String continentBasis = "Continent";
-        private String cityBasis = "City/Town";
-        private String countyBasis = "County";
-        private String muncipalityBasis = "Municipality";
-        private String streetBasis = "Street Address";
-        private String postalBasis = "Postal Code";
 
         private String streetaddressType = "Street Address";
 
@@ -61,18 +53,18 @@ namespace HITSW.Controllers
 
             ViewBag.GeographicalGroup_LCID = new SelectList(db.AddrBk_GeographicalGroup, "Id", "Title");
 
-            if (basis.Equals(continentBasis)) ViewBag.Continent_LCID = new SelectList(db.Lookup_Continent.Where(e=>e.ActiveRec == true), "Id", "Title");
+            if (basis.Equals(Utils.AB_GeoGraphicalMemberContinent)) ViewBag.Continent_LCID = new SelectList(db.Lookup_Continent.Where(e=>e.ActiveRec == true), "Id", "Title");
             
-            if (basis.Equals(countryBasis)) ViewBag.Country_LCID = new SelectList(db.Lookup_Country.Where(a => a.ActiveRec == true), "Id", "Title");
+            if (basis.Equals(Utils.AB_GeoGraphicalMemberCountry)) ViewBag.Country_LCID = new SelectList(db.Lookup_Country.Where(a => a.ActiveRec == true), "Id", "Title");
             else ViewBag.Country = db.Lookup_Country.Where(a => a.ActiveRec == true).ToList();
 
             AddrBk_GeographicalGroupMember model = new AddrBk_GeographicalGroupMember();
             model.EffDt = DateTime.Now;
 
-            if (basis.Equals(countryBasis)) return PartialView("_CreateCountry", model);
-            else if(basis.Equals(stateBasis))  return PartialView("_CreateState", model);
-            else if(basis.Equals(continentBasis)) return PartialView("_CreateContinent", model);
-            else if (basis.Equals(cityBasis) || basis.Equals(countyBasis) || basis.Equals(muncipalityBasis)) return PartialView("_CreateCity", model);
+            if (basis.Equals(Utils.AB_GeoGraphicalMemberCountry)) return PartialView("_CreateCountry", model);
+            else if(basis.Equals(Utils.AB_GeoGraphicalMemberState))  return PartialView("_CreateState", model);
+            else if(basis.Equals(Utils.AB_GeoGraphicalMemberContinent)) return PartialView("_CreateContinent", model);
+            else if (basis.Equals(Utils.AB_GeoGraphicalMemberCity) || basis.Equals(Utils.AB_GeoGraphicalMemberCounty) || basis.Equals(Utils.AB_GeoGraphicalMemberMunicipality)) return PartialView("_CreateCity", model);
             else return PartialView("_CreateStreet", model);
         }
 
@@ -85,27 +77,27 @@ namespace HITSW.Controllers
         {
             try
             {
-                if (basis.Equals(countryBasis))
+                if (basis.Equals(Utils.AB_GeoGraphicalMemberCountry))
                 {
                     if (addrbk_geographicalgroupmember.Country_LCID == null || addrbk_geographicalgroupmember.Country_LCID == Guid.Empty)
                         throw new Exception();
                 }
-                else if (basis.Equals(stateBasis))
+                else if (basis.Equals(Utils.AB_GeoGraphicalMemberState))
                 {
                     if (addrbk_geographicalgroupmember.Country_LCID == null || addrbk_geographicalgroupmember.Country_LCID == Guid.Empty || addrbk_geographicalgroupmember.StateOrProv_LCID == null || addrbk_geographicalgroupmember.StateOrProv_LCID == Guid.Empty)
                         throw new Exception();
                 }
-                else if (basis.Equals(continentBasis))
+                else if (basis.Equals(Utils.AB_GeoGraphicalMemberContinent))
                 {
                     if (addrbk_geographicalgroupmember.Continent_LCID == null || addrbk_geographicalgroupmember.Continent_LCID == Guid.Empty)
                         throw new Exception();
                 }
-                else if (basis.Equals(cityBasis) || basis.Equals(countyBasis) || basis.Equals(muncipalityBasis))
+                else if (basis.Equals(Utils.AB_GeoGraphicalMemberCity) || basis.Equals(Utils.AB_GeoGraphicalMemberCounty) || basis.Equals(Utils.AB_GeoGraphicalMemberMunicipality))
                 {
                     if (addrbk_geographicalgroupmember.Country_LCID == null || addrbk_geographicalgroupmember.Country_LCID == Guid.Empty || addrbk_geographicalgroupmember.StateOrProv_LCID == null || addrbk_geographicalgroupmember.StateOrProv_LCID == Guid.Empty || addrbk_geographicalgroupmember.StateOrProvLocalityID == null || addrbk_geographicalgroupmember.StateOrProvLocalityID == Guid.Empty)
                         throw new Exception();
                 }
-                else if (basis.Equals(streetBasis) || basis.Equals(postalBasis))
+                else if (basis.Equals(Utils.AB_GeoGraphicalMemberStreet) || basis.Equals(Utils.AB_GeoGraphicalMemberPostalCode))
                 {
                     if (addrbk_geographicalgroupmember.Country_LCID == null || addrbk_geographicalgroupmember.Country_LCID == Guid.Empty || addrbk_geographicalgroupmember.AddrID == null || addrbk_geographicalgroupmember.AddrID == Guid.Empty)
                         throw new Exception();
@@ -134,16 +126,16 @@ namespace HITSW.Controllers
 
             ViewBag.GeographicalGroup_LCID = new SelectList(db.AddrBk_GeographicalGroup, "Id", "Title", addrbk_geographicalgroupmember.GeographicalGroup_LCID);
 
-            if (basis.Equals(continentBasis)) ViewBag.Continent_LCID = new SelectList(db.Lookup_Continent.Where(e => e.ActiveRec == true), "Id", "Title", addrbk_geographicalgroupmember.Continent_LCID);
+            if (basis.Equals(Utils.AB_GeoGraphicalMemberContinent)) ViewBag.Continent_LCID = new SelectList(db.Lookup_Continent.Where(e => e.ActiveRec == true), "Id", "Title", addrbk_geographicalgroupmember.Continent_LCID);
 
-            if (basis.Equals(countryBasis)) ViewBag.Country_LCID = new SelectList(db.Lookup_Country.Where(a => a.ActiveRec == true), "Id", "Title");
+            if (basis.Equals(Utils.AB_GeoGraphicalMemberCountry)) ViewBag.Country_LCID = new SelectList(db.Lookup_Country.Where(a => a.ActiveRec == true), "Id", "Title");
             else ViewBag.Country = db.Lookup_Country.Where(a => a.ActiveRec == true).ToList();
 
             ViewBag.State = "";
             if (addrbk_geographicalgroupmember.Country_LCID != null)
                 ViewBag.State = db.Lookup_StateProvince.Where(a => a.ActiveRec == true && a.Cntry_LCID == addrbk_geographicalgroupmember.Country_LCID).ToList();
 
-            if (basis.Equals(cityBasis) || basis.Equals(countyBasis) || basis.Equals(muncipalityBasis))
+            if (basis.Equals(Utils.AB_GeoGraphicalMemberCity) || basis.Equals(Utils.AB_GeoGraphicalMemberCounty) || basis.Equals(Utils.AB_GeoGraphicalMemberMunicipality))
             {
                 ViewBag.StateProvince = "";
                 if (addrbk_geographicalgroupmember.Country_LCID != null && addrbk_geographicalgroupmember.StateOrProv_LCID != null)
@@ -153,7 +145,7 @@ namespace HITSW.Controllers
                 }
             }
 
-            if(basis.Equals(streetBasis) || (basis.Equals(postalBasis)))
+            if(basis.Equals(Utils.AB_GeoGraphicalMemberStreet) || (basis.Equals(Utils.AB_GeoGraphicalMemberPostalCode)))
             {
                 ViewBag.streetAddress = "";
                 if (addrbk_geographicalgroupmember.Country_LCID != null && addrbk_geographicalgroupmember.StateOrProv_LCID != null)
@@ -164,16 +156,16 @@ namespace HITSW.Controllers
                     ViewBag.streetAddress = "";
                     if (list.Count > 0)
                     {
-                        if (basis.Equals(streetBasis)) ViewBag.streetAddress = GetDistinctList(list);
+                        if (basis.Equals(Utils.AB_GeoGraphicalMemberStreet)) ViewBag.streetAddress = GetDistinctList(list);
                         else ViewBag.streetAddress = GetDistinctList(list, true);
                     }
                 }
             }
 
-            if (basis.Equals(countryBasis)) return PartialView("_CreateCountry", addrbk_geographicalgroupmember);
-            else if (basis.Equals(stateBasis)) return PartialView("_CreateState", addrbk_geographicalgroupmember);
-            else if (basis.Equals(continentBasis)) return PartialView("_CreateContinent", addrbk_geographicalgroupmember);
-            else if (basis.Equals(cityBasis) || basis.Equals(countyBasis) || basis.Equals(muncipalityBasis)) return PartialView("_CreateCity", addrbk_geographicalgroupmember);
+            if (basis.Equals(Utils.AB_GeoGraphicalMemberCountry)) return PartialView("_CreateCountry", addrbk_geographicalgroupmember);
+            else if (basis.Equals(Utils.AB_GeoGraphicalMemberState)) return PartialView("_CreateState", addrbk_geographicalgroupmember);
+            else if (basis.Equals(Utils.AB_GeoGraphicalMemberContinent)) return PartialView("_CreateContinent", addrbk_geographicalgroupmember);
+            else if (basis.Equals(Utils.AB_GeoGraphicalMemberCity) || basis.Equals(Utils.AB_GeoGraphicalMemberCounty) || basis.Equals(Utils.AB_GeoGraphicalMemberMunicipality)) return PartialView("_CreateCity", addrbk_geographicalgroupmember);
             else return PartialView("_CreateStreet", addrbk_geographicalgroupmember);
         }
 
@@ -195,14 +187,14 @@ namespace HITSW.Controllers
 
             ViewBag.GeographicalGroup_LCID = new SelectList(db.AddrBk_GeographicalGroup, "Id", "Title", addrbk_geographicalgroupmember.GeographicalGroup_LCID);
 
-            if (basis.Equals(continentBasis)) ViewBag.Continent_LCID = new SelectList(db.Lookup_Continent.Where(e => e.ActiveRec == true), "Id", "Title", addrbk_geographicalgroupmember.Continent_LCID);
+            if (basis.Equals(Utils.AB_GeoGraphicalMemberContinent)) ViewBag.Continent_LCID = new SelectList(db.Lookup_Continent.Where(e => e.ActiveRec == true), "Id", "Title", addrbk_geographicalgroupmember.Continent_LCID);
 
-            if (basis.Equals(countryBasis)) ViewBag.Country_LCID = new SelectList(db.Lookup_Country.Where(a => a.ActiveRec == true), "Id", "Title", addrbk_geographicalgroupmember.Country_LCID);
+            if (basis.Equals(Utils.AB_GeoGraphicalMemberCountry)) ViewBag.Country_LCID = new SelectList(db.Lookup_Country.Where(a => a.ActiveRec == true), "Id", "Title", addrbk_geographicalgroupmember.Country_LCID);
             else ViewBag.Country = db.Lookup_Country.Where(a => a.ActiveRec == true).ToList();
 
             ViewBag.State = db.Lookup_StateProvince.Where(a => a.ActiveRec == true && a.Cntry_LCID == addrbk_geographicalgroupmember.Country_LCID).ToList();
 
-            if (basis.Equals(cityBasis) || basis.Equals(countyBasis) || basis.Equals(muncipalityBasis))
+            if (basis.Equals(Utils.AB_GeoGraphicalMemberCity) || basis.Equals(Utils.AB_GeoGraphicalMemberCounty) || basis.Equals(Utils.AB_GeoGraphicalMemberMunicipality))
             {
                 if (addrbk_geographicalgroupmember.Country_LCID != null && addrbk_geographicalgroupmember.StateOrProv_LCID != null)
                 {
@@ -211,7 +203,7 @@ namespace HITSW.Controllers
                 }
             }
 
-            if (basis.Equals(streetBasis) || basis.Equals(postalBasis))
+            if (basis.Equals(Utils.AB_GeoGraphicalMemberStreet) || basis.Equals(Utils.AB_GeoGraphicalMemberPostalCode))
             {
                 if (addrbk_geographicalgroupmember.Country_LCID != null && addrbk_geographicalgroupmember.StateOrProv_LCID != null)
                 {
@@ -221,16 +213,16 @@ namespace HITSW.Controllers
                     ViewBag.streetAddress = "";
                     if (list.Count > 0)
                     {
-                        if (basis.Equals(streetBasis)) ViewBag.streetAddress = GetDistinctList(list);
+                        if (basis.Equals(Utils.AB_GeoGraphicalMemberStreet)) ViewBag.streetAddress = GetDistinctList(list);
                         else ViewBag.streetAddress = GetDistinctList(list, true);
                     }
                 }
             }
 
-            if (basis.Equals(countryBasis)) return PartialView("_EditCountry", addrbk_geographicalgroupmember);
-            else if (basis.Equals(stateBasis)) return PartialView("_EditState", addrbk_geographicalgroupmember);
-            else if (basis.Equals(continentBasis)) return PartialView("_EditContinent", addrbk_geographicalgroupmember);
-            else if (basis.Equals(cityBasis) || basis.Equals(countyBasis) || basis.Equals(muncipalityBasis)) return PartialView("_EditCity", addrbk_geographicalgroupmember);
+            if (basis.Equals(Utils.AB_GeoGraphicalMemberCountry)) return PartialView("_EditCountry", addrbk_geographicalgroupmember);
+            else if (basis.Equals(Utils.AB_GeoGraphicalMemberState)) return PartialView("_EditState", addrbk_geographicalgroupmember);
+            else if (basis.Equals(Utils.AB_GeoGraphicalMemberContinent)) return PartialView("_EditContinent", addrbk_geographicalgroupmember);
+            else if (basis.Equals(Utils.AB_GeoGraphicalMemberCity) || basis.Equals(Utils.AB_GeoGraphicalMemberCounty) || basis.Equals(Utils.AB_GeoGraphicalMemberMunicipality)) return PartialView("_EditCity", addrbk_geographicalgroupmember);
             else return PartialView("_EditStreet", addrbk_geographicalgroupmember);
         }
 
@@ -243,27 +235,27 @@ namespace HITSW.Controllers
         {
             try
             {
-                if (basis.Equals(countryBasis))
+                if (basis.Equals(Utils.AB_GeoGraphicalMemberCountry))
                 {
                     if (addrbk_geographicalgroupmember.Country_LCID == null || addrbk_geographicalgroupmember.Country_LCID == Guid.Empty)
                         throw new Exception();
                 }
-                else if (basis.Equals(stateBasis))
+                else if (basis.Equals(Utils.AB_GeoGraphicalMemberState))
                 {
                     if (addrbk_geographicalgroupmember.Country_LCID == null || addrbk_geographicalgroupmember.Country_LCID == Guid.Empty || addrbk_geographicalgroupmember.StateOrProv_LCID == null || addrbk_geographicalgroupmember.StateOrProv_LCID == Guid.Empty)
                         throw new Exception();
                 }
-                else if (basis.Equals(continentBasis))
+                else if (basis.Equals(Utils.AB_GeoGraphicalMemberContinent))
                 {
                     if (addrbk_geographicalgroupmember.Continent_LCID == null || addrbk_geographicalgroupmember.Continent_LCID == Guid.Empty)
                         throw new Exception();
                 }
-                else if (basis.Equals(cityBasis) || basis.Equals(countyBasis) || basis.Equals(muncipalityBasis))
+                else if (basis.Equals(Utils.AB_GeoGraphicalMemberCity) || basis.Equals(Utils.AB_GeoGraphicalMemberCounty) || basis.Equals(Utils.AB_GeoGraphicalMemberMunicipality))
                 {
                     if (addrbk_geographicalgroupmember.Country_LCID == null || addrbk_geographicalgroupmember.Country_LCID == Guid.Empty || addrbk_geographicalgroupmember.StateOrProv_LCID == null || addrbk_geographicalgroupmember.StateOrProv_LCID == Guid.Empty || addrbk_geographicalgroupmember.StateOrProvLocalityID == null || addrbk_geographicalgroupmember.StateOrProvLocalityID == Guid.Empty)
                         throw new Exception();
                 }
-                else if (basis.Equals(streetBasis) || basis.Equals(postalBasis))
+                else if (basis.Equals(Utils.AB_GeoGraphicalMemberStreet) || basis.Equals(Utils.AB_GeoGraphicalMemberPostalCode))
                 {
                     if (addrbk_geographicalgroupmember.Country_LCID == null || addrbk_geographicalgroupmember.Country_LCID == Guid.Empty || addrbk_geographicalgroupmember.AddrID == null || addrbk_geographicalgroupmember.AddrID == Guid.Empty)
                         throw new Exception();
@@ -295,12 +287,12 @@ namespace HITSW.Controllers
             ViewBag.GeographicalGroup_LCID = new SelectList(db.AddrBk_GeographicalGroup, "Id", "Title", addrbk_geographicalgroupmember.GeographicalGroup_LCID);
             ViewBag.Continent_LCID = new SelectList(db.Lookup_Continent.Where(e=>e.ActiveRec == true), "Id", "Title", addrbk_geographicalgroupmember.Continent_LCID);
 
-            if (basis.Equals(countryBasis)) ViewBag.Country_LCID = new SelectList(db.Lookup_Country.Where(a => a.ActiveRec == true), "Id", "Title", addrbk_geographicalgroupmember.Country_LCID);
+            if (basis.Equals(Utils.AB_GeoGraphicalMemberCountry)) ViewBag.Country_LCID = new SelectList(db.Lookup_Country.Where(a => a.ActiveRec == true), "Id", "Title", addrbk_geographicalgroupmember.Country_LCID);
             else ViewBag.Country = db.Lookup_Country.Where(a => a.ActiveRec == true).ToList();
 
             ViewBag.State = db.Lookup_StateProvince.Where(a => a.ActiveRec == true && a.Cntry_LCID == addrbk_geographicalgroupmember.Country_LCID).ToList();
 
-            if (basis.Equals(cityBasis) || basis.Equals(countyBasis) || basis.Equals(muncipalityBasis))
+            if (basis.Equals(Utils.AB_GeoGraphicalMemberCity) || basis.Equals(Utils.AB_GeoGraphicalMemberCounty) || basis.Equals(Utils.AB_GeoGraphicalMemberMunicipality))
             {
                 if (addrbk_geographicalgroupmember.Country_LCID != null && addrbk_geographicalgroupmember.StateOrProv_LCID != null)
                 {
@@ -309,7 +301,7 @@ namespace HITSW.Controllers
                 }
             }
 
-            if (basis.Equals(streetBasis) || basis.Equals(postalBasis))
+            if (basis.Equals(Utils.AB_GeoGraphicalMemberStreet) || basis.Equals(Utils.AB_GeoGraphicalMemberPostalCode))
             {
                 if (addrbk_geographicalgroupmember.Country_LCID != null && addrbk_geographicalgroupmember.StateOrProv_LCID != null)
                 {
@@ -319,16 +311,16 @@ namespace HITSW.Controllers
                     ViewBag.streetAddress = "";
                     if (list.Count > 0)
                     {
-                        if (basis.Equals(streetBasis)) ViewBag.streetAddress = GetDistinctList(list);
+                        if (basis.Equals(Utils.AB_GeoGraphicalMemberStreet)) ViewBag.streetAddress = GetDistinctList(list);
                         else ViewBag.streetAddress = GetDistinctList(list, true);
                     }
                 }
             }
 
-            if (basis.Equals(countryBasis)) return PartialView("_EditCountry", addrbk_geographicalgroupmember);
-            else if (basis.Equals(stateBasis)) return PartialView("_EditState", addrbk_geographicalgroupmember);
-            else if (basis.Equals(continentBasis)) return PartialView("_EditContinent", addrbk_geographicalgroupmember);
-            else if (basis.Equals(cityBasis) || basis.Equals(countyBasis) || basis.Equals(muncipalityBasis)) return PartialView("_EditCity", addrbk_geographicalgroupmember);
+            if (basis.Equals(Utils.AB_GeoGraphicalMemberCountry)) return PartialView("_EditCountry", addrbk_geographicalgroupmember);
+            else if (basis.Equals(Utils.AB_GeoGraphicalMemberState)) return PartialView("_EditState", addrbk_geographicalgroupmember);
+            else if (basis.Equals(Utils.AB_GeoGraphicalMemberContinent)) return PartialView("_EditContinent", addrbk_geographicalgroupmember);
+            else if (basis.Equals(Utils.AB_GeoGraphicalMemberCity) || basis.Equals(Utils.AB_GeoGraphicalMemberCounty) || basis.Equals(Utils.AB_GeoGraphicalMemberMunicipality)) return PartialView("_EditCity", addrbk_geographicalgroupmember);
             else return PartialView("_EditStreet", addrbk_geographicalgroupmember);
         }
 

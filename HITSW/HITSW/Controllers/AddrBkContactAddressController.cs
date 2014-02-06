@@ -15,7 +15,6 @@ namespace HITSW.Controllers
     public class AddrBkContactAddressController : Controller
     {
         private HITSWContext db = new HITSWContext();
-        private String statusFilter = "AddrBk_Address.AddrVerifStatus_LCID";
         private IPagedList<AddrBk_ContactAddr> model;
 
         //
@@ -61,7 +60,7 @@ namespace HITSW.Controllers
             addrbk_contactaddress.AddrBk_ContactAddr = addrbk_contactaddr;
             addrbk_contactaddress.Lookup_AddrTypes = db.Lookup_AddrType.Where(a => a.ActiveRec == true).ToList();
             addrbk_contactaddress.Lookup_Countries = db.Lookup_Country.Where(a => a.ActiveRec == true).ToList();
-            addrbk_contactaddress.Lookup_VerificationStatuses = db.Lookup_Status.Where(a => a.ActiveRec == true && a.TblColSel == statusFilter).ToList();
+            addrbk_contactaddress.Lookup_VerificationStatuses = db.Lookup_Status.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_AddressVerificationStatus).ToList();
 
             return PartialView("_Create", addrbk_contactaddress);
         }
@@ -111,7 +110,7 @@ namespace HITSW.Controllers
 
             addrbk_contactaddress.Lookup_AddrTypes = db.Lookup_AddrType.Where(a => a.ActiveRec == true).ToList();
             addrbk_contactaddress.Lookup_Countries = db.Lookup_Country.Where(a => a.ActiveRec == true).ToList();
-            addrbk_contactaddress.Lookup_VerificationStatuses = db.Lookup_Status.Where(a => a.ActiveRec == true && a.TblColSel == statusFilter).ToList();
+            addrbk_contactaddress.Lookup_VerificationStatuses = db.Lookup_Status.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_AddressVerificationStatus).ToList();
 
             ViewBag.State = "";
             if (addrbk_contactaddress.AddrBk_Address.Cntry_LCID != null)
@@ -145,7 +144,7 @@ namespace HITSW.Controllers
 
             addrbk_contactaddress.Lookup_AddrTypes = db.Lookup_AddrType.Where(a => a.ActiveRec == true).ToList();
             addrbk_contactaddress.Lookup_Countries = db.Lookup_Country.Where(a => a.ActiveRec == true).ToList();
-            addrbk_contactaddress.Lookup_VerificationStatuses = db.Lookup_Status.Where(a => a.ActiveRec == true && a.TblColSel == statusFilter).ToList();
+            addrbk_contactaddress.Lookup_VerificationStatuses = db.Lookup_Status.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_AddressVerificationStatus).ToList();
 
             return PartialView("_Edit", addrbk_contactaddress);
         }
@@ -196,7 +195,7 @@ namespace HITSW.Controllers
 
             addrbk_contactaddress.Lookup_AddrTypes = db.Lookup_AddrType.Where(a => a.ActiveRec == true).ToList();
             addrbk_contactaddress.Lookup_Countries = db.Lookup_Country.Where(a => a.ActiveRec == true).ToList();
-            addrbk_contactaddress.Lookup_VerificationStatuses = db.Lookup_Status.Where(a => a.ActiveRec == true && a.TblColSel == statusFilter).ToList();
+            addrbk_contactaddress.Lookup_VerificationStatuses = db.Lookup_Status.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_AddressVerificationStatus).ToList();
 
             return PartialView("_Edit", addrbk_contactaddress);
         }

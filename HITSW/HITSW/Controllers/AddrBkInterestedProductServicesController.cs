@@ -15,7 +15,6 @@ namespace HITSW.Controllers
     public class AddrBkInterestedProductServicesController : Controller
     {
         private HITSWContext db = new HITSWContext();
-        private String filter = "AddrBk_InterestedProductSrvcs.InterestedProdSrvc_LCID";
         private IPagedList<AddrBk_InterestedProductSrvcs> model;
 
         //
@@ -49,7 +48,7 @@ namespace HITSW.Controllers
             ViewBag.orgName = orgName;
             ViewBag.organizationId = organizationId;
             ViewBag.MainTitle = Utils.AddrBkOrganizationInterestedProductServices + " / " + orgName;
-            ViewBag.InterestedProdSrvc_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == filter), "Id", "Title");
+            ViewBag.InterestedProdSrvc_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_InterestedProductsServices), "Id", "Title");
 
             var addrbk_interested_productservices = new AddrBk_InterestedProductSrvcs();
             addrbk_interested_productservices.EffDt = DateTime.Now;
@@ -89,7 +88,7 @@ namespace HITSW.Controllers
             ViewBag.orgName = orgName;
             ViewBag.organizationId = organizationId;
             ViewBag.MainTitle = Utils.AddrBkOrganizationInterestedProductServices + " / " + orgName;
-            ViewBag.InterestedProdSrvc_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == filter), "Id", "Title", addrbk_interested_productservices.InterestedProdSrvc_LCID);
+            ViewBag.InterestedProdSrvc_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_InterestedProductsServices), "Id", "Title", addrbk_interested_productservices.InterestedProdSrvc_LCID);
             return PartialView("_Create", addrbk_interested_productservices);
         }
 
@@ -108,7 +107,7 @@ namespace HITSW.Controllers
             ViewBag.orgName = orgName;
             ViewBag.organizationId = organizationId;
             ViewBag.MainTitle = Utils.AddrBkOrganizationInterestedProductServices + " / " + orgName + " / " + Utils.GetInterestedProductServicesTitleFromId(addrbk_interested_productservices.InterestedProdSrvc_LCID);
-            ViewBag.InterestedProdSrvc_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == filter), "Id", "Title", addrbk_interested_productservices.InterestedProdSrvc_LCID);
+            ViewBag.InterestedProdSrvc_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_InterestedProductsServices), "Id", "Title", addrbk_interested_productservices.InterestedProdSrvc_LCID);
             return PartialView("_Edit", addrbk_interested_productservices);
         }
 
@@ -143,7 +142,7 @@ namespace HITSW.Controllers
             ViewBag.orgName = orgName;
             ViewBag.organizationId = organizationId;
             ViewBag.MainTitle = Utils.AddrBkOrganizationInterestedProductServices + " / " + orgName + " / " + Utils.GetInterestedProductServicesTitleFromId(addrbk_interested_productservices.InterestedProdSrvc_LCID);
-            ViewBag.InterestedProdSrvc_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == filter), "Id", "Title", addrbk_interested_productservices.InterestedProdSrvc_LCID);
+            ViewBag.InterestedProdSrvc_LCID = new SelectList(db.Lookup_AddrBk.Where(a => a.ActiveRec == true && a.TblColSel == Utils.AB_InterestedProductsServices), "Id", "Title", addrbk_interested_productservices.InterestedProdSrvc_LCID);
             return PartialView("_Edit", addrbk_interested_productservices);
         }
 
