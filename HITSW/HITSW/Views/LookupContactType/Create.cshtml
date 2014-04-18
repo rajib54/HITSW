@@ -1,0 +1,140 @@
+﻿@model HITSW.Models.Lookup_ContactType
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Lookup_ContactType</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ContactBasis_LCID, "Lookup_ContactBasis")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("ContactBasis_LCID", String.Empty)
+            @Html.ValidationMessageFor(model => model.ContactBasis_LCID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Title)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Title)
+            @Html.ValidationMessageFor(model => model.Title)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Description)
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TblColSel)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TblColSel)
+            @Html.ValidationMessageFor(model => model.TblColSel)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Sort)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Sort)
+            @Html.ValidationMessageFor(model => model.Sort)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EffDt)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EffDt)
+            @Html.ValidationMessageFor(model => model.EffDt)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IneffDt)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.IneffDt)
+            @Html.ValidationMessageFor(model => model.IneffDt)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Cmmt)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Cmmt)
+            @Html.ValidationMessageFor(model => model.Cmmt)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ActiveRec)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ActiveRec)
+            @Html.ValidationMessageFor(model => model.ActiveRec)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CreatedBy)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CreatedBy)
+            @Html.ValidationMessageFor(model => model.CreatedBy)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CreatedDt)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CreatedDt)
+            @Html.ValidationMessageFor(model => model.CreatedDt)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LastUpdatedFrom)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LastUpdatedFrom)
+            @Html.ValidationMessageFor(model => model.LastUpdatedFrom)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LastUpdatedBy)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LastUpdatedBy)
+            @Html.ValidationMessageFor(model => model.LastUpdatedBy)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LastUpdatedDt)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LastUpdatedDt)
+            @Html.ValidationMessageFor(model => model.LastUpdatedDt)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

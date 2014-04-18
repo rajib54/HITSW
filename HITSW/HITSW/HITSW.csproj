@@ -207,7 +207,9 @@
     <Compile Include="Controllers\AddrBkRelationController.cs" />
     <Compile Include="Controllers\AddrBkVeteranController.cs" />
     <Compile Include="Controllers\AddrBkVirtualAddressController.cs" />
+    <Compile Include="Controllers\DataTablesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LookupContactTypeController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -544,6 +546,16 @@
     <Content Include="Views\AddrBkRelation\_IndexDept.cshtml" />
     <Content Include="Views\AddrBkRelation\_CreateDept.cshtml" />
     <Content Include="Views\AddrBkRelation\_EditDept.cshtml" />
+    <Content Include="Views\DataTables\Index.cshtml" />
+    <Content Include="Views\DataTables\AddressBook.cshtml" />
+    <Content Include="Views\DataTables\Test.cshtml" />
+    <Content Include="Views\LookupContactType\Index.cshtml" />
+    <Content Include="Views\LookupContactType\Details.cshtml" />
+    <Content Include="Views\LookupContactType\Create.cshtml" />
+    <Content Include="Views\LookupContactType\Edit.cshtml" />
+    <Content Include="Views\LookupContactType\Delete.cshtml" />
+    <Content Include="Views\LookupContactType\_LookupContactType.cshtml" />
+    <Content Include="Views\LookupContactType\_Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

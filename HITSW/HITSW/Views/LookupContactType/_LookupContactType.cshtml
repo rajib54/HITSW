@@ -1,0 +1,53 @@
+﻿@model IPagedList<Lookup_ContactType>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#childPagingList a").each(function () {
+            $(this).click(getPagingList);
+        });
+    });
+</script>
+
+<table class="table table-striped">
+    <tr>
+        <th></th>
+        <th>
+            Name
+        </th>
+        <th>
+            Organization Type
+        </th>
+        <th>
+            Comment
+        </th>
+        <th>
+            Active
+        </th>
+    </tr>
+
+@foreach (var item in Model) {   
+    <tr>
+        <td>
+            <div class="btn-group">
+                <a href="#" class="btn"><i class="icon-edit" title="edit" onclick="fillMenu('@Url.Action("Edit", new { id=item.Id,tblcolsal = ViewBag.tblcolsal })','#addrbk_organization_details_content')"></i></a>
+            </div>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lookup_ContactBasis.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cmmt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActiveRec)
+        </td>
+    </tr>
+}
+
+</table>
+
+<div class="pagedList" data-hitsoft-target="#addrbk_organization_details_content" id="childPagingList">
+        @Html.PagedListPager(Model, page => @Url.Action("Index", new { page,tblcolsal = ViewBag.tblcolsal}))
+</div>

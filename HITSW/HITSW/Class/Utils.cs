@@ -36,6 +36,8 @@ namespace HITSW.Class
         public static String AddrbkGeographicalGroupMember = "Geographical group Member";
         public static String AddrbkDepartment = "Department";
 
+        public static String DataTableOrganizationType = "Organization Type";
+
         //Filter names
         public static String AB_AddressVerificationStatus = "AddrBk_Address.AddrVerifStatus_LCID";
         public static String AB_GeoGraphicalMemberCountry = "Country";

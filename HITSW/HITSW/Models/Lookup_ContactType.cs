@@ -49,5 +49,6 @@ namespace HITSW.Models
         public ICollection<AddrBk_OrganizationalUnitMember> AddrBk_OrganizationalUnitMember { get; set; }
         public ICollection<AddrBk_OrganizationUnit> AddrBk_OrganizationUnit { get; set; }
         public ICollection<AddrBk_Prospect> AddrBk_Prospect { get; set; }
+        public Lookup_ContactBasis Lookup_ContactBasis { get; set; }
     }
 }

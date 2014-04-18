@@ -1,0 +1,36 @@
+﻿@model IPagedList<Lookup_ContactType>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#lookup_contact_type_searchForm").submit(ajaxFormSubmit);
+    });
+</script>
+
+<h2>@ViewBag.MainTitle</h2>
+
+<div style="text-align:right">
+    <a class="btn btn-info" href="#" onclick="fillMenu('@Url.Action("Create", new { tblcolsal = ViewBag.tblcolsal})','#addrbk_organization_details_content')">New</a>
+</div>
+<br />
+
+@if(ViewBag.resultCount > 0) 
+{
+    if (ViewBag.resultCount == 1)
+    {
+        <div class="alert alert-info">1 record found</div>
+    }
+    else
+    {
+        <div class="alert alert-info">@ViewBag.resultCount records found</div>
+    }
+    <form id="lookup_contact_type_searchForm" method="GET" data-hitsoft-target="#addrbk_organization_details_content" action="@Url.Action("Index", new { tblcolsal = ViewBag.tblcolsal })" class="form-search">
+        <input type="text" name="searchTerm" class="input-medium search-query" value="@ViewBag.searchTerm" placeholder="Enter search term"/>
+        <input type="submit" value="Search" class="btn"/>
+    </form>
+
+    @Html.Partial("_LookupContactType", Model)
+}
+else
+{
+    <div class="alert alert-error">@ViewBag.NoRecordFoundMsg</div>
+}

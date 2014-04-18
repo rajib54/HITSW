@@ -1,0 +1,14 @@
+﻿<div>
+    <div class="row-fluid">
+        <div class="span3">
+            <div class="well sidebar-nav">
+                <ul class="nav nav-list" id="addrbk_organization_details_menu">
+                    <li class="active"><a class="btn btn-link" href="#" onclick="fillMenu('@Url.Action("Index", "LookupContactType", new { tblcolsal = "outype"})','#addrbk_organization_details_content')">Organiation Type</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="span9" id="addrbk_organization_details_content">
+            @Html.Action("Index", "LookupContactType", new { tblcolsal = "outype"})
+        </div>
+    </div>
+</div>

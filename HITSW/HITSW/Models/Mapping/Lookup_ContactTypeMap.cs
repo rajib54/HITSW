@@ -58,6 +58,12 @@ namespace HITSW.Models.Mapping
             this.Property(t => t.LastUpdatedBy).HasColumnName("LastUpdatedBy");
             this.Property(t => t.LastUpdatedDt).HasColumnName("LastUpdatedDt");
             this.Property(t => t.Concurrency).HasColumnName("Concurrency");
+
+            // Relationships
+            this.HasOptional(t => t.Lookup_ContactBasis)
+                .WithMany(t => t.Lookup_ContactType)
+                .HasForeignKey(d => d.ContactBasis_LCID);
+
         }
     }
 }

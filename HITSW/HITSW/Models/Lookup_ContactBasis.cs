@@ -20,6 +20,7 @@ namespace HITSW.Models
             this.AddrBk_Prospect = new List<AddrBk_Prospect>();
             this.AddrBk_Relation = new List<AddrBk_Relation>();
             this.AddrBk_VirtualAddress = new List<AddrBk_VirtualAddress>();
+            this.Lookup_ContactType = new List<Lookup_ContactType>();
         }
 
         public System.Guid Id { get; set; }
@@ -65,5 +66,6 @@ namespace HITSW.Models
         public ICollection<AddrBk_Prospect> AddrBk_Prospect { get; set; }
         public ICollection<AddrBk_Relation> AddrBk_Relation { get; set; }
         public ICollection<AddrBk_VirtualAddress> AddrBk_VirtualAddress { get; set; }
+        public ICollection<Lookup_ContactType> Lookup_ContactType { get; set; }
     }
 }
